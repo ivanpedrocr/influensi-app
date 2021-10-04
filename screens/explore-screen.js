@@ -17,6 +17,7 @@ import {
 } from "../components/layout/Native-components";
 import BusinessCard from "../user/BusinessCard";
 import { Ionicons } from "@expo/vector-icons";
+import { favoriteUser } from "../actions/favorite-user";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -41,6 +42,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
           toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
           speed: 240,
         }).start(() => {
+          favoriteUser(dummyList[currentIndex]);
           setCurrentIndex(currentIndex + 1);
         });
       } else if (gestureState.dx < -120) {

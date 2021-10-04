@@ -13,6 +13,10 @@ const SignUpScreen = ({ navigation, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openSignUpModal, setOpenSignUpModal] = useState(false);
+  const onSignUp = async (email, password) => {
+    await signupUser(email, password);
+    setOpenSignUpModal(false), navigation.navigate("Explore");
+  };
   return (
     <View style={styles.screen}>
       <View style={styles.card}>
@@ -46,7 +50,8 @@ const SignUpScreen = ({ navigation, ...props }) => {
       </View>
       <UserSignUpModal
         openSignUpModal={openSignUpModal}
-        onSignUp={signupUser}
+        onSignUp={onSignUp}
+        onClose={() => setOpenSignUpModal(false)}
       />
     </View>
   );

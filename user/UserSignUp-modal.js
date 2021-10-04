@@ -4,18 +4,18 @@ import signupUser from "../actions/signup-user";
 import {
   AppTextInput,
   AppButton,
+  AppIconButton,
 } from "../components/layout/Native-components";
+import { Ionicons } from "@expo/vector-icons";
+import { appColors } from "../styles/app-styles";
 
-const UserSignUpModal = ({ openSignUpModal, onSignUp, ...props }) => {
+const UserSignUpModal = ({ openSignUpModal, onSignUp, onClose, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
     <Modal visible={openSignUpModal} animationType="slide">
       <View style={styles.modal}>
-        <ScrollView
-          style={{ width: "100%" }}
-          contentContainerStyle={styles.card}
-        >
+        <View style={{ width: "100%" }} contentContainerStyle={styles.card}>
           <AppTextInput
             placeholder="Email"
             value={email}
@@ -30,12 +30,19 @@ const UserSignUpModal = ({ openSignUpModal, onSignUp, ...props }) => {
           />
           <AppButton
             title="Sign-Up"
-            onPress={() => {
-              onSignUp(email, password);
-            }}
+            onPress={() => onSignUp(email, password)}
             style={{ marginTop: 8 }}
           />
-        </ScrollView>
+          <AppButton
+            title="Go Back"
+            style={{
+              marginTop: 8,
+              backgroundColor: appColors.lightGray,
+              color: "black",
+            }}
+            onPress={onClose}
+          />
+        </View>
       </View>
     </Modal>
   );
@@ -46,12 +53,13 @@ const styles = StyleSheet.create({
     padding: 24,
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
+    backgroundColor: "red",
+    width: "100%",
   },
   modal: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    padding: 24,
   },
 });
 

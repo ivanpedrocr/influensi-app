@@ -38,7 +38,6 @@ const MessagesScreen = (props) => {
         }
       );
       const result = await response.json();
-      console.log(result);
       setMessages((prev) => [...prev, messageInput]);
     }
     setMessageInput("");
