@@ -10,6 +10,7 @@ import {
 import AppText from "../components/layout/AppText";
 import {
   AppButton,
+  AppTextInput,
   Container,
   TypingInput,
 } from "../components/layout/Native-components";
@@ -47,14 +48,9 @@ const UserConfigScreen = () => {
             }}
           >
             <AppText>{field.name}</AppText>
-            <TextInput
+            <AppTextInput
               autoCapitalize="none"
               value={userValues[`${camelize(field.name)}`]}
-              style={
-                field.name === "Description"
-                  ? styles.description
-                  : styles.textInput
-              }
               onChangeText={(text) => {
                 dispatch({
                   type: `${field.name.replace(/ /g, "_").toUpperCase()}`,

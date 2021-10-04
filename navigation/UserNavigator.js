@@ -13,12 +13,23 @@ import TermsAndConditionsScreen from "../screens/terms-and-conditions-screen";
 import UserProfileScreen from "../screens/user-profile-screen";
 import NotificationsScreen from "../screens/notifications-screen";
 import MessagesScreen from "../screens/messages-screen";
+import Icon from "react-native-vector-icons/Ionicons";
+import SignUpScreen from "../screens/sign-up-screen";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const ExploreStack = createStackNavigator();
 const MessagesStack = createStackNavigator();
+const AuthStack = createStackNavigator();
+
+const AuthStackScreen = () => {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="SignIn" component={SignUpScreen} />
+    </AuthStack.Navigator>
+  );
+};
 
 const MessagesStackScreen = () => {
   return (
@@ -65,10 +76,43 @@ const UserNavigator = () => {
   return (
     <NavigationContainer>
       <BottomTab.Navigator screenOptions={{ headerShown: false }}>
-        <BottomTab.Screen name="Explore" component={ExploreStackScreen} />
-        <BottomTab.Screen name="Favorites" component={FavoritesStackScreen} />
-        <BottomTab.Screen name="Menu" component={MenuStackScreen} />
-        <BottomTab.Screen name="Messages" component={MessagesStackScreen} />
+        <BottomTab.Screen name="Auth" component={AuthStackScreen} />
+        <BottomTab.Screen
+          name="Explore"
+          component={ExploreStackScreen}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name="compass-outline" size={24} color="black" />;
+            },
+          }}
+        />
+        <BottomTab.Screen
+          name="Favorites"
+          component={FavoritesStackScreen}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name="bookmark-outline" size={24} color="black" />;
+            },
+          }}
+        />
+        <BottomTab.Screen
+          name="Messages"
+          component={MessagesStackScreen}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name="chatbubble-outline" size={24} color="black" />;
+            },
+          }}
+        />
+        <BottomTab.Screen
+          name="Profile"
+          component={MenuStackScreen}
+          options={{
+            tabBarIcon: () => {
+              return <Icon name="person-outline" size={24} color="black" />;
+            },
+          }}
+        />
       </BottomTab.Navigator>
     </NavigationContainer>
   );

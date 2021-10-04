@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useLayoutEffect, useMemo, useReducer, useState } from "react";
 import {
   Text,
   View,
@@ -11,12 +11,15 @@ import {
 import UserCard from "../user/UserCard";
 import { UserReducer, userInitialState } from "../user/UserProfile-reducer";
 import { BusinessList, UserList } from "../dummy-data/UserList-dummy";
-import { AppButton } from "../components/layout/Native-components";
+import {
+  AppButton,
+  AppIconButton,
+} from "../components/layout/Native-components";
 import BusinessCard from "../user/BusinessCard";
+import { Ionicons } from "@expo/vector-icons";
 
-const ExploreScreen = (props) => {
+const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
-  const [dummyList, setDummyList] = useState(UserList);
   const [accountType, setAccountType] = useState("USER");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showReview, setShowReview] = useState(true);
@@ -30,37 +33,51 @@ const ExploreScreen = (props) => {
     onStartShouldSetPanResponder: (evt, gestureState) => true,
     onPanResponderMove: (evt, gestureState) => {
       position.setValue({ x: gestureState.dx, y: gestureState.dy });
-      setShowReview(false);
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (gestureState.dx > 120) {
         Animated.spring(position, {
           useNativeDriver: true,
           toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy },
+          speed: 240,
         }).start(() => {
-          position.setValue({ x: 0, y: 0 });
-          setCurrentIndex((prev) => prev + 1);
-          setShowReview(true);
+          setCurrentIndex(currentIndex + 1);
         });
       } else if (gestureState.dx < -120) {
         Animated.spring(position, {
           useNativeDriver: true,
           toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy },
+          speed: 240,
         }).start(() => {
-          position.setValue({ x: 0, y: 0 });
-          setCurrentIndex((prev) => prev + 1);
-          setShowReview(true);
+          setCurrentIndex(currentIndex + 1);
         });
       } else {
         Animated.spring(position, {
           useNativeDriver: true,
           toValue: { x: 0, y: 0 },
-        }).start(() => {
-          setShowReview(true);
-        });
+        }).start();
       }
     },
   });
+  const dummyList = useMemo(
+    () => (accountType === "USER" ? UserList : BusinessList),
+    [accountType]
+  );
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <AppIconButton
+          style={{ marginRight: 8 }}
+          onPress={() => {
+            setAccountType(accountType === "USER" ? "BUSINESS" : "USER");
+          }}
+        >
+          <Ionicons name="log-out-outline" size={28} />
+        </AppIconButton>
+      ),
+    });
+  }, [navigation, accountType]);
   return (
     <View style={styles.screen}>
       {dummyList
@@ -77,8 +94,8 @@ const ExploreScreen = (props) => {
                     { rotate: rotate },
                     ...position.getTranslateTransform(),
                   ],
-                  width: "90%",
-                  height: "80%",
+                  width: "95%",
+                  height: "90%",
                   position: "absolute",
                 }}
               >
@@ -94,8 +111,8 @@ const ExploreScreen = (props) => {
               <Animated.View
                 key={user.username}
                 style={{
-                  width: "90%",
-                  height: 500,
+                  width: "95%",
+                  height: "90%",
                   position: "absolute",
                 }}
               >
@@ -109,16 +126,6 @@ const ExploreScreen = (props) => {
           }
         })
         .reverse()}
-      <View style={{ marginTop: "auto", alignSelf: "flex-end" }}>
-        <AppButton
-          title="Switch Accounts"
-          style={{ width: 200 }}
-          onPress={() => {
-            setDummyList(accountType === "USER" ? BusinessList : UserList);
-            setAccountType(accountType === "USER" ? "BUSINESS" : "USER");
-          }}
-        />
-      </View>
     </View>
   );
 };

@@ -13,7 +13,7 @@ const mockData = [
     average_return: 268.18,
     followers: 690,
     avatar:
-      "https://robohash.org/consequaturidreiciendis.png?size=100x100&set=set1",
+      "https://robohash.org/consequaturidreiciendis.png?size=300x300&set=set1",
   },
   {
     username: "dkilbey1",
@@ -26,7 +26,7 @@ const mockData = [
     average_return: 249.93,
     followers: 595,
     avatar:
-      "https://robohash.org/quisaccusantiumculpa.png?size=100x100&set=set1",
+      "https://robohash.org/quisaccusantiumculpa.png?size=300x300&set=set1",
   },
   {
     username: "cvalasek2",
@@ -40,7 +40,7 @@ const mockData = [
     average_return: 86.35,
     followers: 385,
     avatar:
-      "https://robohash.org/istequidemrecusandae.png?size=100x100&set=set1",
+      "https://robohash.org/istequidemrecusandae.png?size=300x300&set=set1",
   },
   {
     username: "rodell3",
@@ -53,7 +53,7 @@ const mockData = [
     rating: 2,
     average_return: 213.33,
     followers: 535,
-    avatar: "https://robohash.org/veletsuscipit.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/veletsuscipit.png?size=300x300&set=set1",
   },
   {
     username: "mgilmour4",
@@ -65,7 +65,7 @@ const mockData = [
     rating: 4,
     average_return: 155.4,
     followers: 869,
-    avatar: "https://robohash.org/porroexest.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/porroexest.png?size=300x300&set=set1",
   },
   {
     username: "gbeavors5",
@@ -77,7 +77,7 @@ const mockData = [
     rating: 4,
     average_return: 265.64,
     followers: 992,
-    avatar: "https://robohash.org/quamquiasunt.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quamquiasunt.png?size=300x300&set=set1",
   },
   {
     username: "dgrzesiak6",
@@ -90,7 +90,7 @@ const mockData = [
     rating: 3,
     average_return: 168.83,
     followers: 173,
-    avatar: "https://robohash.org/autnobisaut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/autnobisaut.png?size=300x300&set=set1",
   },
   {
     username: "ndeamaya7",
@@ -103,7 +103,7 @@ const mockData = [
     average_return: 53.9,
     followers: 427,
     avatar:
-      "https://robohash.org/eligendimollitiaperspiciatis.png?size=100x100&set=set1",
+      "https://robohash.org/eligendimollitiaperspiciatis.png?size=300x300&set=set1",
   },
   {
     username: "alyston8",
@@ -116,7 +116,7 @@ const mockData = [
     rating: 2,
     average_return: 152.63,
     followers: 690,
-    avatar: "https://robohash.org/dictaadmodi.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/dictaadmodi.png?size=300x300&set=set1",
   },
   {
     username: "efarraway9",
@@ -128,7 +128,7 @@ const mockData = [
     rating: 3,
     average_return: 165.72,
     followers: 544,
-    avatar: "https://robohash.org/cumqueomnisoptio.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/cumqueomnisoptio.png?size=300x300&set=set1",
   },
   {
     username: "ccolesona",
@@ -141,7 +141,7 @@ const mockData = [
     rating: 4,
     average_return: 285.32,
     followers: 388,
-    avatar: "https://robohash.org/etvitaemolestiae.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/etvitaemolestiae.png?size=300x300&set=set1",
   },
   {
     username: "jmacranaldb",
@@ -153,7 +153,7 @@ const mockData = [
     rating: 1,
     average_return: 206.96,
     followers: 749,
-    avatar: "https://robohash.org/quietest.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quietest.png?size=300x300&set=set1",
   },
   {
     username: "sbedburyc",
@@ -166,7 +166,7 @@ const mockData = [
     rating: 4,
     average_return: 237.52,
     followers: 511,
-    avatar: "https://robohash.org/sedbeataesimilique.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/sedbeataesimilique.png?size=300x300&set=set1",
   },
   {
     username: "fandrieuxd",
@@ -180,7 +180,7 @@ const mockData = [
     average_return: 285.26,
     followers: 258,
     avatar:
-      "https://robohash.org/sitreiciendisaccusantium.png?size=100x100&set=set1",
+      "https://robohash.org/sitreiciendisaccusantium.png?size=300x300&set=set1",
   },
   {
     username: "rconcannone",
@@ -193,7 +193,7 @@ const mockData = [
     rating: 3,
     average_return: 232.98,
     followers: 865,
-    avatar: "https://robohash.org/omnisetnihil.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/omnisetnihil.png?size=300x300&set=set1",
   },
   {
     username: "bromeuff",
@@ -206,7 +206,7 @@ const mockData = [
     rating: 5,
     average_return: 76.46,
     followers: 152,
-    avatar: "https://robohash.org/temporibusetab.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/temporibusetab.png?size=300x300&set=set1",
   },
   {
     username: "vfitchg",
@@ -218,7 +218,7 @@ const mockData = [
     rating: 3,
     average_return: 222.07,
     followers: 333,
-    avatar: "https://robohash.org/doloreiustodicta.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/doloreiustodicta.png?size=300x300&set=set1",
   },
   {
     username: "dgostageh",
@@ -231,7 +231,7 @@ const mockData = [
     rating: 5,
     average_return: 115.59,
     followers: 472,
-    avatar: "https://robohash.org/perferendisutquia.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/perferendisutquia.png?size=300x300&set=set1",
   },
   {
     username: "rlivesayi",
@@ -244,7 +244,7 @@ const mockData = [
     rating: 3,
     average_return: 129.66,
     followers: 446,
-    avatar: "https://robohash.org/etmaximevel.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/etmaximevel.png?size=300x300&set=set1",
   },
   {
     username: "cvittorej",
@@ -257,7 +257,7 @@ const mockData = [
     average_return: 267.29,
     followers: 349,
     avatar:
-      "https://robohash.org/perferendisquivoluptate.png?size=100x100&set=set1",
+      "https://robohash.org/perferendisquivoluptate.png?size=300x300&set=set1",
   },
   {
     username: "htrousdellk",
@@ -270,7 +270,7 @@ const mockData = [
     average_return: 146.39,
     followers: 235,
     avatar:
-      "https://robohash.org/consequaturvoluptatumeligendi.png?size=100x100&set=set1",
+      "https://robohash.org/consequaturvoluptatumeligendi.png?size=300x300&set=set1",
   },
   {
     username: "fbutsonl",
@@ -283,7 +283,7 @@ const mockData = [
     rating: 5,
     average_return: 290.31,
     followers: 778,
-    avatar: "https://robohash.org/eumquodolorem.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/eumquodolorem.png?size=300x300&set=set1",
   },
   {
     username: "bredbornm",
@@ -295,7 +295,7 @@ const mockData = [
     rating: 4,
     average_return: 145.35,
     followers: 738,
-    avatar: "https://robohash.org/laboreatnumquam.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/laboreatnumquam.png?size=300x300&set=set1",
   },
   {
     username: "amoremann",
@@ -309,7 +309,7 @@ const mockData = [
     average_return: 203.69,
     followers: 681,
     avatar:
-      "https://robohash.org/numquamlaudantiumconsequuntur.png?size=100x100&set=set1",
+      "https://robohash.org/numquamlaudantiumconsequuntur.png?size=300x300&set=set1",
   },
   {
     username: "ckincho",
@@ -323,7 +323,7 @@ const mockData = [
     average_return: 112.93,
     followers: 213,
     avatar:
-      "https://robohash.org/doloremquiavoluptas.png?size=100x100&set=set1",
+      "https://robohash.org/doloremquiavoluptas.png?size=300x300&set=set1",
   },
   {
     username: "jcoburnp",
@@ -336,7 +336,7 @@ const mockData = [
     rating: 5,
     average_return: 254.76,
     followers: 394,
-    avatar: "https://robohash.org/harumeosvel.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/harumeosvel.png?size=300x300&set=set1",
   },
   {
     username: "eabadq",
@@ -349,7 +349,7 @@ const mockData = [
     rating: 3,
     average_return: 236.28,
     followers: 793,
-    avatar: "https://robohash.org/autrerumesse.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/autrerumesse.png?size=300x300&set=set1",
   },
   {
     username: "gcrumpr",
@@ -362,7 +362,7 @@ const mockData = [
     rating: 3,
     average_return: 227.95,
     followers: 604,
-    avatar: "https://robohash.org/estexpeditaharum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/estexpeditaharum.png?size=300x300&set=set1",
   },
   {
     username: "bbernardis",
@@ -375,7 +375,7 @@ const mockData = [
     rating: 2,
     average_return: 57.24,
     followers: 494,
-    avatar: "https://robohash.org/officiisnonaut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/officiisnonaut.png?size=300x300&set=set1",
   },
   {
     username: "neardt",
@@ -389,7 +389,7 @@ const mockData = [
     average_return: 165.15,
     followers: 418,
     avatar:
-      "https://robohash.org/saepevoluptatibusaperiam.png?size=100x100&set=set1",
+      "https://robohash.org/saepevoluptatibusaperiam.png?size=300x300&set=set1",
   },
   {
     username: "kkahenu",
@@ -402,7 +402,7 @@ const mockData = [
     rating: 1,
     average_return: 56.01,
     followers: 183,
-    avatar: "https://robohash.org/quiteneturoptio.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quiteneturoptio.png?size=300x300&set=set1",
   },
   {
     username: "lgerrenv",
@@ -414,7 +414,7 @@ const mockData = [
     rating: 3,
     average_return: 122.48,
     followers: 642,
-    avatar: "https://robohash.org/quoetaspernatur.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quoetaspernatur.png?size=300x300&set=set1",
   },
   {
     username: "jliddiattw",
@@ -427,7 +427,7 @@ const mockData = [
     rating: 2,
     average_return: 270.6,
     followers: 540,
-    avatar: "https://robohash.org/quidoloresvoluptas.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quidoloresvoluptas.png?size=300x300&set=set1",
   },
   {
     username: "jridesdalex",
@@ -439,7 +439,7 @@ const mockData = [
     rating: 2,
     average_return: 64.06,
     followers: 537,
-    avatar: "https://robohash.org/etatea.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/etatea.png?size=300x300&set=set1",
   },
   {
     username: "bstickellsy",
@@ -452,7 +452,7 @@ const mockData = [
     rating: 4,
     average_return: 193.48,
     followers: 253,
-    avatar: "https://robohash.org/nostrumestiusto.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/nostrumestiusto.png?size=300x300&set=set1",
   },
   {
     username: "hwetheyz",
@@ -465,7 +465,7 @@ const mockData = [
     average_return: 54.38,
     followers: 995,
     avatar:
-      "https://robohash.org/doloribusoptiolibero.png?size=100x100&set=set1",
+      "https://robohash.org/doloribusoptiolibero.png?size=300x300&set=set1",
   },
   {
     username: "bmcneigh10",
@@ -478,7 +478,7 @@ const mockData = [
     rating: 5,
     average_return: 106.65,
     followers: 884,
-    avatar: "https://robohash.org/ducimusautemsunt.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/ducimusautemsunt.png?size=300x300&set=set1",
   },
   {
     username: "fwackly11",
@@ -491,7 +491,7 @@ const mockData = [
     rating: 3,
     average_return: 217.49,
     followers: 843,
-    avatar: "https://robohash.org/possimuscumqueut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/possimuscumqueut.png?size=300x300&set=set1",
   },
   {
     username: "moloughlin12",
@@ -503,7 +503,7 @@ const mockData = [
     rating: 2,
     average_return: 173.77,
     followers: 846,
-    avatar: "https://robohash.org/suscipitipsamvelit.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/suscipitipsamvelit.png?size=300x300&set=set1",
   },
   {
     username: "dbouzek13",
@@ -517,7 +517,7 @@ const mockData = [
     average_return: 256.1,
     followers: 305,
     avatar:
-      "https://robohash.org/quibusdamtemporablanditiis.png?size=100x100&set=set1",
+      "https://robohash.org/quibusdamtemporablanditiis.png?size=300x300&set=set1",
   },
   {
     username: "cgravell14",
@@ -530,7 +530,7 @@ const mockData = [
     rating: 2,
     average_return: 116.33,
     followers: 790,
-    avatar: "https://robohash.org/quibusdammagniquae.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quibusdammagniquae.png?size=300x300&set=set1",
   },
   {
     username: "tblazic15",
@@ -543,7 +543,7 @@ const mockData = [
     rating: 1,
     average_return: 125.75,
     followers: 673,
-    avatar: "https://robohash.org/magnamiuread.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/magnamiuread.png?size=300x300&set=set1",
   },
   {
     username: "jaicken16",
@@ -556,7 +556,7 @@ const mockData = [
     rating: 4,
     average_return: 94.62,
     followers: 424,
-    avatar: "https://robohash.org/voluptatesvelneque.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/voluptatesvelneque.png?size=300x300&set=set1",
   },
   {
     username: "hmenichini17",
@@ -569,7 +569,7 @@ const mockData = [
     rating: 5,
     average_return: 234.14,
     followers: 376,
-    avatar: "https://robohash.org/rerumidnisi.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/rerumidnisi.png?size=300x300&set=set1",
   },
   {
     username: "amarini18",
@@ -583,7 +583,7 @@ const mockData = [
     average_return: 55.59,
     followers: 628,
     avatar:
-      "https://robohash.org/necessitatibusvoluptasvelit.png?size=100x100&set=set1",
+      "https://robohash.org/necessitatibusvoluptasvelit.png?size=300x300&set=set1",
   },
   {
     username: "mainger19",
@@ -596,7 +596,7 @@ const mockData = [
     average_return: 181.13,
     followers: 597,
     avatar:
-      "https://robohash.org/distinctiovoluptasrerum.png?size=100x100&set=set1",
+      "https://robohash.org/distinctiovoluptasrerum.png?size=300x300&set=set1",
   },
   {
     username: "kdemke1a",
@@ -608,7 +608,7 @@ const mockData = [
     rating: 3,
     average_return: 82.45,
     followers: 228,
-    avatar: "https://robohash.org/etplaceatharum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/etplaceatharum.png?size=300x300&set=set1",
   },
   {
     username: "tlackemann1b",
@@ -620,7 +620,7 @@ const mockData = [
     rating: 3,
     average_return: 167.35,
     followers: 570,
-    avatar: "https://robohash.org/atatquecorrupti.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/atatquecorrupti.png?size=300x300&set=set1",
   },
   {
     username: "dtrenholm1c",
@@ -633,7 +633,7 @@ const mockData = [
     rating: 1,
     average_return: 173.24,
     followers: 480,
-    avatar: "https://robohash.org/quaminciduntex.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quaminciduntex.png?size=300x300&set=set1",
   },
   {
     username: "mchilles1d",
@@ -647,7 +647,7 @@ const mockData = [
     average_return: 292.61,
     followers: 746,
     avatar:
-      "https://robohash.org/eumquinecessitatibus.png?size=100x100&set=set1",
+      "https://robohash.org/eumquinecessitatibus.png?size=300x300&set=set1",
   },
   {
     username: "sscotter1e",
@@ -660,7 +660,7 @@ const mockData = [
     rating: 5,
     average_return: 249.08,
     followers: 277,
-    avatar: "https://robohash.org/etsitquibusdam.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/etsitquibusdam.png?size=300x300&set=set1",
   },
   {
     username: "felstob1f",
@@ -672,7 +672,7 @@ const mockData = [
     rating: 2,
     average_return: 91.62,
     followers: 986,
-    avatar: "https://robohash.org/ducimusveniamnam.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/ducimusveniamnam.png?size=300x300&set=set1",
   },
   {
     username: "dlidgett1g",
@@ -685,7 +685,7 @@ const mockData = [
     rating: 4,
     average_return: 159.48,
     followers: 948,
-    avatar: "https://robohash.org/veniamrerumaut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/veniamrerumaut.png?size=300x300&set=set1",
   },
   {
     username: "wesel1h",
@@ -698,7 +698,7 @@ const mockData = [
     rating: 3,
     average_return: 68.01,
     followers: 674,
-    avatar: "https://robohash.org/voluptatesetsed.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/voluptatesetsed.png?size=300x300&set=set1",
   },
   {
     username: "khanrott1i",
@@ -711,7 +711,7 @@ const mockData = [
     rating: 3,
     average_return: 207.59,
     followers: 743,
-    avatar: "https://robohash.org/cummolestiaequidem.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/cummolestiaequidem.png?size=300x300&set=set1",
   },
   {
     username: "dbalazot1j",
@@ -725,7 +725,7 @@ const mockData = [
     average_return: 163.05,
     followers: 802,
     avatar:
-      "https://robohash.org/rerumvoluptatemexcepturi.png?size=100x100&set=set1",
+      "https://robohash.org/rerumvoluptatemexcepturi.png?size=300x300&set=set1",
   },
   {
     username: "aharriskine1k",
@@ -738,7 +738,7 @@ const mockData = [
     rating: 4,
     average_return: 194.53,
     followers: 472,
-    avatar: "https://robohash.org/quoquasqui.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quoquasqui.png?size=300x300&set=set1",
   },
   {
     username: "coloughran1l",
@@ -751,7 +751,7 @@ const mockData = [
     rating: 4,
     average_return: 288.59,
     followers: 313,
-    avatar: "https://robohash.org/nonetpraesentium.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/nonetpraesentium.png?size=300x300&set=set1",
   },
   {
     username: "hgath1m",
@@ -765,7 +765,7 @@ const mockData = [
     average_return: 209.7,
     followers: 859,
     avatar:
-      "https://robohash.org/impeditillumsuscipit.png?size=100x100&set=set1",
+      "https://robohash.org/impeditillumsuscipit.png?size=300x300&set=set1",
   },
   {
     username: "cgeldard1n",
@@ -778,7 +778,7 @@ const mockData = [
     average_return: 159.96,
     followers: 790,
     avatar:
-      "https://robohash.org/laboresimiliqueexercitationem.png?size=100x100&set=set1",
+      "https://robohash.org/laboresimiliqueexercitationem.png?size=300x300&set=set1",
   },
 ];
 
@@ -792,7 +792,7 @@ const mockBusinessList = [
     location: "Bích Động",
     business_category: "Specialty Products",
     avatar:
-      "https://robohash.org/veritatisaccusantiumquas.png?size=100x100&set=set1",
+      "https://robohash.org/veritatisaccusantiumquas.png?size=300x300&set=set1",
   },
   {
     username: "adeavall1",
@@ -802,7 +802,7 @@ const mockBusinessList = [
     rating: 2,
     location: "Leubatang",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/eligendinamcum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/eligendinamcum.png?size=300x300&set=set1",
   },
   {
     username: "bwaber2",
@@ -811,7 +811,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Lypova Dolyna",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/estetvoluptatem.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/estetvoluptatem.png?size=300x300&set=set1",
   },
   {
     username: "mwoolam3",
@@ -822,7 +822,7 @@ const mockBusinessList = [
     location: "Aki",
     business_category: "Employment Agency",
     avatar:
-      "https://robohash.org/nesciuntconsequatura.png?size=100x100&set=set1",
+      "https://robohash.org/nesciuntconsequatura.png?size=300x300&set=set1",
   },
   {
     username: "bcromblehome4",
@@ -832,7 +832,7 @@ const mockBusinessList = [
     rating: 2,
     location: "Herzliya Pituah",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/estquierror.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/estquierror.png?size=300x300&set=set1",
   },
   {
     username: "tpottinger5",
@@ -842,7 +842,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Xitou",
     business_category: "Marketing & Communications",
-    avatar: "https://robohash.org/quameapraesentium.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quameapraesentium.png?size=300x300&set=set1",
   },
   {
     username: "ysprouls6",
@@ -853,7 +853,7 @@ const mockBusinessList = [
     location: "Sandaogou",
     business_category: "Marketing & Communications",
     avatar:
-      "https://robohash.org/magnamistenecessitatibus.png?size=100x100&set=set1",
+      "https://robohash.org/magnamistenecessitatibus.png?size=300x300&set=set1",
   },
   {
     username: "mberggren7",
@@ -863,7 +863,7 @@ const mockBusinessList = [
     rating: 2,
     location: "Lorena",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/eummaximenemo.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/eummaximenemo.png?size=300x300&set=set1",
   },
   {
     username: "dgiacoppoli8",
@@ -874,7 +874,7 @@ const mockBusinessList = [
     location: "Charneca da Cotovia",
     business_category: "Employment Agency",
     avatar:
-      "https://robohash.org/cupiditateutexcepturi.png?size=100x100&set=set1",
+      "https://robohash.org/cupiditateutexcepturi.png?size=300x300&set=set1",
   },
   {
     username: "bdisbrey9",
@@ -885,7 +885,7 @@ const mockBusinessList = [
     location: "Firenze",
     business_category: "Auto Accessories",
     avatar:
-      "https://robohash.org/officianesciunttempore.png?size=100x100&set=set1",
+      "https://robohash.org/officianesciunttempore.png?size=300x300&set=set1",
   },
   {
     username: "cmollina",
@@ -895,7 +895,7 @@ const mockBusinessList = [
     rating: 3,
     location: "Yaransk",
     business_category: "Pet Supply Store",
-    avatar: "https://robohash.org/quotemporibusullam.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quotemporibusullam.png?size=300x300&set=set1",
   },
   {
     username: "jallmarkb",
@@ -905,7 +905,7 @@ const mockBusinessList = [
     rating: 1,
     location: "Banyutengah",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/eautnumquam.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/eautnumquam.png?size=300x300&set=set1",
   },
   {
     username: "whuotc",
@@ -915,7 +915,7 @@ const mockBusinessList = [
     rating: 1,
     location: "Sinarharapan",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/fugiatidqui.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/fugiatidqui.png?size=300x300&set=set1",
   },
   {
     username: "epahld",
@@ -925,7 +925,7 @@ const mockBusinessList = [
     location: "Gondomar",
     business_category: "Marketing & Communications",
     avatar:
-      "https://robohash.org/facilissaepevoluptate.png?size=100x100&set=set1",
+      "https://robohash.org/facilissaepevoluptate.png?size=300x300&set=set1",
   },
   {
     username: "kvandenveldene",
@@ -935,7 +935,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Lazaro Cardenas",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/voluptatemaducimus.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/voluptatemaducimus.png?size=300x300&set=set1",
   },
   {
     username: "dmoirf",
@@ -946,7 +946,7 @@ const mockBusinessList = [
     location: "Barueri",
     business_category: "Pet Supply Store",
     avatar:
-      "https://robohash.org/debitisestblanditiis.png?size=100x100&set=set1",
+      "https://robohash.org/debitisestblanditiis.png?size=300x300&set=set1",
   },
   {
     username: "tstavesg",
@@ -957,7 +957,7 @@ const mockBusinessList = [
     location: "Delta del Tigre",
     business_category: "Auto Accessories",
     avatar:
-      "https://robohash.org/inventorevoluptatesea.png?size=100x100&set=set1",
+      "https://robohash.org/inventorevoluptatesea.png?size=300x300&set=set1",
   },
   {
     username: "swillowsh",
@@ -967,7 +967,7 @@ const mockBusinessList = [
     rating: 1,
     location: "Sidayu",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/esseoditexpedita.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/esseoditexpedita.png?size=300x300&set=set1",
   },
   {
     username: "aharlandi",
@@ -977,7 +977,7 @@ const mockBusinessList = [
     rating: 2,
     location: "Skarbimierz Osiedle",
     business_category: "Marketing & Communications",
-    avatar: "https://robohash.org/vitaequiaatque.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/vitaequiaatque.png?size=300x300&set=set1",
   },
   {
     username: "bgluyusj",
@@ -987,7 +987,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Taurage",
     business_category: "Marketing & Communications",
-    avatar: "https://robohash.org/numquamnesciuntvel.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/numquamnesciuntvel.png?size=300x300&set=set1",
   },
   {
     username: "gbabbk",
@@ -996,7 +996,7 @@ const mockBusinessList = [
     rating: 1,
     location: "Jezzîne",
     business_category: "Employment Agency",
-    avatar: "https://robohash.org/temporeipsaquia.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/temporeipsaquia.png?size=300x300&set=set1",
   },
   {
     username: "rhalbordl",
@@ -1006,7 +1006,7 @@ const mockBusinessList = [
     rating: 1,
     location: "Tianchi",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/officiautitaque.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/officiautitaque.png?size=300x300&set=set1",
   },
   {
     username: "rtabarym",
@@ -1017,7 +1017,7 @@ const mockBusinessList = [
     location: "Ono",
     business_category: "Auto Accessories",
     avatar:
-      "https://robohash.org/oditconsequuntureum.png?size=100x100&set=set1",
+      "https://robohash.org/oditconsequuntureum.png?size=300x300&set=set1",
   },
   {
     username: "ehandasyden",
@@ -1027,7 +1027,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Cradock",
     business_category: "Marketing & Communications",
-    avatar: "https://robohash.org/corruptiomnisea.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/corruptiomnisea.png?size=300x300&set=set1",
   },
   {
     username: "mtubbleo",
@@ -1037,7 +1037,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Hongxi",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/voluptasfugitiste.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/voluptasfugitiste.png?size=300x300&set=set1",
   },
   {
     username: "bparlotp",
@@ -1048,7 +1048,7 @@ const mockBusinessList = [
     location: "Chornukhyne",
     business_category: "Specialty Products",
     avatar:
-      "https://robohash.org/doloresvoluptatemconsequatur.png?size=100x100&set=set1",
+      "https://robohash.org/doloresvoluptatemconsequatur.png?size=300x300&set=set1",
   },
   {
     username: "hhalstedq",
@@ -1058,7 +1058,7 @@ const mockBusinessList = [
     location: "Krzeszów",
     business_category: "Specialty Products",
     avatar:
-      "https://robohash.org/facerevoluptatemeaque.png?size=100x100&set=set1",
+      "https://robohash.org/facerevoluptatemeaque.png?size=300x300&set=set1",
   },
   {
     username: "rburgoinr",
@@ -1068,7 +1068,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Zaraysk",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/minimaenimharum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/minimaenimharum.png?size=300x300&set=set1",
   },
   {
     username: "gstannions",
@@ -1078,7 +1078,7 @@ const mockBusinessList = [
     rating: 1,
     location: "North Battleford",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/harumutnulla.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/harumutnulla.png?size=300x300&set=set1",
   },
   {
     username: "efrailt",
@@ -1088,7 +1088,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Tovarkovskiy",
     business_category: "Employment Agency",
-    avatar: "https://robohash.org/remnonquas.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/remnonquas.png?size=300x300&set=set1",
   },
   {
     username: "dbyarsu",
@@ -1098,7 +1098,7 @@ const mockBusinessList = [
     rating: 3,
     location: "Moses",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/quioptiomolestiae.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quioptiomolestiae.png?size=300x300&set=set1",
   },
   {
     username: "tolunneyv",
@@ -1109,7 +1109,7 @@ const mockBusinessList = [
     location: "Watubura",
     business_category: "Auto Accessories",
     avatar:
-      "https://robohash.org/consequaturvoluptasipsa.png?size=100x100&set=set1",
+      "https://robohash.org/consequaturvoluptasipsa.png?size=300x300&set=set1",
   },
   {
     username: "cmuscottw",
@@ -1119,7 +1119,7 @@ const mockBusinessList = [
     rating: 3,
     location: "Fukui-shi",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/nihilharumest.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/nihilharumest.png?size=300x300&set=set1",
   },
   {
     username: "nfeasterx",
@@ -1129,7 +1129,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Lampuyang",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/utfugaaut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/utfugaaut.png?size=300x300&set=set1",
   },
   {
     username: "cmartyntsevy",
@@ -1139,7 +1139,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Bau",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/velearumaliquam.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/velearumaliquam.png?size=300x300&set=set1",
   },
   {
     username: "nfedorskiz",
@@ -1149,7 +1149,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Péruwelz",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/velittemporibusaut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/velittemporibusaut.png?size=300x300&set=set1",
   },
   {
     username: "mphilcock10",
@@ -1159,7 +1159,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Gangba",
     business_category: "Employment Agency",
-    avatar: "https://robohash.org/quisquiut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quisquiut.png?size=300x300&set=set1",
   },
   {
     username: "rqualtro11",
@@ -1170,7 +1170,7 @@ const mockBusinessList = [
     location: "Huatanshan",
     business_category: "Pet Supply Store",
     avatar:
-      "https://robohash.org/dolorescumconsectetur.png?size=100x100&set=set1",
+      "https://robohash.org/dolorescumconsectetur.png?size=300x300&set=set1",
   },
   {
     username: "bphillipson12",
@@ -1180,7 +1180,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Salamá",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/doloresliberoodio.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/doloresliberoodio.png?size=300x300&set=set1",
   },
   {
     username: "rkiraly13",
@@ -1191,7 +1191,7 @@ const mockBusinessList = [
     location: "Nadezhda",
     business_category: "Auto Accessories",
     avatar:
-      "https://robohash.org/rerumsequicupiditate.png?size=100x100&set=set1",
+      "https://robohash.org/rerumsequicupiditate.png?size=300x300&set=set1",
   },
   {
     username: "qshawel14",
@@ -1201,7 +1201,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Lekas",
     business_category: "Specialty Products",
-    avatar: "https://robohash.org/vitaeabimpedit.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/vitaeabimpedit.png?size=300x300&set=set1",
   },
   {
     username: "rbelfit15",
@@ -1210,7 +1210,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Chelopech",
     business_category: "Pet Supply Store",
-    avatar: "https://robohash.org/quiexplicaboin.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/quiexplicaboin.png?size=300x300&set=set1",
   },
   {
     username: "aangerstein16",
@@ -1219,7 +1219,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Honoria",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/voluptatenihilaut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/voluptatenihilaut.png?size=300x300&set=set1",
   },
   {
     username: "sglison17",
@@ -1228,7 +1228,7 @@ const mockBusinessList = [
     rating: 5,
     location: "Bolkhov",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/autinsit.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/autinsit.png?size=300x300&set=set1",
   },
   {
     username: "mbritcher18",
@@ -1238,7 +1238,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Vänersborg",
     business_category: "Marketing & Communications",
-    avatar: "https://robohash.org/atqueatvoluptatum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/atqueatvoluptatum.png?size=300x300&set=set1",
   },
   {
     username: "afisby19",
@@ -1248,7 +1248,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Simpang",
     business_category: "Employment Agency",
-    avatar: "https://robohash.org/eosquisiure.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/eosquisiure.png?size=300x300&set=set1",
   },
   {
     username: "cstanex1a",
@@ -1257,7 +1257,7 @@ const mockBusinessList = [
     rating: 3,
     location: "Souto",
     business_category: "Personal Care",
-    avatar: "https://robohash.org/solutaquirerum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/solutaquirerum.png?size=300x300&set=set1",
   },
   {
     username: "dsalters1b",
@@ -1267,7 +1267,7 @@ const mockBusinessList = [
     rating: 3,
     location: "Rio Claro",
     business_category: "Employment Agency",
-    avatar: "https://robohash.org/etnonofficiis.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/etnonofficiis.png?size=300x300&set=set1",
   },
   {
     username: "rtabor1c",
@@ -1276,7 +1276,7 @@ const mockBusinessList = [
     rating: 4,
     location: "Mozi",
     business_category: "Marketing & Communications",
-    avatar: "https://robohash.org/fugiatautemharum.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/fugiatautemharum.png?size=300x300&set=set1",
   },
   {
     username: "mfoulstone1d",
@@ -1286,12 +1286,23 @@ const mockBusinessList = [
     rating: 4,
     location: "Bielice",
     business_category: "Auto Accessories",
-    avatar: "https://robohash.org/sedestut.png?size=100x100&set=set1",
+    avatar: "https://robohash.org/sedestut.png?size=300x300&set=set1",
   },
 ];
 
 export const UserList = [
-  new UserModel("ivanpedrocr", "Ivan", "Casas", 17, "Hello", null, 2, 150),
+  new UserModel(
+    "ivanpedrocr",
+    "Ivan",
+    "Casas",
+    17,
+    "Hello",
+    null,
+    5,
+    150,
+    999,
+    "https://robohash.org/sedestut.png?size=300x300&set=set1"
+  ),
   ...mockData.map((user) => {
     return new UserModel(
       user.username,
@@ -1308,14 +1319,16 @@ export const UserList = [
   }),
 ];
 
-export const BusinessList = mockBusinessList.map((business) => {
-  return {
-    username: business.username,
-    rating: business.rating,
-    description: business.description,
-    businessCategory: business.business_category,
-    companyName: business.company_name,
-    location: business.location,
-    avatar: business.avatar,
-  };
-});
+export const BusinessList = [
+  ...mockBusinessList.map((business) => {
+    return {
+      username: business.username,
+      rating: business.rating,
+      description: business.description,
+      businessCategory: business.business_category,
+      companyName: business.company_name,
+      location: business.location,
+      avatar: business.avatar,
+    };
+  }),
+];

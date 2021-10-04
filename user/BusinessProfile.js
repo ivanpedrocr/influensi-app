@@ -3,25 +3,27 @@ import { Dimensions, Image, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
-import { appStyles } from "../styles/app-styles";
 import UserReviewsModal from "./UserReviews-modal";
 
-const BusinessCard = ({ user, ...props }) => {
-  const [viewModal, setViewModal] = useState(false);
+const BusinessProfile = ({ ...props }) => {
+  const user = {
+    username: "infleunsi",
+    companyName: "Influensi",
+    description: "Connecting businesses to influencers around the world.",
+    rating: 5,
+    location: "Miami",
+    businessCategory: "Marketing App",
+    avatar: "https://robohash.org/atqueatvopplko.png?size=300x300&set=set1",
+  };
   return (
-    <View style={appStyles.card}>
+    <View>
       <View>
         <View style={styles.nameContainer}>
           <View>
-            <AppText style={{ fontSize: 24 }}>{user.companyName}</AppText>
-            <AppText style={{ color: "blue", fontSize: 20 }}>
-              {user.location}
-            </AppText>
-            <AppText>{user.businessCategory}</AppText>
             <Image
               style={{
-                width: 100,
-                height: 100,
+                width: 150,
+                height: 150,
                 borderRadius: 100,
                 borderWidth: 2,
               }}
@@ -29,6 +31,14 @@ const BusinessCard = ({ user, ...props }) => {
                 uri: user.avatar,
               }}
             />
+            <AppText style={{ fontSize: 32, fontWeight: "bold" }}>
+              {user.companyName}
+            </AppText>
+            <AppText style={{ color: "blue", fontSize: 24 }}>
+              {user.location}
+            </AppText>
+            <AppText>{user.businessCategory}</AppText>
+
             <StarRating rating={user.rating} />
           </View>
         </View>
@@ -36,19 +46,6 @@ const BusinessCard = ({ user, ...props }) => {
           <AppText>{user.description}</AppText>
         </View>
       </View>
-      <AppButton
-        style={{ alignSelf: "center" }}
-        title="Reviews"
-        onPress={() => {
-          setViewModal(true);
-        }}
-      />
-      <UserReviewsModal
-        visible={viewModal}
-        onClose={() => {
-          setViewModal(false);
-        }}
-      />
     </View>
   );
 };
@@ -57,12 +54,14 @@ const styles = StyleSheet.create({
   nameContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingHorizontal: 24,
   },
   username: {
     color: "#1f7fbf",
   },
   descriptionContainer: {
     marginTop: 8,
+    paddingHorizontal: 24,
   },
 });
-export default BusinessCard;
+export default BusinessProfile;

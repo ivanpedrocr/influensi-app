@@ -21,23 +21,23 @@ const UserCard = ({ user, ...props }) => {
             <AppText style={{ color: "green" }}>+{user.averageReturn}%</AppText>
             <StarRating rating={user.rating} />
           </View>
-          <Image
-            style={{
-              width: 80,
-              height: 80,
-              borderRadius: 100,
-              borderWidth: 2,
-            }}
-            source={{
-              uri: user.avatar,
-            }}
-          />
         </View>
+        <Image
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 100,
+            borderWidth: 2,
+          }}
+          source={{
+            uri: user.avatar,
+          }}
+        />
         <View style={styles.descriptionContainer}>
           <AppText>{user.description}</AppText>
         </View>
       </View>
-      {props.showReview && (
+      {
         <AppButton
           style={{ alignSelf: "center" }}
           title="Reviews"
@@ -45,7 +45,7 @@ const UserCard = ({ user, ...props }) => {
             setViewModal(true);
           }}
         />
-      )}
+      }
       <UserReviewsModal
         visible={viewModal}
         onClose={() => {
@@ -62,13 +62,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "stretch",
     justifyContent: "space-between",
-    height: 600,
+    flex: 1,
     padding: 24,
     marginTop: 8,
-    shadowColor: "black",
-    shadowOffset: { height: 1 },
-    shadowRadius: 3,
-    shadowOpacity: 0.01,
+    borderWidth: 1,
+    borderColor: "gray",
   },
   nameContainer: {
     flexDirection: "row",

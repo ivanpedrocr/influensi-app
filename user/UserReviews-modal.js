@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 20,
     alignItems: "flex-start",
-    justifyContent: "flex-start",
     shadowColor: "black",
     shadowOffset: { height: -3 },
     shadowOpacity: 0.3,

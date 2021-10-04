@@ -1,35 +1,36 @@
 import React, { useReducer } from "react";
-import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
-import { AppButton, Typography } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
-import { userInitialState, UserReducer } from "./UserProfile-reducer";
 
 const UserProfile = ({ user, ...props }) => {
   return (
     <View style={{ width: "100%" }}>
       <View style={styles.nameContainer}>
         <View>
+          <Image
+            style={{
+              width: 150,
+              height: 150,
+              borderRadius: 100,
+              borderWidth: 2,
+              borderColor: "black",
+            }}
+            source={{
+              uri: "https://robohash.org/sedepatut.png?size=300x300&set=set1",
+            }}
+          />
           <AppText
-            style={{ fontSize: 24 }}
+            style={{ fontSize: 32, fontWeight: "bold" }}
           >{`${user.firstName} ${user.lastName}`}</AppText>
           <AppText style={styles.username}>{user.username}</AppText>
           <AppText>{user.age}</AppText>
+          <AppText style={{ fontWeight: "bold" }}>{user.followers}k</AppText>
+          <AppText style={{ color: "green" }}>+{user.averageReturn}%</AppText>
           <StarRating rating={user.rating} />
         </View>
-        <Image
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            borderWidth: 1,
-            borderColor: "black",
-          }}
-          source={{
-            uri: "https://i.pinimg.com/474x/9b/47/a0/9b47a023caf29f113237d61170f34ad9.jpg",
-          }}
-        />
       </View>
+      <View style={{ paddingHorizontal: 24 }}></View>
       <View style={styles.descriptionContainer}>
         <AppText>{user.description}</AppText>
       </View>

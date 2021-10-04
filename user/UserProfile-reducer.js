@@ -2,11 +2,13 @@ export const userInitialState = {
   username: "ivanpedrocr",
   firstName: "Ivan",
   lastName: "Casas",
-  age: "21",
+  age: "17",
   price: "$100.00",
   description: "Hi, I'm new to influensi.",
   accountType: "Business Pro",
   rating: 4.3,
+  averageReturn: 150,
+  followers: 999,
 };
 
 export const UserReducer = (state, { type, payload }) => {

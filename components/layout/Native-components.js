@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TextInput } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { appColors } from "../../styles/app-styles";
 import AppText from "./AppText";
 
 export const Container = styled.View`
@@ -11,12 +12,29 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
-export const TypingInput = styled.TextInput`
-  height: 40px;
-  border-width: 1px;
-  width: 100px;
-  padding: 4px;
-`;
+export const AppTextInput = ({
+  style,
+  onChangeText,
+  autoCapitalize,
+  value,
+  placeholder,
+  onSubmitEditing,
+  autoFocus,
+  ...props
+}) => {
+  return (
+    <TextInput
+      {...props}
+      onSubmitEditing={onSubmitEditing}
+      placeholder={placeholder}
+      onChangeText={onChangeText}
+      autoCapitalize={autoCapitalize ?? "none"}
+      value={value}
+      autoFocus={autoFocus}
+      style={{ ...defaultStyles.textInput, ...style }}
+    ></TextInput>
+  );
+};
 
 export const Typography = ({
   children,
@@ -43,9 +61,32 @@ export const AppButton = ({ style, title, onPress, ...props }) => {
       style={{ ...defaultStyles.button, ...style }}
       {...restProps}
     >
-      <AppText style={{ fontSize: restProps.fontSize ?? 18, color: "white" }}>
+      <AppText
+        style={{
+          fontSize: restProps.fontSize ?? 18,
+          color: style?.color ?? "white",
+        }}
+      >
         {title}
       </AppText>
+    </TouchableOpacity>
+  );
+};
+
+export const AppIconButton = ({
+  style,
+  onPress,
+  children,
+  activeOpacity,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={activeOpacity ?? 0.7}
+      style={{ ...defaultStyles.iconButton, ...style }}
+      onPress={onPress}
+    >
+      {children}
     </TouchableOpacity>
   );
 };
@@ -56,8 +97,21 @@ const defaultStyles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 10,
-    backgroundColor: "#2a5bfa",
+    backgroundColor: appColors.blue,
     justifyContent: "center",
     alignItems: "center",
+  },
+  iconButton: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textInput: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+    borderRadius: 30,
+    backgroundColor: appColors.lightGray,
+    width: "100%",
+    paddingVertical: 14,
+    paddingHorizontal: 12,
   },
 });
