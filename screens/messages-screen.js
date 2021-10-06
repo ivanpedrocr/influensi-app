@@ -20,26 +20,15 @@ import {
 import { useState } from "react/cjs/react.development";
 import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
+import sendMessage from "../actions/send-message";
 
 const MessagesScreen = (props) => {
   const listViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const sendNewMessage = async () => {
-    if (messageInput) {
-      const response = await fetch(
-        "https://connect-influencer-app-default-rtdb.firebaseio.com/messages.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ messageInput }),
-        }
-      );
-      const result = await response.json();
-      setMessages((prev) => [...prev, messageInput]);
-    }
+    await sendMessage(messageInput);
+    setMessages((prev) => [...prev, messageInput]);
     setMessageInput("");
   };
   return (
