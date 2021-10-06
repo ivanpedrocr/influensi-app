@@ -1,6 +1,8 @@
+import { API_KEY } from "@env";
+
 const signupUser = async (email, password) => {
   const res = await fetch(
-    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAa9Gln4Gsi0J9AwX-r2NVQbhNcW90Xd-E`,
+    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
     {
       method: "POST",
       headers: {
