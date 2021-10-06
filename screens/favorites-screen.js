@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
   Pressable,
+  ActivityIndicator,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react/cjs/react.development";
@@ -17,51 +18,61 @@ import { appColors } from "../styles/app-styles";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
       const getFavoritesList = async () => {
+        setIsLoading(true);
         const usersList = await fetchFavoriteUsersList();
         setFavoritesList(Object.values(usersList));
+        setIsLoading(false);
       };
       getFavoritesList();
     }, [])
   );
+  const openUserMenu = () => {};
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
-      <View style={styles.screen}>
-        {favoritesList.map((user, i) => (
-          <View style={styles.userListContainer} key={i}>
-            <TouchableOpacity
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                width: "100%",
-                flex: 1,
-              }}
-            >
-              <View style={styles.userListItem}>
-                <AppText
-                  style={styles.userListName}
-                >{`${user.firstName} ${user.lastName}`}</AppText>
-                <Image
+      {isLoading ? (
+        <ActivityIndicator size="large" color={appColors.accentGray} />
+      ) : (
+        <View style={styles.screen}>
+          {favoritesList
+            .map((user, i) => (
+              <View style={styles.userListContainer} key={i}>
+                <TouchableOpacity
                   style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 100,
-                    borderWidth: 1,
-                    borderColor: "black",
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    width: "100%",
+                    flex: 1,
                   }}
-                  source={{
-                    uri: user.avatar,
-                  }}
-                />
+                >
+                  <View style={styles.userListItem}>
+                    <AppText
+                      style={styles.userListName}
+                    >{`${user.firstName} ${user.lastName}`}</AppText>
+                    <Image
+                      style={{
+                        width: 44,
+                        height: 44,
+                        borderRadius: 100,
+                        borderWidth: 1,
+                        borderColor: "black",
+                      }}
+                      source={{
+                        uri: user.avatar,
+                      }}
+                    />
+                  </View>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
-          </View>
-        ))}
-      </View>
+            ))
+            .reverse()}
+        </View>
+      )}
     </ScrollView>
   );
 };

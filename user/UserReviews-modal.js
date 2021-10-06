@@ -1,9 +1,10 @@
 import React from "react";
-import { Image, Modal, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
+import Modal from "react-native-modal";
 
 const UserReviewsModal = ({ visible, onClose, ...props }) => {
   const reviews = [
@@ -27,7 +28,7 @@ const UserReviewsModal = ({ visible, onClose, ...props }) => {
     ],
   ];
   return (
-    <Modal visible={visible} animationType="slide" transparent={true}>
+    <Modal isVisible={visible} style={{ margin: 0 }} backdropOpacity={0}>
       <View style={styles.card}>
         <ScrollView>
           <View style={{ paddingVertical: 8 }} />

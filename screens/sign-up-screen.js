@@ -12,10 +12,10 @@ import UserSignUpModal from "../user/UserSignUp-modal";
 const SignUpScreen = ({ navigation, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [openSignUpModal, setOpenSignUpModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const onSignUp = async (email, password) => {
     await signupUser(email, password);
-    setOpenSignUpModal(false), navigation.navigate("Explore");
+    setOpenModal(false), navigation.navigate("Explore");
   };
   return (
     <View style={styles.screen}>
@@ -43,15 +43,15 @@ const SignUpScreen = ({ navigation, ...props }) => {
           />
           <AppButton
             title="Sign-Up"
-            onPress={() => setOpenSignUpModal(true)}
+            onPress={() => setOpenModal(true)}
             style={{ marginTop: 8 }}
           />
         </ScrollView>
       </View>
       <UserSignUpModal
-        openSignUpModal={openSignUpModal}
+        isVisible={openModal}
         onSignUp={onSignUp}
-        onClose={() => setOpenSignUpModal(false)}
+        onClose={() => setOpenModal(false)}
       />
     </View>
   );

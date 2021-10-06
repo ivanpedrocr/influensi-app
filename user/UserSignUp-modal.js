@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import signupUser from "../actions/signup-user";
 import {
   AppTextInput,
@@ -8,12 +8,18 @@ import {
 } from "../components/layout/Native-components";
 import { Ionicons } from "@expo/vector-icons";
 import { appColors } from "../styles/app-styles";
+import Modal from "react-native-modal";
 
-const UserSignUpModal = ({ openSignUpModal, onSignUp, onClose, ...props }) => {
+const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <Modal visible={openSignUpModal} animationType="slide">
+    <Modal
+      isVisible={isVisible}
+      backdropOpacity={1}
+      backgroundColor="white"
+      style={{ margin: 0 }}
+    >
       <View style={styles.modal}>
         <View style={{ width: "100%" }} contentContainerStyle={styles.card}>
           <AppTextInput
