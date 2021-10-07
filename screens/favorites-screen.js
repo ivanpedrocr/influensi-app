@@ -15,6 +15,7 @@ import { useState } from "react/cjs/react.development";
 import { fetchFavoriteUsersList } from "../actions/favorite-user";
 import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
+import SplashScreen from "./splash-screen";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
@@ -32,47 +33,46 @@ const FavoritesScreen = ({ navigation, ...props }) => {
     }, [])
   );
   const openUserMenu = () => {};
+  if (isLoading) {
+    return <SplashScreen />;
+  }
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color={appColors.accentGray} />
-      ) : (
-        <View style={styles.screen}>
-          {favoritesList
-            .map((user, i) => (
-              <View style={styles.userListContainer} key={i}>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    width: "100%",
-                    flex: 1,
-                  }}
-                >
-                  <View style={styles.userListItem}>
-                    <AppText
-                      style={styles.userListName}
-                    >{`${user.firstName} ${user.lastName}`}</AppText>
-                    <Image
-                      style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 100,
-                        borderWidth: 1,
-                        borderColor: "black",
-                      }}
-                      source={{
-                        uri: user.avatar,
-                      }}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-            ))
-            .reverse()}
-        </View>
-      )}
+      <View style={styles.screen}>
+        {favoritesList
+          .map((user, i) => (
+            <View style={styles.userListContainer} key={i}>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  width: "100%",
+                  flex: 1,
+                }}
+              >
+                <View style={styles.userListItem}>
+                  <AppText
+                    style={styles.userListName}
+                  >{`${user.firstName} ${user.lastName}`}</AppText>
+                  <Image
+                    style={{
+                      width: 44,
+                      height: 44,
+                      borderRadius: 100,
+                      borderWidth: 1,
+                      borderColor: "black",
+                    }}
+                    source={{
+                      uri: user.avatar,
+                    }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+          ))
+          .reverse()}
+      </View>
     </ScrollView>
   );
 };
