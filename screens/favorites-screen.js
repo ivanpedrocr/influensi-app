@@ -13,6 +13,7 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react/cjs/react.development";
 import { fetchFavoriteUsersList } from "../actions/favorite-user";
+import { useAuthContext } from "../auth/auth-context";
 import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
 import SplashScreen from "./splash-screen";
@@ -20,13 +21,16 @@ import SplashScreen from "./splash-screen";
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [authValues, authDispatch] = useAuthContext();
 
   useFocusEffect(
     React.useCallback(() => {
       const getFavoritesList = async () => {
         setIsLoading(true);
-        const usersList = await fetchFavoriteUsersList();
-        setFavoritesList(Object.values(usersList));
+        const usersList = await fetchFavoriteUsersList(authValues);
+        if (usersList.length === 0) {
+          setFavoritesList(Object.values(usersList));
+        }
         setIsLoading(false);
       };
       getFavoritesList();

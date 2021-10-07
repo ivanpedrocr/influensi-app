@@ -1,7 +1,7 @@
 import { API_URL } from "@env";
 
-export const favoriteUser = async (user) => {
-  const res = await fetch(`${API_URL}/user/favorites.json`, {
+export const favoriteUser = async (user, { token, userId }) => {
+  const res = await fetch(`${API_URL}/${userId}/favorites.json?auth=${token}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -11,8 +11,8 @@ export const favoriteUser = async (user) => {
   const resData = await res.json();
 };
 
-export const fetchFavoriteUsersList = async () => {
-  const res = await fetch(`${API_URL}/user/favorites.json`);
+export const fetchFavoriteUsersList = async ({ token, userId }) => {
+  const res = await fetch(`${API_URL}/${userId}/favorites.json?auth=${token}`);
   const resData = await res.json();
   return resData;
 };
