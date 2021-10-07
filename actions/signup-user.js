@@ -19,6 +19,7 @@ const signupUser = async (email, password) => {
     throw new Error("uh oh!");
   }
   const resData = await res.json();
+  return resData;
 };
 
 export default signupUser;

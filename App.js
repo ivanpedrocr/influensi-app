@@ -5,6 +5,7 @@ import UserProfile from "./user/UserProfile";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import UserNavigator from "./navigation/UserNavigator";
+import AuthProvider from "./auth/auth-context";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -24,7 +25,11 @@ export default function App() {
   //     />
   //   );
   // }
-  return <UserNavigator />;
+  return (
+    <AuthProvider>
+      <UserNavigator />
+    </AuthProvider>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -15,6 +15,10 @@ import NotificationsScreen from "../screens/notifications-screen";
 import MessagesScreen from "../screens/messages-screen";
 import Icon from "react-native-vector-icons/Ionicons";
 import SignUpScreen from "../screens/sign-up-screen";
+import { useAuthContext } from "../auth/auth-context";
+import { ActivityIndicator } from "react-native";
+import { appColors } from "../styles/app-styles";
+import SplashScreen from "../screens/splash-screen";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -22,11 +26,24 @@ const BottomTab = createBottomTabNavigator();
 const ExploreStack = createStackNavigator();
 const MessagesStack = createStackNavigator();
 const AuthStack = createStackNavigator();
+const SplashStack = createStackNavigator();
+
+const SplashStackScreen = () => {
+  return (
+    <SplashStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <SplashStack.Screen name="SPLASHSCREEN" component={SplashScreen} />
+    </SplashStack.Navigator>
+  );
+};
 
 const AuthStackScreen = () => {
   return (
     <AuthStack.Navigator>
-      <AuthStack.Screen name="SignIn" component={SignUpScreen} />
+      <AuthStack.Screen name="SIGNIN" component={SignUpScreen} />
     </AuthStack.Navigator>
   );
 };
@@ -73,47 +90,56 @@ const FavoritesStackScreen = () => {
 };
 
 const UserNavigator = () => {
+  const [{ token, userId, loading }, authDispatch] = useAuthContext();
+
   return (
     <NavigationContainer>
-      <BottomTab.Navigator screenOptions={{ headerShown: false }}>
-        <BottomTab.Screen name="Auth" component={AuthStackScreen} />
-        <BottomTab.Screen
-          name="Explore"
-          component={ExploreStackScreen}
-          options={{
-            tabBarIcon: () => {
-              return <Icon name="compass-outline" size={24} color="black" />;
-            },
-          }}
-        />
-        <BottomTab.Screen
-          name="Favorites"
-          component={FavoritesStackScreen}
-          options={{
-            tabBarIcon: () => {
-              return <Icon name="bookmark-outline" size={24} color="black" />;
-            },
-          }}
-        />
-        <BottomTab.Screen
-          name="Messages"
-          component={MessagesStackScreen}
-          options={{
-            tabBarIcon: () => {
-              return <Icon name="chatbubble-outline" size={24} color="black" />;
-            },
-          }}
-        />
-        <BottomTab.Screen
-          name="Profile"
-          component={MenuStackScreen}
-          options={{
-            tabBarIcon: () => {
-              return <Icon name="person-outline" size={24} color="black" />;
-            },
-          }}
-        />
-      </BottomTab.Navigator>
+      {token && userId ? (
+        <BottomTab.Navigator screenOptions={{ headerShown: false }}>
+          <BottomTab.Screen
+            name="Explore"
+            component={ExploreStackScreen}
+            options={{
+              tabBarIcon: () => {
+                return <Icon name="compass-outline" size={24} color="black" />;
+              },
+            }}
+          />
+          <BottomTab.Screen
+            name="Favorites"
+            component={FavoritesStackScreen}
+            options={{
+              tabBarIcon: () => {
+                return <Icon name="bookmark-outline" size={24} color="black" />;
+              },
+            }}
+          />
+          <BottomTab.Screen
+            name="Messages"
+            component={MessagesStackScreen}
+            options={{
+              tabBarIcon: () => {
+                return (
+                  <Icon name="chatbubble-outline" size={24} color="black" />
+                );
+              },
+            }}
+          />
+          <BottomTab.Screen
+            name="Profile"
+            component={MenuStackScreen}
+            options={{
+              tabBarIcon: () => {
+                return <Icon name="person-outline" size={24} color="black" />;
+              },
+            }}
+          />
+        </BottomTab.Navigator>
+      ) : loading ? (
+        <SplashStackScreen />
+      ) : (
+        <AuthStackScreen />
+      )}
     </NavigationContainer>
   );
 };

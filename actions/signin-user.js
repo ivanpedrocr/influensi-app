@@ -1,7 +1,7 @@
 import { API_KEY } from "@env";
 
-const loginUser = (email, password) => {
-  fetch(
+export const signInUser = async (email, password) => {
+  const res = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
     {
       method: "POST",
@@ -15,4 +15,9 @@ const loginUser = (email, password) => {
       }),
     }
   );
+  if (!res.ok) {
+    throw new Error("uh oh!");
+  }
+  const resData = await res.json();
+  return resData;
 };
