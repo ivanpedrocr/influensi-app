@@ -93,9 +93,9 @@ export const AppIconButton = ({
 
 const defaultStyles = StyleSheet.create({
   button: {
-    width: 100,
+    minWidth: 100,
     paddingVertical: 8,
-    paddingHorizontal: 15,
+    paddingHorizontal: 16,
     borderRadius: 10,
     backgroundColor: appColors.blue,
     justifyContent: "center",

@@ -16,3 +16,13 @@ export const fetchFavoriteUsersList = async ({ token, userId }) => {
   const resData = await res.json();
   return resData;
 };
+
+export const deleteFavoriteUser = async (user, { token, userId }) => {
+  const res = await fetch(
+    `${API_URL}/${userId}/favorites/${user}.json?auth=${token}`,
+    {
+      method: "DELETE",
+    }
+  );
+  const resData = await res.json();
+};
