@@ -13,6 +13,7 @@ const FavoritesUserModal = ({ isVisible, closeModal, ...props }) => {
       backdropOpacity={0.2}
       animationIn="zoomIn"
       style={styles.modal}
+      animationOut="zoomOut"
     >
       <View style={styles.menu}>
         <TouchableOpacity style={styles.options}>
@@ -21,7 +22,13 @@ const FavoritesUserModal = ({ isVisible, closeModal, ...props }) => {
         <TouchableOpacity style={styles.options}>
           <AppText>Send Message</AppText>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.options} onPress={props.onDelete}>
+        <TouchableOpacity
+          style={styles.options}
+          onPress={() => {
+            props.onDelete();
+            closeModal();
+          }}
+        >
           <AppText style={{ color: "red" }}>Delete</AppText>
         </TouchableOpacity>
       </View>

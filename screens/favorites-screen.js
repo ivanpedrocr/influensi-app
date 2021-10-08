@@ -41,7 +41,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
         setIsLoading(false);
       };
       getFavoritesList();
-    }, [])
+    }, [deleteFavoriteUser])
   );
 
   if (isLoading) {
@@ -67,6 +67,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                   isVisible={modalVisible.i === i && modalVisible.true === true}
                   closeModal={() => setModalVisible(false)}
                   onDelete={() => {
+                    favoritesList.splice(i, 1);
                     deleteFavoriteUser(user.key, authValues);
                   }}
                 />
