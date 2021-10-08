@@ -12,7 +12,12 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react/cjs/react.development";
-import { fetchFavoriteUsersList } from "../actions/favorite-user";
+import {
+  deleteFavoriteUser,
+  fetchFavoriteUsersList,
+} from "../actions/favorite-user";
+import { useAuthContext } from "../auth/auth-context";
+import FavoritesUserModal from "../components/favorites/FavoritesUserModal";
 import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
 import SplashScreen from "./splash-screen";
@@ -20,19 +25,25 @@ import SplashScreen from "./splash-screen";
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [authValues, authDispatch] = useAuthContext();
+  const [modalVisible, setModalVisible] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
       const getFavoritesList = async () => {
         setIsLoading(true);
-        const usersList = await fetchFavoriteUsersList();
-        setFavoritesList(Object.values(usersList));
+        const usersList = await fetchFavoriteUsersList(authValues);
+        if (usersList.length !== 0) {
+          setFavoritesList(
+            Object.entries(usersList).map(([key, value]) => ({ key, ...value }))
+          );
+        }
         setIsLoading(false);
       };
       getFavoritesList();
     }, [])
   );
-  const openUserMenu = () => {};
+
   if (isLoading) {
     return <SplashScreen />;
   }
@@ -50,19 +61,21 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                   width: "100%",
                   flex: 1,
                 }}
+                onPress={() => setModalVisible({ i, true: true })}
               >
+                <FavoritesUserModal
+                  isVisible={modalVisible.i === i && modalVisible.true === true}
+                  closeModal={() => setModalVisible(false)}
+                  onDelete={() => {
+                    deleteFavoriteUser(user.key, authValues);
+                  }}
+                />
                 <View style={styles.userListItem}>
                   <AppText
                     style={styles.userListName}
                   >{`${user.firstName} ${user.lastName}`}</AppText>
                   <Image
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: 100,
-                      borderWidth: 1,
-                      borderColor: "black",
-                    }}
+                    style={styles.userImage}
                     source={{
                       uri: user.avatar,
                     }}
@@ -97,6 +110,13 @@ const styles = StyleSheet.create({
   },
   userListName: {
     fontSize: 20,
+  },
+  userImage: {
+    minWidth: 44,
+    minHeight: 44,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: "black",
   },
 });
 

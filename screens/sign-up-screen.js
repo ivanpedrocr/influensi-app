@@ -23,7 +23,6 @@ const SignUpScreen = ({ navigation, ...props }) => {
       type: "SIGNUP",
       payload: { token: user.idToken, userId: user.localId },
     });
-    setOpenModal(false);
   };
   const onSignIn = async () => {
     authDispatch({ type: "LOADING" });

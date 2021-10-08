@@ -21,13 +21,15 @@ import { useState } from "react/cjs/react.development";
 import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
 import sendMessage from "../actions/send-message";
+import { useAuthContext } from "../auth/auth-context";
 
 const MessagesScreen = (props) => {
   const listViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
+  const [authValues, authDispatch] = useAuthContext();
   const sendNewMessage = async () => {
-    await sendMessage(messageInput);
+    await sendMessage(messageInput, authValues);
     setMessages((prev) => [...prev, messageInput]);
     setMessageInput("");
   };

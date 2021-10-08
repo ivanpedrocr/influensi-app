@@ -16,15 +16,17 @@ import BusinessCard from "../user/BusinessCard";
 import { Ionicons } from "@expo/vector-icons";
 import { favoriteUser } from "../actions/favorite-user";
 import DeckSwipeAnimate from "../components/layout/DeckSwipeAnimate";
+import { useAuthContext } from "../auth/auth-context";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [accountType, setAccountType] = useState("USER");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showReview, setShowReview] = useState(true);
+  const [authValues, authDispatch] = useAuthContext();
 
   const onSwipeRight = () => {
-    favoriteUser(dummyList[currentIndex]);
+    favoriteUser(dummyList[currentIndex], authValues);
     setCurrentIndex(currentIndex + 1);
   };
   const onSwipeLeft = () => {
