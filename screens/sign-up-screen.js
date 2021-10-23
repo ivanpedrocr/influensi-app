@@ -40,6 +40,7 @@ const SignUpScreen = ({ navigation, ...props }) => {
             placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
+            multiline={false}
           />
           <AppTextInput
             placeholder="Password"
@@ -47,6 +48,7 @@ const SignUpScreen = ({ navigation, ...props }) => {
             secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
             style={{ marginTop: 8 }}
+            multiline={false}
           />
           <AppButton
             title="Sign-In"

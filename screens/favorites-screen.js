@@ -47,6 +47,10 @@ const FavoritesScreen = ({ navigation, ...props }) => {
   if (isLoading) {
     return <SplashScreen />;
   }
+  const sendMessage = () => {
+    setModalVisible(false);
+    navigation.navigate("Messages", { screen: "MESSAGES" });
+  };
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
       <View style={styles.screen}>
@@ -70,6 +74,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                     favoritesList.splice(i, 1);
                     deleteFavoriteUser(user.key, authValues);
                   }}
+                  sendMessage={sendMessage}
                 />
                 <View style={styles.userListItem}>
                   <AppText

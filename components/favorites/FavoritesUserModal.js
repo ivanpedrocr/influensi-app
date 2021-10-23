@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ReactNativeModal from "react-native-modal";
+import { appColors } from "../../styles/app-styles";
 import AppText from "../layout/AppText";
 import { AppButton } from "../layout/Native-components";
 
-const FavoritesUserModal = ({ isVisible, closeModal, ...props }) => {
+const FavoritesUserModal = ({
+  isVisible,
+  closeModal,
+  sendMessage,
+  ...props
+}) => {
   return (
     <ReactNativeModal
       isVisible={isVisible}
@@ -19,7 +25,7 @@ const FavoritesUserModal = ({ isVisible, closeModal, ...props }) => {
         <TouchableOpacity style={styles.options}>
           <AppText>User Profile</AppText>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.options}>
+        <TouchableOpacity style={styles.options} onPress={sendMessage}>
           <AppText>Send Message</AppText>
         </TouchableOpacity>
         <TouchableOpacity
@@ -29,7 +35,7 @@ const FavoritesUserModal = ({ isVisible, closeModal, ...props }) => {
             closeModal();
           }}
         >
-          <AppText style={{ color: "red" }}>Delete</AppText>
+          <AppText style={{ color: appColors.red }}>Delete</AppText>
         </TouchableOpacity>
       </View>
     </ReactNativeModal>

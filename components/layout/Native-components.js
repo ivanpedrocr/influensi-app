@@ -20,6 +20,7 @@ export const AppTextInput = ({
   placeholder,
   onSubmitEditing,
   autoFocus,
+  multiline,
   ...props
 }) => {
   return (
@@ -32,6 +33,7 @@ export const AppTextInput = ({
       value={value}
       autoFocus={autoFocus}
       style={{ ...defaultStyles.textInput, ...style }}
+      multiline={multiline ?? true}
     ></TextInput>
   );
 };
@@ -91,13 +93,17 @@ export const AppIconButton = ({
   );
 };
 
+export const AppScreen = ({ children, style, ...props }) => {
+  return <View style={{ ...defaultStyles.screen, ...style }}>{children}</View>;
+};
+
 const defaultStyles = StyleSheet.create({
   button: {
     minWidth: 100,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 10,
-    backgroundColor: appColors.blue,
+    backgroundColor: appColors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -111,7 +117,12 @@ const defaultStyles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: appColors.lightGray,
     width: "100%",
-    paddingVertical: 14,
     paddingHorizontal: 12,
+    paddingBottom: 14,
+    paddingTop: 14,
+  },
+  screen: {
+    flex: 1,
+    backgroundColor: "white",
   },
 });
