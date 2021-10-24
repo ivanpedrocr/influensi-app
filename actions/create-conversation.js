@@ -1,13 +1,15 @@
-import { API_URL } from "@env";
+import firebase from "firebase";
 
-const createConversation = async (user, { userId, token }) => {
-  const res = await fetch(`${API_URL}/conversations.json?auth=${token}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
+const createConversation = async (user1, { userId }) => {
+  const db = firebase.database();
+  const pushKey = db.ref("conversations").push().key;
+  let userUpdates = {};
+  userUpdates[`/users/${user1}/conversations`] = pushKey;
+  userUpdates[`/users/${userId}/conversations`] = pushKey;
+  db.ref().update({
+    ["/conversations/" + pushKey + "/users"]: { user1, user2: userId },
   });
-  const resData = res.json();
-  console.log(resData);
+  db.ref().update(userUpdates);
 };
+
+export default createConversation;

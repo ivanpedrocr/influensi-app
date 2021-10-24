@@ -1,17 +1,9 @@
-import { useFocusEffect } from "@react-navigation/core";
-import React, { useEffect } from "react";
-import {
-  Text,
-  View,
-  Stylesheet,
-  StyleSheet,
-  Image,
-  ScrollView,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import React from "react";
+import { View, StyleSheet, Image, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react/cjs/react.development";
+import createConversation from "../actions/create-conversation";
 import {
   deleteFavoriteUser,
   fetchFavoriteUsersList,
@@ -19,6 +11,8 @@ import {
 import { useAuthContext } from "../auth/auth-context";
 import FavoritesUserModal from "../components/favorites/FavoritesUserModal";
 import AppText from "../components/layout/AppText";
+import MenuItemTouchable from "../components/layout/MenuItemTouchable";
+import { AppScreen } from "../components/layout/Native-components";
 import { appColors } from "../styles/app-styles";
 import SplashScreen from "./splash-screen";
 
@@ -47,72 +41,50 @@ const FavoritesScreen = ({ navigation, ...props }) => {
   if (isLoading) {
     return <SplashScreen />;
   }
-  const sendMessage = () => {
-    setModalVisible(false);
-    navigation.navigate("Messages", { screen: "MESSAGES" });
-  };
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
-      <View style={styles.screen}>
+    <AppScreen>
+      <ScrollView>
         {favoritesList
           .map((user, i) => (
-            <View style={styles.userListContainer} key={i}>
-              <TouchableOpacity
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  width: "100%",
-                  flex: 1,
+            <MenuItemTouchable
+              key={i}
+              onPress={() => setModalVisible({ i, true: true })}
+              style={styles.listItem}
+            >
+              <FavoritesUserModal
+                isVisible={modalVisible.i === i && modalVisible.true === true}
+                closeModal={() => setModalVisible(false)}
+                onDelete={() => {
+                  favoritesList.splice(i, 1);
+                  deleteFavoriteUser(user.key, authValues);
                 }}
-                onPress={() => setModalVisible({ i, true: true })}
-              >
-                <FavoritesUserModal
-                  isVisible={modalVisible.i === i && modalVisible.true === true}
-                  closeModal={() => setModalVisible(false)}
-                  onDelete={() => {
-                    favoritesList.splice(i, 1);
-                    deleteFavoriteUser(user.key, authValues);
-                  }}
-                  sendMessage={sendMessage}
-                />
-                <View style={styles.userListItem}>
-                  <AppText
-                    style={styles.userListName}
-                  >{`${user.firstName} ${user.lastName}`}</AppText>
-                  <Image
-                    style={styles.userImage}
-                    source={{
-                      uri: user.avatar,
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
+                sendMessage={() => {
+                  setModalVisible(false);
+                  createConversation(user.key, authValues);
+                  navigation.navigate("Messages", { screen: "MESSAGES" });
+                }}
+              />
+              <AppText
+                style={styles.userListName}
+              >{`${user.firstName} ${user.lastName}`}</AppText>
+              <Image
+                style={styles.userImage}
+                source={{
+                  uri: user.avatar,
+                }}
+              />
+            </MenuItemTouchable>
           ))
           .reverse()}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-  userListContainer: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderColor: appColors.accentGray,
-    width: "100%",
-  },
-  userListItem: {
-    flexDirection: "row",
-    width: "100%",
+  listItem: {
     justifyContent: "space-between",
-    alignItems: "center",
+    paddingVertical: 4,
   },
   userListName: {
     fontSize: 20,
@@ -121,8 +93,6 @@ const styles = StyleSheet.create({
     minWidth: 44,
     minHeight: 44,
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: "black",
   },
 });
 

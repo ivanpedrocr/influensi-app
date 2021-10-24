@@ -12,7 +12,7 @@ import {
 } from "@env";
 
 // Initialize Firebase
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
   projectId: PROJECT_ID,
@@ -20,8 +20,3 @@ const firebaseConfig = {
   messagingSenderId: MESSAGING_SENDER_ID,
   appId: APP_ID,
 };
-export default () => {
-  firebase.initializeApp(firebaseConfig);
-};
-export const db = firebase.database();
-export const auth = firebase.auth();

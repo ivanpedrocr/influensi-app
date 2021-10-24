@@ -25,25 +25,20 @@ import { appColors } from "../styles/app-styles";
 import sendMessage from "../actions/send-message";
 import { useAuthContext } from "../auth/auth-context";
 import { useHeaderHeight } from "@react-navigation/elements";
-import { getDatabase, ref, onValue } from "@firebase/database";
+import { db } from "../config/firebase";
 
 const MessagesScreen = (props) => {
-  const listViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [authValues, authDispatch] = useAuthContext();
+  const headerHeight = useHeaderHeight();
+  const listViewRef = useRef();
+
   const sendNewMessage = async () => {
     await sendMessage(messageInput, authValues);
     setMessages((prev) => [...prev, messageInput]);
     setMessageInput("");
   };
-  const db = getDatabase();
-  const messagesRef = ref(db, "conversations/");
-  onValue(messagesRef, (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-  });
-  const headerHeight = useHeaderHeight();
   return (
     <AppScreen>
       <KeyboardAvoidingView

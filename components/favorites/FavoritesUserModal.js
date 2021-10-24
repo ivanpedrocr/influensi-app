@@ -29,7 +29,7 @@ const FavoritesUserModal = ({
           <AppText>Send Message</AppText>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.options}
+          style={{ ...styles.options, borderBottomWidth: 0 }}
           onPress={() => {
             props.onDelete();
             closeModal();
@@ -46,13 +46,13 @@ const styles = StyleSheet.create({
   options: {
     paddingVertical: 16,
     paddingHorizontal: 16,
-    borderColor: "#a6a6a6",
+    borderColor: appColors.accentGray,
     borderBottomWidth: 1,
     borderRadius: 12,
   },
   menu: {
     backgroundColor: "white",
-    borderRadius: 12,
+    borderRadius: 16,
   },
   modal: {},
 });

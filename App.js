@@ -1,7 +1,8 @@
 import React from "react";
-import AppLoading from "expo-app-loading";
 import UserNavigator from "./navigation/UserNavigator";
 import AuthProvider from "./auth/auth-context";
+import { firebaseConfig } from "./config/firebase";
+import firebase from "firebase";
 
 // const fetchFonts = () => {
 //   return Font.loadAsync({
@@ -21,6 +22,7 @@ export default function App() {
   //     />
   //   );
   // }
+  firebase.initializeApp(firebaseConfig);
   return (
     <AuthProvider>
       <UserNavigator />
