@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import UserProfile from "./user/UserProfile";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import UserNavigator from "./navigation/UserNavigator";
 import AuthProvider from "./auth/auth-context";
+import { firebaseConfig } from "./config/firebase";
+import firebase from "firebase";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -25,6 +26,9 @@ export default function App() {
   //     />
   //   );
   // }
+  if (firebase.apps.length === 0) {
+    firebase.initializeApp(firebaseConfig);
+  }
   return (
     <AuthProvider>
       <UserNavigator />

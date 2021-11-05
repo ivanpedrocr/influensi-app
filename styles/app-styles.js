@@ -19,4 +19,6 @@ export const appColors = {
   lightGray: "#f0f0f0",
   accentGray: "#bfbfbf",
   messageBlue: "#2a85f5",
+  red: "#C70039",
+  primary: "#A14BD2",
 };

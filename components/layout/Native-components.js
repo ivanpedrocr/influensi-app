@@ -91,6 +91,10 @@ export const AppIconButton = ({
   );
 };
 
+export const AppScreen = ({ children, style, ...props }) => {
+  return <View style={{ ...defaultStyles.screen, ...style }}>{children}</View>;
+};
+
 const defaultStyles = StyleSheet.create({
   button: {
     minWidth: 100,
@@ -113,5 +117,9 @@ const defaultStyles = StyleSheet.create({
     width: "100%",
     paddingVertical: 14,
     paddingHorizontal: 12,
+  },
+  screen: {
+    flex: 1,
+    backgroundColor: "white",
   },
 });

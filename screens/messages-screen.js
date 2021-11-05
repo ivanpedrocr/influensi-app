@@ -23,13 +23,14 @@ import { appColors } from "../styles/app-styles";
 import sendMessage from "../actions/send-message";
 import { useAuthContext } from "../auth/auth-context";
 
-const MessagesScreen = (props) => {
+const MessagesScreen = ({ route, navigation, ...props }) => {
   const listViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [authValues, authDispatch] = useAuthContext();
+  const { chatId } = route.params;
   const sendNewMessage = async () => {
-    await sendMessage(messageInput, authValues);
+    await sendMessage(messageInput, authValues, chatId);
     setMessages((prev) => [...prev, messageInput]);
     setMessageInput("");
   };

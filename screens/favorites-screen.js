@@ -3,6 +3,7 @@ import React from "react";
 import { View, StyleSheet, Image, ScrollView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useState } from "react/cjs/react.development";
+import createConversation from "../actions/create-conversation";
 // import createConversation from "../actions/create-conversation";
 import {
   deleteFavoriteUser,
@@ -58,9 +59,13 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                   favoritesList.splice(i, 1);
                   deleteFavoriteUser(user.key, authValues);
                 }}
-                sendMessage={() => {
+                sendMessage={async () => {
                   setModalVisible(false);
-                  navigation.navigate("Messages", { screen: "MESSAGES" });
+                  const chatId = await createConversation(user.key, authValues);
+                  navigation.navigate("Messages", {
+                    screen: "MESSAGES",
+                    params: { chatId },
+                  });
                 }}
               />
               <AppText

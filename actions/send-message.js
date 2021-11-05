@@ -1,18 +1,12 @@
-import { API_URL } from "@env";
-
-const sendMessage = async (message, { userId, token }) => {
+import firebase from "firebase";
+const sendMessage = async (message, { userId }, chatId) => {
   if (message) {
-    const response = await fetch(
-      `${API_URL}/users/${userId}/messages.json?auth=${token}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      }
-    );
-    const result = await response.json();
+    const db = firebase.database();
+    db.ref(`chatMessages/${chatId}`).push({
+      message,
+      timestamp: new Date().toISOString(),
+      sentBy: userId,
+    });
   }
 };
 
