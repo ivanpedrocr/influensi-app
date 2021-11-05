@@ -3,13 +3,10 @@ import firebase from "firebase";
 const createConversation = async (user1, { userId }) => {
   const db = firebase.database();
   const pushKey = db.ref("conversations").push().key;
-  let userUpdates = {};
-  userUpdates[`/users/${user1}/conversations`] = pushKey;
-  userUpdates[`/users/${userId}/conversations`] = pushKey;
-  await db.ref().update({
-    ["/conversations/" + pushKey + "/users"]: { user1, user2: userId },
-  });
-  await db.ref().update(userUpdates);
+  await db.ref(`/users/${user1}/conversations`).push(pushKey);
+  await db.ref(`/users/${userId}/conversations`).push(pushKey);
+  await db.ref(`/conversations/${pushKey}/users`).push(user1);
+  await db.ref(`/conversations/${pushKey}/users`).push(userId);
   return pushKey;
 };
 

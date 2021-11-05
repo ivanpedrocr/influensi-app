@@ -29,9 +29,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
         setIsLoading(true);
         const usersList = await fetchFavoriteUsersList(authValues);
         if (usersList.length !== 0) {
-          setFavoritesList(
-            Object.entries(usersList).map(([key, value]) => ({ key, ...value }))
-          );
+          setFavoritesList(Object.values(usersList));
         }
         setIsLoading(false);
       };
@@ -57,11 +55,11 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                 closeModal={() => setModalVisible(false)}
                 onDelete={() => {
                   favoritesList.splice(i, 1);
-                  deleteFavoriteUser(user.key, authValues);
+                  deleteFavoriteUser(user.id, authValues);
                 }}
                 sendMessage={async () => {
                   setModalVisible(false);
-                  const chatId = await createConversation(user.key, authValues);
+                  const chatId = await createConversation(user.id, authValues);
                   navigation.navigate("Messages", {
                     screen: "MESSAGES",
                     params: { chatId },
