@@ -17,12 +17,28 @@ const fetchConversations = async ({ userId }) => {
         })
       );
       const findUsers = await Promise.all(
-        users.map(async (chat) => {
-          const uid = Object.values(chat).find((user) => user !== userId);
-          return db
-            .ref(`users/${uid}`)
+        users.map(async (users, i) => {
+          const uid = Object.values(users).find((user) => user !== userId);
+          const userRef = db.ref(`users/${uid}`);
+          const firstName = userRef
+            .child("firstName")
             .once("value")
             .then((snapshot) => snapshot.val());
+          const lastName = userRef
+            .child("lastName")
+            .once("value")
+            .then((snapshot) => snapshot.val());
+          const avatar = userRef
+            .child("avatar")
+            .once("value")
+            .then((snapshot) => snapshot.val());
+          const user = await Promise.all([firstName, lastName, avatar]);
+          return {
+            firstName: user[0],
+            lastName: user[1],
+            avatar: user[2],
+            chatId: Object.values(userChats)[i],
+          };
         })
       );
       return findUsers;
@@ -30,7 +46,7 @@ const fetchConversations = async ({ userId }) => {
     const userList = await conversationsUsers();
     return userList;
   } else {
-    return [];
+    return [{ error: "No Conversations Found." }];
   }
 };
 
