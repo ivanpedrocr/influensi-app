@@ -1,12 +1,15 @@
 import firebase from "firebase";
 
-const fetchMessage = async (chatId) => {
+const fetchMessages = async (chatId) => {
   const db = firebase.database();
-  const chatRef = db.ref(`chatMessages/${chatId}`);
-  chatRef.on("value", (snapshot) => {
-    const data = snapshot.val();
-    console.log(data);
-  });
+  try {
+    const msgSnapshot = await db.ref(`chatMessages/${chatId}`).get();
+    if (msgSnapshot.val()) {
+      return Object.values(msgSnapshot.val());
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export default fetchMessage;
+export default fetchMessages;
