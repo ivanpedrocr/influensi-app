@@ -37,15 +37,19 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
     React.useCallback(() => {
       const getMessages = async () => {
         const messageList = await fetchMessages(chatId);
-        setMessages(messageList);
+        if (messageList) {
+          setMessages(messageList);
+        }
       };
       getMessages();
       db.ref(`conversations/${chatId}/lastMessage`).on("value", (snapshot) => {
-        if (
-          snapshot.val().message &&
-          snapshot.val().sentBy !== authValues.userId
-        ) {
-          updateMessages(snapshot.val());
+        if (snapshot.val()) {
+          if (
+            snapshot.val().message &&
+            snapshot.val().sentBy !== authValues.userId
+          ) {
+            updateMessages(snapshot.val());
+          }
         }
       });
       return () => {
