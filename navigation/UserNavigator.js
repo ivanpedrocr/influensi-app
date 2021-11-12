@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import UserConfigScreen from "../screens/user-config-screen";
 import UserMenuScreen from "../screens/user-menu-screen";
-import UserProfile from "../user/UserProfile";
 import FavoritesScreen from "../screens/favorites-screen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ExploreScreen from "../screens/explore-screen";
@@ -16,10 +15,9 @@ import MessagesScreen from "../screens/messages-screen";
 import Icon from "react-native-vector-icons/Ionicons";
 import SignUpScreen from "../screens/sign-up-screen";
 import { useAuthContext } from "../auth/auth-context";
-import { ActivityIndicator } from "react-native";
-import { appColors } from "../styles/app-styles";
 import SplashScreen from "../screens/splash-screen";
 import ConversationsScreen from "../screens/conversations-screen";
+import StartUpScreen from "../screens/startup-screen";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -28,6 +26,7 @@ const ExploreStack = createStackNavigator();
 const MessagesStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const SplashStack = createStackNavigator();
+const StartupStack = createStackNavigator();
 
 const SplashStackScreen = () => {
   return (
@@ -41,12 +40,16 @@ const SplashStackScreen = () => {
   );
 };
 
-const AuthStackScreen = () => {
+const StartupStackScreen = () => {
   return (
-    <AuthStack.Navigator>
-      <AuthStack.Screen name="SIGNIN" component={SignUpScreen} />
-    </AuthStack.Navigator>
+    <StartupStack.Navigator>
+      <StartupStack.Screen name="STARTUP" component={StartUpScreen} />
+    </StartupStack.Navigator>
   );
+};
+
+const AuthStackScreen = () => {
+  return <AuthStack.Navigator></AuthStack.Navigator>;
 };
 
 const MessagesStackScreen = () => {
@@ -143,7 +146,7 @@ const UserNavigator = () => {
       ) : loading ? (
         <SplashStackScreen />
       ) : (
-        <AuthStackScreen />
+        <StartupStackScreen />
       )}
     </NavigationContainer>
   );

@@ -10,26 +10,31 @@ import {
 } from "../components/layout/Native-components";
 import { appColors } from "../styles/app-styles";
 import UserSignUpModal from "../user/UserSignUp-modal";
+import firebase from "firebase";
 
 const SignUpScreen = ({ navigation, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [authState, authDispatch] = useAuthContext();
+  const auth = firebase.auth();
   const onSignUp = async (email, password) => {
     authDispatch({ type: "LOADING" });
-    const user = await signupUser(email, password);
+    await signupUser(email, password);
+    const token = await auth.currentUser.getIdToken();
+    console.log(auth.currentUser);
     authDispatch({
       type: "SIGNUP",
-      payload: { token: user.idToken, userId: user.localId },
+      payload: { token, userId: auth.currentUser.uid },
     });
   };
   const onSignIn = async () => {
     authDispatch({ type: "LOADING" });
-    const user = await signInUser(email, password);
+    await signInUser(email, password);
+    const token = await auth.currentUser.getIdToken();
     authDispatch({
       type: "SIGNIN",
-      payload: { token: user.idToken, userId: user.localId },
+      payload: { token, userId: auth.currentUser.uid },
     });
   };
   return (
