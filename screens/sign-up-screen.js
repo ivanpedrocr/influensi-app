@@ -22,7 +22,6 @@ const SignUpScreen = ({ navigation, ...props }) => {
     authDispatch({ type: "LOADING" });
     await signupUser(email, password);
     const token = await auth.currentUser.getIdToken();
-    console.log(auth.currentUser);
     authDispatch({
       type: "SIGNUP",
       payload: { token, userId: auth.currentUser.uid },
@@ -66,7 +65,6 @@ const SignUpScreen = ({ navigation, ...props }) => {
             title="Sign-Up"
             onPress={() => {
               setOpenModal(true);
-              console.log(authState);
             }}
             style={{ marginTop: 8 }}
           />

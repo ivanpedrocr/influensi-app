@@ -1,20 +1,11 @@
 import React, { useLayoutEffect, useReducer } from "react";
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Touchable,
-  View,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useState } from "react/cjs/react.development";
 import { AppIconButton } from "../components/layout/Native-components";
-import { StarRating } from "../components/layout/Star";
 import BusinessProfile from "../user/BusinessProfile";
 import UserProfile from "../user/UserProfile";
 import { UserReducer, userInitialState } from "../user/UserProfile-reducer";
-import Icon from "@expo/vector-icons/Ionicons";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import Ionicons from "../styles/icons";
 
 const UserProfileScreen = ({ navigation, ...props }) => {
   const [user, dispatch] = useReducer(UserReducer, userInitialState);
@@ -29,7 +20,7 @@ const UserProfileScreen = ({ navigation, ...props }) => {
               setType(type === "USER" ? "BUSINESS" : "USER");
             }}
           >
-            <Icon name="log-out-outline" size={28} />
+            <Ionicons name="log-out-outline" size={28} />
           </AppIconButton>
           <AppIconButton
             onPress={() => {
@@ -37,7 +28,7 @@ const UserProfileScreen = ({ navigation, ...props }) => {
             }}
             style={{ marginRight: 8 }}
           >
-            <Icon size={28} name="settings-outline" color="black" />
+            <Ionicons size={28} name="settings-outline" color="black" />
           </AppIconButton>
         </View>
       ),

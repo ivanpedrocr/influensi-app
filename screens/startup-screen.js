@@ -9,7 +9,7 @@ const StartUpScreen = ({ navigation, ...props }) => {
   const [authValues, authDispatch] = useAuthContext();
   const auth = firebase.auth();
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const getToken = async () => {
           const token = await user.getIdToken();
@@ -23,6 +23,9 @@ const StartUpScreen = ({ navigation, ...props }) => {
         setSignedIn(false);
       }
     });
+    return () => {
+      unsubscribe();
+    };
   }, []);
   return signedIn === false ? (
     <SignUpScreen navigation={navigation} />

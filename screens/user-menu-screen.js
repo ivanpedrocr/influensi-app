@@ -1,4 +1,5 @@
-import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useLayoutEffect } from "react";
 import {
   Text,
   View,
@@ -9,9 +10,15 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import AppText from "../components/layout/AppText";
 import MenuItemTouchable from "../components/layout/MenuItemTouchable";
-import { AppButton } from "../components/layout/Native-components";
+import {
+  AppButton,
+  AppIconButton,
+} from "../components/layout/Native-components";
+import firebase from "firebase";
+import { useAuthContext } from "../auth/auth-context";
 
 const UserMenuScreen = ({ navigation, ...props }) => {
+  const [authValues, authDispatch] = useAuthContext();
   const menus = [
     { title: "Account", route: "USER_CONFIG" },
     { title: "Languages", route: "LANGUAGES_SETTINGS" },
@@ -19,6 +26,27 @@ const UserMenuScreen = ({ navigation, ...props }) => {
     { title: "Terms & Conditions", route: "TERMS_AND_CONDITIONS" },
     { title: "Notifications", route: "NOTIFICATIONS" },
   ];
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <View>
+            <AppIconButton
+              onPress={() => {
+                const signOut = async () => {
+                  await firebase.auth().signOut();
+                  authDispatch({ type: "LOGOUT" });
+                };
+                signOut();
+              }}
+            >
+              <Ionicons name="log-out-outline" color="black" size={28} />
+            </AppIconButton>
+          </View>
+        );
+      },
+    });
+  });
   return (
     <ScrollView>
       <View style={styles.screen}>

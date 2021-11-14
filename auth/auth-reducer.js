@@ -12,6 +12,8 @@ const AuthReducer = (state, { type, payload }) => {
       return { token: payload.token, userId: payload.userId, loading: false };
     case "LOADING":
       return { ...state, loading: true };
+    case "LOGOUT":
+      return { token: null, userId: null, loading: false };
   }
 };
 
