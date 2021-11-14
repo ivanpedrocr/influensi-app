@@ -1,3 +1,4 @@
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
 import { View } from "react-native";
 import { AppTextInput } from "./layout/Native-components";
@@ -14,6 +15,17 @@ const BasicForm = ({ formMap, onChange, values, ...props }) => {
                 value={values[field.name]}
                 onChangeText={(text) => {
                   onChange({ [field.name]: text });
+                }}
+                {...field}
+              />
+            );
+          case "date-picker":
+            return (
+              <RNDateTimePicker
+                key={i}
+                value={values[field.name]}
+                onChange={(e, date) => {
+                  onChange({ [field.name]: date });
                 }}
                 {...field}
               />

@@ -11,6 +11,7 @@ import SignUpReducer, {
 } from "../components/signUp/SignUp-reducer";
 import BasicForm from "../components/BasicForm";
 import { signUpForm } from "../components/signUp/SignUp-form";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
   const [email, setEmail] = useState("");
@@ -20,8 +21,9 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     signUpInitialState
   );
   const handleInput = (payload) => {
+    console.log(userForm);
     dispatchUserForm({
-      type: "TEXT_INPUT",
+      type: "UPDATE_FORM_VALUES",
       payload,
     });
   };
@@ -53,7 +55,7 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
           />
           <AppButton
             title="Sign-Up"
-            onPress={() => onSignUp(email, password)}
+            onPress={() => onSignUp(userForm.formValues)}
             style={{ marginTop: 8 }}
           />
           <AppButton
@@ -65,6 +67,12 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
             }}
             onPress={onClose}
           />
+          {/* <RNDateTimePicker
+            onChange={(e, date) => {
+              console.log({ e, date });
+            }}
+            value={userForm.formValues.age}
+          /> */}
         </View>
       </View>
     </Modal>

@@ -1,11 +1,14 @@
 export const signUpInitialState = {
-  formValues: {},
+  formValues: { age: new Date() },
 };
 
 const SignUpReducer = (state, action) => {
   switch (action.type) {
-    case "TEXT_INPUT":
-      return { ...state, ...action.payload };
+    case "UPDATE_FORM_VALUES":
+      return {
+        ...state,
+        formValues: { ...state.formValues, ...action.payload },
+      };
   }
 };
 
