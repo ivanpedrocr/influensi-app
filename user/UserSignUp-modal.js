@@ -1,18 +1,30 @@
-import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
-import signupUser from "../actions/signup-user";
+import React, { useReducer, useState } from "react";
+import { View, StyleSheet } from "react-native";
 import {
   AppTextInput,
   AppButton,
-  AppIconButton,
 } from "../components/layout/Native-components";
-import { Ionicons } from "@expo/vector-icons";
 import { appColors } from "../styles/app-styles";
 import Modal from "react-native-modal";
+import SignUpReducer, {
+  signUpInitialState,
+} from "../components/signUp/SignUp-reducer";
+import BasicForm from "../components/BasicForm";
+import { signUpForm } from "../components/signUp/SignUp-form";
 
 const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userForm, dispatchUserForm] = useReducer(
+    SignUpReducer,
+    signUpInitialState
+  );
+  const handleInput = (payload) => {
+    dispatchUserForm({
+      type: "TEXT_INPUT",
+      payload,
+    });
+  };
   return (
     <Modal
       isVisible={isVisible}
@@ -22,7 +34,7 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     >
       <View style={styles.modal}>
         <View style={{ width: "100%" }} contentContainerStyle={styles.card}>
-          <AppTextInput
+          {/* <AppTextInput
             placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
@@ -33,6 +45,11 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
             secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
             style={{ marginTop: 8 }}
+          /> */}
+          <BasicForm
+            formMap={signUpForm}
+            values={userForm.formValues}
+            onChange={handleInput}
           />
           <AppButton
             title="Sign-Up"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SplashScreen from "./splash-screen";
 import { useAuthContext } from "../auth/auth-context";
-import SignUpScreen from "./sign-up-screen";
+import AuthScreen from "./sign-up-screen";
 import firebase from "firebase";
 
 const StartUpScreen = ({ navigation, ...props }) => {
@@ -28,7 +28,7 @@ const StartUpScreen = ({ navigation, ...props }) => {
     };
   }, []);
   return signedIn === false ? (
-    <SignUpScreen navigation={navigation} />
+    <AuthScreen navigation={navigation} />
   ) : (
     <SplashScreen />
   );

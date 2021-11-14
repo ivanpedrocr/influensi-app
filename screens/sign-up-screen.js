@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useState } from "react/cjs/react.development";
 import { signInUser } from "../actions/signin-user";
@@ -11,8 +11,11 @@ import {
 import { appColors } from "../styles/app-styles";
 import UserSignUpModal from "../user/UserSignUp-modal";
 import firebase from "firebase";
+import SignUpReducer, {
+  signUpInitialState,
+} from "../components/signUp/SignUp-reducer";
 
-const SignUpScreen = ({ navigation, ...props }) => {
+const AuthScreen = ({ navigation, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openModal, setOpenModal] = useState(false);
@@ -20,7 +23,7 @@ const SignUpScreen = ({ navigation, ...props }) => {
   const auth = firebase.auth();
   const onSignUp = async (email, password) => {
     authDispatch({ type: "LOADING" });
-    await signupUser(email, password);
+    await signupUser(email, password, user);
     const token = await auth.currentUser.getIdToken();
     authDispatch({
       type: "SIGNUP",
@@ -91,4 +94,4 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
-export default SignUpScreen;
+export default AuthScreen;

@@ -13,7 +13,6 @@ import UserProfileScreen from "../screens/user-profile-screen";
 import NotificationsScreen from "../screens/notifications-screen";
 import MessagesScreen from "../screens/messages-screen";
 import Icon from "react-native-vector-icons/Ionicons";
-import SignUpScreen from "../screens/sign-up-screen";
 import { useAuthContext } from "../auth/auth-context";
 import SplashScreen from "../screens/splash-screen";
 import ConversationsScreen from "../screens/conversations-screen";
@@ -24,7 +23,6 @@ const MenuStack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const ExploreStack = createStackNavigator();
 const MessagesStack = createStackNavigator();
-const AuthStack = createStackNavigator();
 const SplashStack = createStackNavigator();
 const StartupStack = createStackNavigator();
 
@@ -42,14 +40,10 @@ const SplashStackScreen = () => {
 
 const StartupStackScreen = () => {
   return (
-    <StartupStack.Navigator>
+    <StartupStack.Navigator screenOptions={{ headerShown: false }}>
       <StartupStack.Screen name="STARTUP" component={StartUpScreen} />
     </StartupStack.Navigator>
   );
-};
-
-const AuthStackScreen = () => {
-  return <AuthStack.Navigator></AuthStack.Navigator>;
 };
 
 const MessagesStackScreen = () => {
