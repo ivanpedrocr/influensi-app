@@ -40,18 +40,23 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
         if (messageList) {
           setMessages(messageList);
         }
+        db.ref(`conversations/${chatId}/lastMessage`).on(
+          "value",
+          (snapshot) => {
+            if (snapshot.val()) {
+              if (
+                snapshot.val().message &&
+                snapshot.val().sentBy !== authValues.userId &&
+                snapshot.val().timestamp !==
+                  messageList[messageList.length - 1]?.timestamp
+              ) {
+                updateMessages(snapshot.val());
+              }
+            }
+          }
+        );
       };
       getMessages();
-      db.ref(`conversations/${chatId}/lastMessage`).on("value", (snapshot) => {
-        if (snapshot.val()) {
-          if (
-            snapshot.val().message &&
-            snapshot.val().sentBy !== authValues.userId
-          ) {
-            updateMessages(snapshot.val());
-          }
-        }
-      });
       return () => {
         db.ref(`conversations/${chatId}/lastMessage`).off();
       };
@@ -71,8 +76,24 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
         data={messages}
         renderItem={({ item }, i) => {
           return (
-            <View style={styles.message}>
-              <AppText style={{ color: "white" }}>{item.message}</AppText>
+            <View
+              style={{
+                ...styles.message,
+                backgroundColor:
+                  item.sentBy === authValues.userId
+                    ? appColors.messageBlue
+                    : appColors.lightGray,
+                alignSelf:
+                  item.sentBy === authValues.userId ? "flex-end" : "flex-start",
+              }}
+            >
+              <AppText
+                style={{
+                  color: item.sentBy === authValues.userId ? "white" : "black",
+                }}
+              >
+                {item.message}
+              </AppText>
             </View>
           );
         }}
@@ -116,17 +137,14 @@ const styles = StyleSheet.create({
   },
   message: {
     display: "flex",
-    maxWidth: "50%",
+    maxWidth: "60%",
     marginHorizontal: 8,
     marginBottom: 10,
-    backgroundColor: appColors.messageBlue,
     padding: 12,
     borderRadius: 20,
-    width: "auto",
   },
   messagesList: {
     justifyContent: "space-around",
-    alignItems: "flex-end",
   },
 });
 

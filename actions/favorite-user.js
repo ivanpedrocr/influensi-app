@@ -2,10 +2,11 @@ import { API_URL } from "@env";
 import firebase from "firebase";
 
 export const favoriteUser = async (user, { userId }) => {
+  console.log(user);
   const db = firebase.database();
-  const uid = db.ref(`users`).push().key;
-  await db.ref(`users/${uid}`).update({ id: uid, ...user });
-  await db.ref(`users/${userId}/favorites`).push({ id: uid, ...user });
+  // const uid = db.ref(`users`).push().key;
+  // await db.ref(`users/${uid}`).update({ id: uid, ...user });
+  await db.ref(`users/${userId}/favorites`).push(user);
 };
 
 export const fetchFavoriteUsersList = async ({ token, userId }) => {

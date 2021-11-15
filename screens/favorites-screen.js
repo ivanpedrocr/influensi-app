@@ -68,7 +68,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
               />
               <AppText
                 style={styles.userListName}
-              >{`${user.firstName} ${user.lastName}`}</AppText>
+              >{`${user.first_name} ${user.last_name}`}</AppText>
               <Image
                 style={styles.userImage}
                 source={{

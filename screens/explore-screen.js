@@ -17,16 +17,19 @@ import { Ionicons } from "@expo/vector-icons";
 import { favoriteUser } from "../actions/favorite-user";
 import DeckSwipeAnimate from "../components/layout/DeckSwipeAnimate";
 import { useAuthContext } from "../auth/auth-context";
+import { useFocusEffect } from "@react-navigation/native";
+import fetchExploreUserList from "../actions/fetch-explore-user-list";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [accountType, setAccountType] = useState("USER");
+  const [userList, setUserList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showReview, setShowReview] = useState(true);
   const [authValues, authDispatch] = useAuthContext();
 
   const onSwipeRight = () => {
-    favoriteUser(dummyList[currentIndex], authValues);
+    favoriteUser(userList[currentIndex], authValues);
     setCurrentIndex(currentIndex + 1);
   };
   const onSwipeLeft = () => {
@@ -35,6 +38,19 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const dummyList = useMemo(
     () => (accountType === "USER" ? UserList : BusinessList),
     [accountType]
+  );
+  useFocusEffect(
+    React.useCallback(() => {
+      const getUserList = async () => {
+        const users = await fetchExploreUserList();
+        setUserList(
+          Object.entries(users)
+            .filter(([key, value]) => key !== authValues.userId)
+            .map(([key, value]) => ({ id: key, ...value }))
+        );
+      };
+      getUserList();
+    }, [])
   );
 
   useLayoutEffect(() => {
@@ -53,7 +69,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
   }, [navigation, accountType]);
   return (
     <View style={styles.screen}>
-      {dummyList
+      {userList
         .map((user, i) => {
           if (i < currentIndex) {
             return null;

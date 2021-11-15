@@ -14,27 +14,31 @@ const UserCard = ({ user, ...props }) => {
           <View>
             <AppText
               style={{ fontSize: 24 }}
-            >{`${user.firstName} ${user.lastName}`}</AppText>
+            >{`${user.first_name} ${user.last_name}`}</AppText>
             <AppText style={styles.username}>{user.username}</AppText>
             <AppText>{user.age}</AppText>
-            <AppText style={{ fontWeight: "bold" }}>{user.followers}k</AppText>
-            <AppText style={{ color: "green" }}>+{user.averageReturn}%</AppText>
-            <StarRating rating={user.rating} />
+            <AppText style={{ fontWeight: "bold" }}>{user?.followers}k</AppText>
+            <AppText style={{ color: "green" }}>
+              +{user?.averageReturn}%
+            </AppText>
+            <StarRating rating={user?.rating} />
           </View>
         </View>
-        <Image
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100,
-            borderWidth: 2,
-          }}
-          source={{
-            uri: user.avatar,
-          }}
-        />
+        {user?.avatar && (
+          <Image
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 100,
+              borderWidth: 2,
+            }}
+            source={{
+              uri: user?.avatar,
+            }}
+          />
+        )}
         <View style={styles.descriptionContainer}>
-          <AppText>{user.description}</AppText>
+          <AppText>{user?.description}</AppText>
         </View>
       </View>
       {

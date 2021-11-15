@@ -13,13 +13,16 @@ import SplashScreen from "./splash-screen";
 const ConversationsScreen = ({ navigation, ...props }) => {
   const [conversations, setConversations] = useState([]);
   const [authValues, authDispatch] = useAuthContext();
-  useFocusEffect(() => {
-    const getConversations = async () => {
-      const conversationUsersList = await fetchConversations(authValues);
-      setConversations(conversationUsersList);
-    };
-    getConversations();
-  });
+  useFocusEffect(
+    React.useCallback(() => {
+      const getConversations = async () => {
+        const conversationUsersList = await fetchConversations(authValues);
+        console.log(conversationUsersList);
+        setConversations(conversationUsersList);
+      };
+      getConversations();
+    }, [])
+  );
   return !conversations ? (
     <SplashScreen />
   ) : (
@@ -50,7 +53,7 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                   }}
                 >
                   <AppText style={{ fontSize: 20 }}>
-                    {c.firstName} {c.lastName}
+                    {c.first_name} {c.last_name}
                   </AppText>
                   <Image
                     style={styles.userImage}
