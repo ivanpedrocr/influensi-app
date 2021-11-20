@@ -7,8 +7,12 @@ const sendMessage = async (message, timestamp, { userId }, chatId) => {
   };
   if (message) {
     const db = firebase.database();
-    db.ref(`chatMessages/${chatId}`).push(msg);
-    db.ref(`conversations/${chatId}/lastMessage`).set(msg);
+    try {
+      db.ref(`chatMessages/${chatId}`).push(msg);
+      db.ref(`conversations/${chatId}/lastMessage`).set(msg);
+    } catch (e) {
+      console.log(e);
+    }
   }
 };
 
