@@ -1,10 +1,9 @@
-import { API_URL } from "@env";
 import firebase from "firebase";
 
 export const favoriteUser = async (user, { userId }) => {
   const db = firebase.database();
   try {
-    await db.ref(`users/${userId}/favorites`).push(user.id);
+    await db.ref(`users/${userId}/favorites/${user.id}`).set(user.id);
   } catch (e) {
     console.log(e);
   }
@@ -17,17 +16,18 @@ export const fetchFavoriteUsersList = async ({ token, userId }) => {
       .ref(`users/${userId}/favorites`)
       .get()
       .then((snapshot) => snapshot.val());
-    const favorites = Object.values(favoritesList);
-    const users = await Promise.all(
-      favorites.map(async (userId) => {
-        return db
-          .ref(`users/${userId}`)
-          .get()
-          .then((snapshot) => snapshot.val());
-      })
-    );
-    console.log(users);
-    return users;
+    if (favoritesList) {
+      const favorites = Object.values(favoritesList);
+      const users = await Promise.all(
+        favorites.map(async (userId) => {
+          return db
+            .ref(`users/${userId}`)
+            .get()
+            .then((snapshot) => snapshot.val());
+        })
+      );
+      return users;
+    }
   } catch (e) {
     console.log(e);
   }

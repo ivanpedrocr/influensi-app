@@ -17,15 +17,17 @@ const ConversationsScreen = ({ navigation, ...props }) => {
   useFocusEffect(
     React.useCallback(() => {
       const getConversations = async () => {
+        setLoading(true);
         const conversationUsersList = await fetchConversations(authValues);
         if (conversationUsersList) {
           setConversations(conversationUsersList);
         }
+        setLoading(false);
       };
       getConversations();
     }, [])
   );
-  return loading ? (
+  return loading && conversations.length === 0 ? (
     <SplashScreen />
   ) : (
     <AppScreen>

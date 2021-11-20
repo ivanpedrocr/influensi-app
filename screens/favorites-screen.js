@@ -26,56 +26,65 @@ const FavoritesScreen = ({ navigation, ...props }) => {
   useFocusEffect(
     React.useCallback(() => {
       const getFavoritesList = async () => {
+        setIsLoading(true);
         const usersList = await fetchFavoriteUsersList(authValues);
-        if (usersList.length !== 0) {
+        if (usersList && usersList.length !== 0) {
           setFavoritesList(Object.values(usersList));
         }
+        setIsLoading(false);
       };
       getFavoritesList();
     }, [])
   );
 
-  if (isLoading) {
+  if (isLoading && favoritesList.length === 0) {
     return <SplashScreen />;
   }
   return (
     <AppScreen>
       <ScrollView>
-        {favoritesList
-          .map((user, i) => (
-            <MenuItemTouchable
-              key={i}
-              onPress={() => setModalVisible({ i, true: true })}
-              style={styles.listItem}
-            >
-              <FavoritesUserModal
-                isVisible={modalVisible.i === i && modalVisible.true === true}
-                closeModal={() => setModalVisible(false)}
-                onDelete={() => {
-                  favoritesList.splice(i, 1);
-                  deleteFavoriteUser(user.id, authValues);
-                }}
-                sendMessage={async () => {
-                  setModalVisible(false);
-                  const chatId = await createConversation(user.id, authValues);
-                  navigation.navigate("Messages", {
-                    screen: "MESSAGES",
-                    params: { chatId },
-                  });
-                }}
-              />
-              <AppText
-                style={styles.userListName}
-              >{`${user.first_name} ${user.last_name}`}</AppText>
-              <Image
-                style={styles.userImage}
-                source={{
-                  uri: user.avatar,
-                }}
-              />
-            </MenuItemTouchable>
-          ))
-          .reverse()}
+        {favoritesList.length === 0 ? (
+          <AppText style={{ alignSelf: "center" }}>No Favorites Found.</AppText>
+        ) : (
+          favoritesList
+            .map((user, i) => (
+              <MenuItemTouchable
+                key={i}
+                onPress={() => setModalVisible({ i, true: true })}
+                style={styles.listItem}
+              >
+                <FavoritesUserModal
+                  isVisible={modalVisible.i === i && modalVisible.true === true}
+                  closeModal={() => setModalVisible(false)}
+                  onDelete={() => {
+                    favoritesList.splice(i, 1);
+                    deleteFavoriteUser(user.id, authValues);
+                  }}
+                  sendMessage={async () => {
+                    setModalVisible(false);
+                    const chatId = await createConversation(
+                      user.id,
+                      authValues
+                    );
+                    navigation.navigate("Messages", {
+                      screen: "MESSAGES",
+                      params: { chatId },
+                    });
+                  }}
+                />
+                <AppText
+                  style={styles.userListName}
+                >{`${user.first_name} ${user.last_name}`}</AppText>
+                <Image
+                  style={styles.userImage}
+                  source={{
+                    uri: user.avatar,
+                  }}
+                />
+              </MenuItemTouchable>
+            ))
+            .reverse()
+        )}
       </ScrollView>
     </AppScreen>
   );

@@ -66,12 +66,6 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
             }}
             onPress={onClose}
           />
-          {/* <RNDateTimePicker
-            onChange={(e, date) => {
-              console.log({ e, date });
-            }}
-            value={userForm.formValues.age}
-          /> */}
         </View>
       </View>
     </Modal>
