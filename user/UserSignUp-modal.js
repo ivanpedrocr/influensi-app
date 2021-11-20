@@ -21,7 +21,6 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     signUpInitialState
   );
   const handleInput = (payload) => {
-    console.log(userForm);
     dispatchUserForm({
       type: "UPDATE_FORM_VALUES",
       payload,

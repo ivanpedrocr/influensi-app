@@ -120,6 +120,7 @@ const UserNavigator = () => {
             name="Messages"
             component={MessagesStackScreen}
             options={{
+              lazy: true,
               tabBarIcon: () => {
                 return (
                   <Icon name="chatbubble-outline" size={24} color="black" />

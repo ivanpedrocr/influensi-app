@@ -19,6 +19,7 @@ import DeckSwipeAnimate from "../components/layout/DeckSwipeAnimate";
 import { useAuthContext } from "../auth/auth-context";
 import { useFocusEffect } from "@react-navigation/native";
 import fetchExploreUserList from "../actions/fetch-explore-user-list";
+import { getAge } from "../utils/getBirthDate";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -35,10 +36,10 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const onSwipeLeft = () => {
     setCurrentIndex(currentIndex + 1);
   };
-  const dummyList = useMemo(
-    () => (accountType === "USER" ? UserList : BusinessList),
-    [accountType]
-  );
+  // const dummyList = useMemo(
+  //   () => (accountType === "USER" ? UserList : BusinessList),
+  //   [accountType]
+  // );
   useFocusEffect(
     React.useCallback(() => {
       const getUserList = async () => {
@@ -46,7 +47,11 @@ const ExploreScreen = ({ navigation, ...props }) => {
         setUserList(
           Object.entries(users)
             .filter(([key, value]) => key !== authValues.userId)
-            .map(([key, value]) => ({ id: key, ...value }))
+            .map(([key, value]) => ({
+              ...value,
+              id: key,
+              age: getAge(value.age),
+            }))
         );
       };
       getUserList();

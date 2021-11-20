@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, KeyboardAvoidingView } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
@@ -12,6 +12,8 @@ import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
 import sendMessage from "../actions/send-message";
 
+import { useHeaderHeight } from "@react-navigation/elements";
+
 import fetchMessages from "../actions/fetch-message";
 
 const MessagesScreen = ({ route, navigation, ...props }) => {
@@ -21,17 +23,20 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
   const [authValues, authDispatch] = useAuthContext();
   const { chatId } = route.params;
   const db = firebase.database();
+  const headerHeight = useHeaderHeight();
 
   const updateMessages = (message) => setMessages((prev) => [...prev, message]);
   const sendNewMessage = async () => {
     const timestamp = new Date().toISOString();
-    await sendMessage(messageInput, timestamp, authValues, chatId);
-    updateMessages({
-      message: messageInput,
-      timestamp,
-      sentBy: authValues.userId,
-    });
-    setMessageInput("");
+    if (messageInput.trim()) {
+      await sendMessage(messageInput, timestamp, authValues, chatId);
+      updateMessages({
+        message: messageInput,
+        timestamp,
+        sentBy: authValues.userId,
+      });
+      setMessageInput("");
+    }
   };
   useFocusEffect(
     React.useCallback(() => {
@@ -48,7 +53,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
                 snapshot.val().message &&
                 snapshot.val().sentBy !== authValues.userId &&
                 snapshot.val().timestamp !==
-                  messageList[messageList.length - 1]?.timestamp
+                  messageList?.[messageList?.length - 1]?.timestamp
               ) {
                 updateMessages(snapshot.val());
               }
@@ -65,56 +70,65 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
 
   return (
     <View style={styles.screen}>
-      <FlatList
-        contentContainerStyle={styles.messagesList}
-        nestedScrollEnabled
-        ref={listViewRef}
-        onContentSizeChange={() => {
-          listViewRef.current.scrollToEnd();
-        }}
-        keyExtractor={(msg) => msg.timestamp}
-        data={messages}
-        renderItem={({ item }, i) => {
-          return (
-            <View
-              style={{
-                ...styles.message,
-                backgroundColor:
-                  item.sentBy === authValues.userId
-                    ? appColors.messageBlue
-                    : appColors.lightGray,
-                alignSelf:
-                  item.sentBy === authValues.userId ? "flex-end" : "flex-start",
-              }}
-            >
-              <AppText
+      <KeyboardAvoidingView
+        behavior="padding"
+        keyboardVerticalOffset={headerHeight}
+        style={styles.screen}
+      >
+        <FlatList
+          contentContainerStyle={styles.messagesList}
+          nestedScrollEnabled
+          ref={listViewRef}
+          onContentSizeChange={() => {
+            listViewRef.current.scrollToEnd();
+          }}
+          keyExtractor={(msg) => msg.timestamp}
+          data={messages}
+          renderItem={({ item }, i) => {
+            return (
+              <View
                 style={{
-                  color: item.sentBy === authValues.userId ? "white" : "black",
+                  ...styles.message,
+                  backgroundColor:
+                    item.sentBy === authValues.userId
+                      ? appColors.messageBlue
+                      : appColors.lightGray,
+                  alignSelf:
+                    item.sentBy === authValues.userId
+                      ? "flex-end"
+                      : "flex-start",
                 }}
               >
-                {item.message}
-              </AppText>
-            </View>
-          );
-        }}
-      ></FlatList>
-      <View style={styles.textInputContainer}>
-        <AppTextInput
-          autoFocus={true}
-          placeholder="type your message here..."
-          value={messageInput}
-          onChangeText={(text) => {
-            setMessageInput(text);
+                <AppText
+                  style={{
+                    color:
+                      item.sentBy === authValues.userId ? "white" : "black",
+                  }}
+                >
+                  {item.message}
+                </AppText>
+              </View>
+            );
           }}
-        />
-        <TouchableOpacity
-          onPress={sendNewMessage}
-          style={{ marginLeft: 4 }}
-          activeOpacity={0.19}
-        >
-          <Ionicons name="arrow-forward-circle-outline" size={32} />
-        </TouchableOpacity>
-      </View>
+        ></FlatList>
+        <View style={styles.textInputContainer}>
+          <AppTextInput
+            autoFocus={true}
+            placeholder="type your message here..."
+            value={messageInput}
+            onChangeText={(text) => {
+              setMessageInput(text);
+            }}
+          />
+          <TouchableOpacity
+            onPress={sendNewMessage}
+            style={{ marginLeft: 4 }}
+            activeOpacity={0.19}
+          >
+            <Ionicons name="arrow-forward-circle-outline" size={32} />
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -127,11 +141,9 @@ const styles = StyleSheet.create({
   textInputContainer: {
     alignItems: "center",
     marginTop: "auto",
-    borderTopColor: appColors.accentGray,
-    borderTopWidth: 2,
-    paddingTop: 16,
+    paddingTop: 8,
     paddingHorizontal: 24,
-    paddingBottom: 24,
+    paddingBottom: 8,
     flexDirection: "row",
     justifyContent: "center",
   },

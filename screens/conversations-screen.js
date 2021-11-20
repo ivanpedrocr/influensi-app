@@ -17,7 +17,6 @@ const ConversationsScreen = ({ navigation, ...props }) => {
     React.useCallback(() => {
       const getConversations = async () => {
         const conversationUsersList = await fetchConversations(authValues);
-        console.log(conversationUsersList);
         setConversations(conversationUsersList);
       };
       getConversations();

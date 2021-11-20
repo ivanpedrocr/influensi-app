@@ -16,28 +16,26 @@ const fetchConversations = async ({ userId }) => {
             .then((snapshot) => snapshot.val());
         })
       );
-      console.log(users);
       const findUsers = await Promise.all(
         users.map(async (users, i) => {
           const uid = Object.values(users).find((user) => user !== userId);
           const userRef = db.ref(`users/${uid}`);
-          const firstName = userRef
+          const first_name = await userRef
             .child("first_name")
             .once("value")
             .then((snapshot) => snapshot.val());
-          const lastName = userRef
+          const last_name = await userRef
             .child("last_name")
             .once("value")
             .then((snapshot) => snapshot.val());
-          const avatar = userRef
+          const avatar = await userRef
             .child("avatar")
             .once("value")
             .then((snapshot) => snapshot.val());
-          const user = await Promise.all([firstName, lastName, avatar]);
           return {
-            first_name: user[0],
-            last_name: user[1],
-            avatar: user[2],
+            first_name,
+            last_name,
+            avatar,
             chatId: Object.values(userChats)[i],
           };
         })
