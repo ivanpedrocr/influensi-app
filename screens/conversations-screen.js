@@ -11,59 +11,56 @@ import { appColors } from "../styles/app-styles";
 import SplashScreen from "./splash-screen";
 
 const ConversationsScreen = ({ navigation, ...props }) => {
+  const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [authValues, authDispatch] = useAuthContext();
   useFocusEffect(
     React.useCallback(() => {
       const getConversations = async () => {
         const conversationUsersList = await fetchConversations(authValues);
-        setConversations(conversationUsersList);
+        if (conversationUsersList) {
+          setConversations(conversationUsersList);
+        }
       };
       getConversations();
     }, [])
   );
-  return !conversations ? (
+  return loading ? (
     <SplashScreen />
   ) : (
     <AppScreen>
       <ScrollView>
         <View>
-          {conversations
-            .map((c, i) => {
-              if (c.error) {
+          {conversations.length === 0 ? (
+            <AppText>No Chats Found</AppText>
+          ) : (
+            conversations
+              .map((c, i) => {
                 return (
-                  <AppText
-                    style={{ fontSize: 20, alignSelf: "center" }}
+                  <MenuItemTouchable
+                    style={styles.listItem}
                     key={i}
-                  >
-                    {c.error}
-                  </AppText>
-                );
-              }
-              return (
-                <MenuItemTouchable
-                  style={styles.listItem}
-                  key={i}
-                  onPress={() => {
-                    navigation.navigate("Messages", {
-                      screen: "MESSAGES",
-                      params: { chatId: c.chatId },
-                    });
-                  }}
-                >
-                  <AppText style={{ fontSize: 20 }}>
-                    {c.first_name} {c.last_name}
-                  </AppText>
-                  <Image
-                    style={styles.userImage}
-                    source={{
-                      uri: c.avatar,
+                    onPress={() => {
+                      navigation.navigate("Messages", {
+                        screen: "MESSAGES",
+                        params: { chatId: c.chatId },
+                      });
                     }}
-                  />
-                </MenuItemTouchable>
-              );
-            })
-            .reverse()}
+                  >
+                    <AppText style={{ fontSize: 20 }}>
+                      {c.first_name} {c.last_name}
+                    </AppText>
+                    <Image
+                      style={styles.userImage}
+                      source={{
+                        uri: c.avatar,
+                      }}
+                    />
+                  </MenuItemTouchable>
+                );
+              })
+              .reverse()
+          )}
         </View>
       </ScrollView>
     </AppScreen>

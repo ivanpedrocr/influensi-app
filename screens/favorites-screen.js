@@ -26,15 +26,13 @@ const FavoritesScreen = ({ navigation, ...props }) => {
   useFocusEffect(
     React.useCallback(() => {
       const getFavoritesList = async () => {
-        setIsLoading(true);
         const usersList = await fetchFavoriteUsersList(authValues);
         if (usersList.length !== 0) {
           setFavoritesList(Object.values(usersList));
         }
-        setIsLoading(false);
       };
       getFavoritesList();
-    }, [deleteFavoriteUser])
+    }, [])
   );
 
   if (isLoading) {

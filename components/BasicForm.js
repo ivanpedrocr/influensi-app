@@ -12,7 +12,7 @@ const BasicForm = ({ formMap, onChange, values, ...props }) => {
             return (
               <AppTextInput
                 key={i}
-                value={values[field.name]}
+                value={values[field.name] ?? ""}
                 onChangeText={(text) => {
                   onChange({ [field.name]: text });
                 }}

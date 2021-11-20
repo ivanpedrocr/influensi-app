@@ -1,16 +1,9 @@
 import React, { useLayoutEffect, useMemo, useReducer, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  PanResponder,
-  Animated,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import UserCard from "../user/UserCard";
-import { BusinessList, UserList } from "../dummy-data/UserList-dummy";
 import {
-  AppButton,
   AppIconButton,
+  AppScreen,
 } from "../components/layout/Native-components";
 import BusinessCard from "../user/BusinessCard";
 import { Ionicons } from "@expo/vector-icons";
@@ -73,7 +66,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
     });
   }, [navigation, accountType]);
   return (
-    <View style={styles.screen}>
+    <AppScreen style={{ alignItems: "center" }}>
       {userList
         .map((user, i) => {
           if (i < currentIndex) {
@@ -122,7 +115,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
           }
         })
         .reverse()}
-    </View>
+    </AppScreen>
   );
 };
 
