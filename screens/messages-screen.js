@@ -15,12 +15,14 @@ import sendMessage from "../actions/send-message";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 import fetchMessages from "../actions/fetch-message";
+import { findLastIndex } from "../utils/findLastIndex";
 
 const MessagesScreen = ({ route, navigation, ...props }) => {
   const listViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [authValues, authDispatch] = useAuthContext();
+  const [messageStatus, setMessageStatus] = useState("");
   const { chatId } = route.params;
   const db = firebase.database();
   const headerHeight = useHeaderHeight();
@@ -29,13 +31,20 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
   const sendNewMessage = async () => {
     const timestamp = new Date().toISOString();
     if (messageInput.trim()) {
-      await sendMessage(messageInput, timestamp, authValues, chatId);
+      setMessageStatus("");
+      setMessageInput("");
+      await sendMessage(
+        messageInput,
+        timestamp,
+        authValues,
+        chatId,
+        setMessageStatus
+      );
       updateMessages({
         message: messageInput,
         timestamp,
         sentBy: authValues.userId,
       });
-      setMessageInput("");
     }
   };
   useFocusEffect(
@@ -67,7 +76,6 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
       };
     }, [authValues.userId])
   );
-
   return (
     <View style={styles.screen}>
       <KeyboardAvoidingView
@@ -84,29 +92,46 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
           }}
           keyExtractor={(msg) => msg.timestamp}
           data={messages}
-          renderItem={({ item }, i) => {
+          renderItem={({ item, index }) => {
             return (
-              <View
-                style={{
-                  ...styles.message,
-                  backgroundColor:
-                    item.sentBy === authValues.userId
-                      ? appColors.messageBlue
-                      : appColors.lightGray,
-                  alignSelf:
-                    item.sentBy === authValues.userId
-                      ? "flex-end"
-                      : "flex-start",
-                }}
-              >
-                <AppText
+              <View>
+                <View
                   style={{
-                    color:
-                      item.sentBy === authValues.userId ? "white" : "black",
+                    ...styles.message,
+                    backgroundColor:
+                      item.sentBy === authValues.userId
+                        ? appColors.messageBlue
+                        : appColors.lightGray,
+                    alignSelf:
+                      item.sentBy === authValues.userId
+                        ? "flex-end"
+                        : "flex-start",
                   }}
                 >
-                  {item.message}
-                </AppText>
+                  <AppText
+                    style={{
+                      color:
+                        item.sentBy === authValues.userId ? "white" : "black",
+                    }}
+                  >
+                    {item.message}
+                  </AppText>
+                </View>
+                {index ===
+                  findLastIndex(messages, (msg) => {
+                    return msg.sentBy === authValues.userId;
+                  }) && (
+                  <AppText
+                    style={{
+                      alignSelf: "flex-end",
+                      color: appColors.accentGray,
+                      marginRight: 8,
+                      fontSize: 12,
+                    }}
+                  >
+                    {messageStatus}
+                  </AppText>
+                )}
               </View>
             );
           }}
@@ -151,7 +176,7 @@ const styles = StyleSheet.create({
     display: "flex",
     maxWidth: "60%",
     marginHorizontal: 8,
-    marginBottom: 10,
+    marginBottom: 6,
     padding: 12,
     borderRadius: 20,
   },

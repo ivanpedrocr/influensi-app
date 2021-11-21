@@ -1,5 +1,11 @@
 import firebase from "firebase";
-const sendMessage = async (message, timestamp, { userId }, chatId) => {
+const sendMessage = async (
+  message,
+  timestamp,
+  { userId },
+  chatId,
+  setMessageStatus
+) => {
   const msg = {
     message,
     timestamp,
@@ -8,9 +14,11 @@ const sendMessage = async (message, timestamp, { userId }, chatId) => {
   if (message) {
     const db = firebase.database();
     try {
-      db.ref(`chatMessages/${chatId}`).push(msg);
-      db.ref(`conversations/${chatId}/lastMessage`).set(msg);
+      await db.ref(`chatMessages/${chatId}`).push(msg);
+      await db.ref(`conversations/${chatId}/lastMessage`).set(msg);
+      setMessageStatus("Sent");
     } catch (e) {
+      setMessageStatus("Failed to send");
       console.log(e);
     }
   }

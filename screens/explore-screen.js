@@ -24,8 +24,8 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const [authValues, authDispatch] = useAuthContext();
   const [loading, setLoading] = useState(false);
 
-  const onSwipeRight = (currentUser) => {
-    favoriteUser(currentUser, authValues);
+  const onSwipeRight = async (currentUser) => {
+    await favoriteUser(currentUser, authValues);
     setCurrentIndex(currentIndex + 1);
   };
   const onSwipeLeft = () => {

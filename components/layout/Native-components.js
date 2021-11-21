@@ -101,7 +101,7 @@ const defaultStyles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 10,
-    backgroundColor: appColors.blue,
+    backgroundColor: appColors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
