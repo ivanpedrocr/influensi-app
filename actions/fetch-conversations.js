@@ -46,7 +46,7 @@ const fetchConversations = async ({ userId }) => {
       const userList = await conversationsUsers();
       return userList;
     } else {
-      return [{ error: "No Conversations Found." }];
+      return null;
     }
   } catch (e) {
     console.log(e);

@@ -20,10 +20,11 @@ export const fetchFavoriteUsersList = async ({ token, userId }) => {
       const favorites = Object.values(favoritesList);
       const users = await Promise.all(
         favorites.map(async (userId) => {
-          return db
+          const user = await db
             .ref(`users/${userId}`)
             .get()
             .then((snapshot) => snapshot.val());
+          return { id: userId, ...user };
         })
       );
       return users;

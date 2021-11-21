@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
@@ -17,7 +17,11 @@ const UserCard = ({ user, ...props }) => {
             >{`${user.first_name} ${user.last_name}`}</AppText>
             <AppText style={styles.username}>{user.username}</AppText>
             <AppText>{user.age}</AppText>
-            <AppText style={{ fontWeight: "bold" }}>{user?.followers}k</AppText>
+            {user?.followers && (
+              <AppText style={{ fontWeight: "bold" }}>
+                {user?.followers}k
+              </AppText>
+            )}
             <AppText style={{ color: "green" }}>
               +{user?.averageReturn}%
             </AppText>
@@ -69,8 +73,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     marginTop: 8,
-    borderWidth: 1,
-    borderColor: "gray",
   },
   nameContainer: {
     flexDirection: "row",

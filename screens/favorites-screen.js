@@ -36,6 +36,10 @@ const FavoritesScreen = ({ navigation, ...props }) => {
       getFavoritesList();
     }, [])
   );
+  const deleteUser = async () => {
+    await deleteFavoriteUser(user.id, authValues);
+    favoritesList.splice(i, 1);
+  };
 
   if (isLoading && favoritesList.length === 0) {
     return <SplashScreen />;
@@ -56,10 +60,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                 <FavoritesUserModal
                   isVisible={modalVisible.i === i && modalVisible.true === true}
                   closeModal={() => setModalVisible(false)}
-                  onDelete={() => {
-                    favoritesList.splice(i, 1);
-                    deleteFavoriteUser(user.id, authValues);
-                  }}
+                  onDelete={deleteUser}
                   sendMessage={async () => {
                     setModalVisible(false);
                     const chatId = await createConversation(
