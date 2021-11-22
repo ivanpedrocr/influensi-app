@@ -1,25 +1,67 @@
 import React, { useReducer } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { StarRating } from "../components/layout/Star";
+import {
+  launchImageLibraryAsync,
+  requestMediaLibraryPermissionsAsync,
+} from "expo-image-picker";
+import { uploadImage } from "../actions/upload-image";
+import { useFocusEffect } from "@react-navigation/native";
+import { useAuthContext } from "../auth/auth-context";
 
-const UserProfile = ({ user, ...props }) => {
+const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
+  const [authValues, authDispatch] = useAuthContext();
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadImage(pickerResult.uri, authValues);
+        setProfileImageUri(uploadUrl);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const pickImage = async () => {
+    const pickerResult = await launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [3, 3],
+    });
+    handleImagePicked(pickerResult);
+  };
+  useFocusEffect(
+    React.useCallback(() => {
+      (async () => {
+        const { status } = await requestMediaLibraryPermissionsAsync();
+      })();
+    }, [])
+  );
   return (
     <View style={{ width: "100%" }}>
       <View style={styles.nameContainer}>
         <View>
-          <Image
+          <TouchableHighlight
+            activeOpacity={0.05}
             style={{
-              width: 150,
-              height: 150,
               borderRadius: 100,
-              borderWidth: 2,
-              borderColor: "black",
             }}
-            source={{
-              uri: "https://robohash.org/sedepatut.png?size=300x300&set=set1",
+            onPress={() => {
+              pickImage();
             }}
-          />
+          >
+            <Image
+              style={{
+                width: 150,
+                height: 150,
+                borderWidth: 2,
+                borderColor: "black",
+                borderRadius: 100,
+              }}
+              source={{
+                uri: imageUri,
+              }}
+            />
+          </TouchableHighlight>
           <AppText
             style={{ fontSize: 32, fontWeight: "bold" }}
           >{`${user.firstName} ${user.lastName}`}</AppText>

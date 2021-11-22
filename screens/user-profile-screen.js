@@ -9,6 +9,10 @@ import Ionicons from "../styles/icons";
 
 const UserProfileScreen = ({ navigation, ...props }) => {
   const [user, dispatch] = useReducer(UserReducer, userInitialState);
+  const [profileImage, setProfileImage] = useState({
+    image: null,
+    uploading: false,
+  });
   const [type, setType] = useState("USER");
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -38,7 +42,17 @@ const UserProfileScreen = ({ navigation, ...props }) => {
   return (
     <View style={styles.container}>
       <View style={{ alignSelf: "flex-end", marginBottom: 16 }}></View>
-      {type === "USER" ? <UserProfile user={user} /> : <BusinessProfile />}
+      {type === "USER" ? (
+        <UserProfile
+          user={user}
+          imageUri={profileImage.image}
+          setProfileImageUri={(uri) => {
+            setProfileImage((prev) => ({ ...prev, image: uri }));
+          }}
+        />
+      ) : (
+        <BusinessProfile />
+      )}
     </View>
   );
 };

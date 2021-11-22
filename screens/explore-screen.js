@@ -34,21 +34,22 @@ const ExploreScreen = ({ navigation, ...props }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      const getUserList = async () => {
+      (async () => {
         setLoading(true);
         const users = await fetchExploreUserList();
-        setUserList(
-          Object.entries(users)
-            .filter(([key, value]) => key !== authValues.userId)
-            .map(([key, value]) => ({
-              ...value,
-              age: getAge(value.age),
-              id: key,
-            }))
-        );
+        if (users) {
+          setUserList(
+            Object.entries(users)
+              .filter(([key, value]) => key !== authValues.userId)
+              .map(([key, value]) => ({
+                ...value,
+                age: getAge(value.age),
+                id: key,
+              }))
+          );
+        }
         setLoading(false);
-      };
-      getUserList();
+      })();
     }, [])
   );
 
