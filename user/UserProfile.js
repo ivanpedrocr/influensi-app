@@ -23,7 +23,7 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
   };
   const pickImage = async () => {
     const { status } = await requestMediaLibraryPermissionsAsync();
-    if ((status = "granted")) {
+    if (status === "granted") {
       const pickerResult = await launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [3, 3],
