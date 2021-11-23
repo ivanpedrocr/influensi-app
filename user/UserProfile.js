@@ -7,7 +7,6 @@ import {
   requestMediaLibraryPermissionsAsync,
 } from "expo-image-picker";
 import { uploadImage } from "../actions/upload-image";
-import { useFocusEffect } from "@react-navigation/native";
 import { useAuthContext } from "../auth/auth-context";
 
 const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
@@ -23,19 +22,15 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
     }
   };
   const pickImage = async () => {
-    const pickerResult = await launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [3, 3],
-    });
-    handleImagePicked(pickerResult);
+    const { status } = await requestMediaLibraryPermissionsAsync();
+    if ((status = "granted")) {
+      const pickerResult = await launchImageLibraryAsync({
+        allowsEditing: true,
+        aspect: [3, 3],
+      });
+      handleImagePicked(pickerResult);
+    }
   };
-  useFocusEffect(
-    React.useCallback(() => {
-      (async () => {
-        const { status } = await requestMediaLibraryPermissionsAsync();
-      })();
-    }, [])
-  );
   return (
     <View style={{ width: "100%" }}>
       <View style={styles.nameContainer}>
@@ -64,17 +59,17 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
           </TouchableHighlight>
           <AppText
             style={{ fontSize: 32, fontWeight: "bold" }}
-          >{`${user.firstName} ${user.lastName}`}</AppText>
+          >{`${user.first_name} ${user.last_name}`}</AppText>
           <AppText style={styles.username}>{user.username}</AppText>
           <AppText>{user.age}</AppText>
-          <AppText style={{ fontWeight: "bold" }}>{user.followers}k</AppText>
-          <AppText style={{ color: "green" }}>+{user.averageReturn}%</AppText>
-          <StarRating rating={user.rating} />
+          <AppText style={{ fontWeight: "bold" }}>{user?.followers}</AppText>
+          <AppText style={{ color: "green" }}>+{user?.averageReturn}</AppText>
+          <StarRating rating={user?.rating} />
         </View>
       </View>
       <View style={{ paddingHorizontal: 24 }}></View>
       <View style={styles.descriptionContainer}>
-        <AppText>{user.description}</AppText>
+        <AppText>{user?.description}</AppText>
       </View>
     </View>
   );

@@ -4,17 +4,24 @@ import { useState } from "react/cjs/react.development";
 import { AppIconButton } from "../components/layout/Native-components";
 import BusinessProfile from "../user/BusinessProfile";
 import UserProfile from "../user/UserProfile";
-import { UserReducer, userInitialState } from "../user/UserProfile-reducer";
 import Ionicons from "../styles/icons";
+import { fetchUserProfile } from "../actions/fetch-user-profile";
+import { useAuthContext } from "../auth/auth-context";
+import SplashScreen from "./splash-screen";
 
 const UserProfileScreen = ({ navigation, ...props }) => {
-  const [user, dispatch] = useReducer(UserReducer, userInitialState);
+  const [authValues, authDispatch] = useAuthContext();
+  const [user, setUser] = useState({});
   const [profileImage, setProfileImage] = useState({
     image: null,
     uploading: false,
   });
   const [type, setType] = useState("USER");
   useLayoutEffect(() => {
+    (async () => {
+      const userData = await fetchUserProfile(authValues);
+      setUser(userData);
+    })();
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: "row" }}>
@@ -37,15 +44,16 @@ const UserProfileScreen = ({ navigation, ...props }) => {
         </View>
       ),
     });
-  }, [navigation, type]);
-
-  return (
+  }, []);
+  return !user.first_name ? (
+    <SplashScreen />
+  ) : (
     <View style={styles.container}>
       <View style={{ alignSelf: "flex-end", marginBottom: 16 }}></View>
       {type === "USER" ? (
         <UserProfile
           user={user}
-          imageUri={profileImage.image}
+          imageUri={profileImage?.image ?? user?.avatar}
           setProfileImageUri={(uri) => {
             setProfileImage((prev) => ({ ...prev, image: uri }));
           }}
