@@ -12,19 +12,27 @@ const UserCard = ({ user, ...props }) => {
       <View>
         <View style={styles.nameContainer}>
           <View>
-            <AppText
-              style={{ fontSize: 24 }}
-            >{`${user.first_name} ${user.last_name}`}</AppText>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
+              }}
+            >
+              <AppText
+                style={{ fontSize: 24 }}
+              >{`${user.first_name} ${user.last_name} `}</AppText>
+              <AppText style={{ fontSize: 32 }}>{user.age}</AppText>
+            </View>
             <AppText style={styles.username}>{user.username}</AppText>
-            <AppText>{user.age}</AppText>
-            {user?.followers && (
+            {/* {user?.followers && (
               <AppText style={{ fontWeight: "bold" }}>
                 {user?.followers}k
               </AppText>
-            )}
-            <AppText style={{ color: "green" }}>
+            )} */}
+            {/* <AppText style={{ color: "green" }}>
               +{user?.averageReturn}%
-            </AppText>
+            </AppText> */}
             <StarRating rating={user?.rating} />
           </View>
         </View>
@@ -67,12 +75,12 @@ const UserCard = ({ user, ...props }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
-    borderRadius: 20,
+    borderRadius: 32,
     alignItems: "stretch",
     justifyContent: "space-between",
     flex: 1,
     padding: 24,
-    marginTop: 8,
+    marginTop: 16,
   },
   nameContainer: {
     flexDirection: "row",

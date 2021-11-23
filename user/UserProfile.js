@@ -32,7 +32,7 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
     }
   };
   return (
-    <View style={{ width: "100%" }}>
+    <View>
       <View style={styles.nameContainer}>
         <View>
           <TouchableHighlight

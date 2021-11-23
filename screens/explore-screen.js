@@ -129,12 +129,10 @@ const styles = StyleSheet.create({
     shadowColor: "black",
     shadowOffset: { width: -0.5, height: 0.1 },
     width: "95%",
-    height: "90%",
+    height: "95%",
     position: "absolute",
   },
   backCard: {
-    width: "95%",
-    height: "90%",
     position: "absolute",
   },
 });
