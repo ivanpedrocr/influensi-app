@@ -1,9 +1,6 @@
 import React, { useReducer, useState } from "react";
-import { View, StyleSheet } from "react-native";
-import {
-  AppTextInput,
-  AppButton,
-} from "../components/layout/Native-components";
+import { View, StyleSheet, TouchableHighlight, Image } from "react-native";
+import { AppButton } from "../components/layout/Native-components";
 import { appColors } from "../styles/app-styles";
 import Modal from "react-native-modal";
 import SignUpReducer, {
@@ -11,11 +8,36 @@ import SignUpReducer, {
 } from "../components/signUp/SignUp-reducer";
 import BasicForm from "../components/BasicForm";
 import { signUpForm } from "../components/signUp/SignUp-form";
-import RNDateTimePicker from "@react-native-community/datetimepicker";
+import {
+  launchImageLibraryAsync,
+  requestMediaLibraryPermissionsAsync,
+} from "expo-image-picker";
+import { uploadImage, uploadNewImageSignup } from "../actions/upload-image";
 
 const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [profileImage, setProfileImage] = useState({
+    image: null,
+    uploading: false,
+  });
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadNewImageSignup(pickerResult.uri);
+        setProfileImage((p) => ({ ...p, image: uploadUrl }));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const pickImage = async () => {
+    const pickerResult = await launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [3, 3],
+    });
+    handleImagePicked(pickerResult);
+  };
   const [userForm, dispatchUserForm] = useReducer(
     SignUpReducer,
     signUpInitialState
@@ -47,6 +69,29 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
             onChangeText={(text) => setPassword(text)}
             style={{ marginTop: 8 }}
           /> */}
+          <TouchableHighlight
+            activeOpacity={0.05}
+            style={{
+              borderRadius: 100,
+              width: 150,
+              height: 150,
+            }}
+            onPress={async () => {
+              const { status } = await requestMediaLibraryPermissionsAsync();
+              pickImage();
+            }}
+          >
+            <Image
+              source={{ uri: profileImage.image }}
+              style={{
+                width: 150,
+                height: 150,
+                borderWidth: 2,
+                borderColor: "black",
+                borderRadius: 100,
+              }}
+            />
+          </TouchableHighlight>
           <BasicForm
             formMap={signUpForm}
             values={userForm.formValues}
@@ -54,7 +99,9 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
           />
           <AppButton
             title="Sign-Up"
-            onPress={() => onSignUp(userForm.formValues)}
+            onPress={() =>
+              onSignUp({ ...userForm.formValues, avatar: profileImage.image })
+            }
             style={{ marginTop: 8 }}
           />
           <AppButton

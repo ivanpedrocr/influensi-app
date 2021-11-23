@@ -26,3 +26,28 @@ export const uploadImage = async (uri, { userId }) => {
   await db.ref(`users/${userId}`).update({ avatar: fileUri });
   return fileUri;
 };
+
+export const uploadNewImageSignup = async (uri) => {
+  const storage = firebase.storage();
+  const db = firebase.database();
+  const blob = await new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function (e) {
+      console.log(e);
+      reject(new TypeError("Network request failed."));
+    };
+    xhr.responseType = "blob";
+    xhr.open("GET", uri, true);
+    xhr.send(null);
+  });
+  const fileRef = storage.ref(`profile_pictures/${new Date().toISOString()}`);
+  await fileRef.put(blob).then((snapshot) => {
+    console.log("UPLOADED IMAGE BLOB");
+  });
+  blob.close();
+  const fileUri = await fileRef.getDownloadURL(fileRef);
+  return fileUri;
+};
