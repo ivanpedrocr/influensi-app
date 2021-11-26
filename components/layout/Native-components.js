@@ -76,7 +76,10 @@ export const AppButton = ({ style, title, onPress, ...props }) => {
       <AppText
         style={{
           fontSize: restProps.fontSize ?? 18,
-          color: style?.color ?? "white",
+          color:
+            style?.color || style?.backgroundColor === colors.lightGray
+              ? colors.text
+              : "white",
         }}
       >
         {title}

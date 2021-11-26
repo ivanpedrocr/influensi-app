@@ -19,6 +19,7 @@ import firebase from "firebase";
 import { useAuthContext } from "../auth/auth-context";
 import { useColor } from "../hooks/useColor";
 import { useHeaderButton } from "../hooks/useHeaderButton";
+import ToggleTheme from "../components/ToggleTheme";
 
 const UserMenuScreen = ({ navigation, ...props }) => {
   const { colors } = useColor();
@@ -64,6 +65,7 @@ const UserMenuScreen = ({ navigation, ...props }) => {
             </MenuItemTouchable>
           );
         })}
+        <ToggleTheme />
       </AppScreen>
     </ScrollView>
   );

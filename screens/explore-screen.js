@@ -117,7 +117,6 @@ const ExploreScreen = ({ navigation, ...props }) => {
           })
           .reverse()
       )}
-      <ToggleTheme />
     </AppScreen>
   );
 };
