@@ -17,6 +17,8 @@ import { useAuthContext } from "../auth/auth-context";
 import SplashScreen from "../screens/splash-screen";
 import ConversationsScreen from "../screens/conversations-screen";
 import StartUpScreen from "../screens/startup-screen";
+import { useColor } from "../hooks/useColor";
+import { color } from "react-native-reanimated";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -93,9 +95,11 @@ const FavoritesStackScreen = () => {
 
 const UserNavigator = () => {
   const [{ token, userId, loading }, authDispatch] = useAuthContext();
+  const { colors, dark } = useColor();
+  const appTheme = { dark, colors };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={appTheme}>
       {token && userId ? (
         <BottomTab.Navigator screenOptions={{ headerShown: false }}>
           <BottomTab.Screen
@@ -103,7 +107,9 @@ const UserNavigator = () => {
             component={ExploreStackScreen}
             options={{
               tabBarIcon: () => {
-                return <Icon name="compass-outline" size={24} color="black" />;
+                return (
+                  <Icon name="compass-outline" size={24} color={colors.text} />
+                );
               },
             }}
           />
@@ -112,7 +118,9 @@ const UserNavigator = () => {
             component={FavoritesStackScreen}
             options={{
               tabBarIcon: () => {
-                return <Icon name="bookmark-outline" size={24} color="black" />;
+                return (
+                  <Icon name="bookmark-outline" size={24} color={colors.text} />
+                );
               },
             }}
           />
@@ -123,7 +131,11 @@ const UserNavigator = () => {
               lazy: true,
               tabBarIcon: () => {
                 return (
-                  <Icon name="chatbubble-outline" size={24} color="black" />
+                  <Icon
+                    name="chatbubble-outline"
+                    size={24}
+                    color={colors.text}
+                  />
                 );
               },
             }}
@@ -133,7 +145,9 @@ const UserNavigator = () => {
             component={MenuStackScreen}
             options={{
               tabBarIcon: () => {
-                return <Icon name="person-outline" size={24} color="black" />;
+                return (
+                  <Icon name="person-outline" size={24} color={colors.text} />
+                );
               },
             }}
           />

@@ -1,20 +1,13 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import { AppScreen } from "../components/layout/Native-components";
 
 const NotificationsScreen = (props) => {
   return (
-    <View style={styles.screen}>
+    <AppScreen>
       <Text>Notifications Screen</Text>
-    </View>
+    </AppScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default NotificationsScreen;

@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
   card: {
     width: "100%",
     height: "65%",
-    backgroundColor: "white",
     borderRadius: 20,
     alignItems: "flex-start",
     shadowColor: "black",

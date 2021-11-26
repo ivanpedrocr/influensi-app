@@ -10,6 +10,7 @@ import {
 import AppText from "../components/layout/AppText";
 import {
   AppButton,
+  AppScreen,
   AppTextInput,
   Container,
   TypingInput,
@@ -27,14 +28,7 @@ const UserConfigScreen = () => {
     { name: "Description" },
   ];
   return (
-    <View
-      style={{
-        alignItems: "center",
-        justifyContent: "flex-start",
-        flex: 1,
-        backgroundColor: "white",
-      }}
-    >
+    <AppScreen>
       {fields.map((field) => {
         return (
           <View
@@ -71,7 +65,7 @@ const UserConfigScreen = () => {
           });
         }}
       />
-    </View>
+    </AppScreen>
   );
 };
 

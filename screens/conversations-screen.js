@@ -7,7 +7,6 @@ import { useAuthContext } from "../auth/auth-context";
 import AppText from "../components/layout/AppText";
 import MenuItemTouchable from "../components/layout/MenuItemTouchable";
 import { AppScreen } from "../components/layout/Native-components";
-import { appColors } from "../styles/app-styles";
 import SplashScreen from "./splash-screen";
 
 const ConversationsScreen = ({ navigation, ...props }) => {
@@ -70,11 +69,6 @@ const ConversationsScreen = ({ navigation, ...props }) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "white",
-  },
   userListContainer: {
     padding: 8,
     borderBottomWidth: 1,

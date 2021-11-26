@@ -7,15 +7,18 @@ import firebase from "firebase";
 
 import { useAuthContext } from "../auth/auth-context";
 
-import { AppTextInput } from "../components/layout/Native-components";
+import {
+  AppScreen,
+  AppTextInput,
+} from "../components/layout/Native-components";
 import AppText from "../components/layout/AppText";
-import { appColors } from "../styles/app-styles";
 import sendMessage from "../actions/send-message";
 
 import { useHeaderHeight } from "@react-navigation/elements";
 
 import fetchMessages from "../actions/fetch-message";
 import { findLastIndex } from "../utils/findLastIndex";
+import { useColor } from "../hooks/useColor";
 
 const MessagesScreen = ({ route, navigation, ...props }) => {
   const listViewRef = useRef();
@@ -26,6 +29,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
   const { chatId } = route.params;
   const db = firebase.database();
   const headerHeight = useHeaderHeight();
+  const { colors } = useColor();
 
   const updateMessages = (message) => setMessages((prev) => [...prev, message]);
   const sendNewMessage = async () => {
@@ -77,7 +81,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
     }, [authValues.userId])
   );
   return (
-    <View style={styles.screen}>
+    <AppScreen style={styles.screen}>
       <KeyboardAvoidingView
         behavior="padding"
         keyboardVerticalOffset={headerHeight}
@@ -100,8 +104,8 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
                     ...styles.message,
                     backgroundColor:
                       item.sentBy === authValues.userId
-                        ? appColors.messageBlue
-                        : appColors.lightGray,
+                        ? colors.primary
+                        : colors.lightGray,
                     alignSelf:
                       item.sentBy === authValues.userId
                         ? "flex-end"
@@ -111,7 +115,9 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
                   <AppText
                     style={{
                       color:
-                        item.sentBy === authValues.userId ? "white" : "black",
+                        item.sentBy === authValues.userId
+                          ? "white"
+                          : colors.text,
                     }}
                   >
                     {item.message}
@@ -124,7 +130,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
                   <AppText
                     style={{
                       alignSelf: "flex-end",
-                      color: appColors.accentGray,
+                      color: colors.accentGray,
                       marginRight: 8,
                       fontSize: 12,
                     }}
@@ -150,18 +156,21 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
             style={{ marginLeft: 4 }}
             activeOpacity={0.19}
           >
-            <Ionicons name="arrow-forward-circle-outline" size={32} />
+            <Ionicons
+              name="arrow-forward-circle-outline"
+              size={32}
+              color={colors.text}
+            />
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
-    </View>
+    </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "white",
   },
   textInputContainer: {
     alignItems: "center",

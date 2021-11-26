@@ -82,9 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 24,
   },
-  username: {
-    color: "#1f7fbf",
-  },
+  username: {},
   descriptionContainer: {
     width: "100%",
     marginTop: 8,

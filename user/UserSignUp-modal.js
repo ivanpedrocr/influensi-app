@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from "react";
 import { View, StyleSheet, TouchableHighlight, Image } from "react-native";
 import { AppButton } from "../components/layout/Native-components";
-import { appColors } from "../styles/app-styles";
 import Modal from "react-native-modal";
 import SignUpReducer, {
   signUpInitialState,
@@ -13,6 +12,7 @@ import {
   requestMediaLibraryPermissionsAsync,
 } from "expo-image-picker";
 import { uploadImage, uploadNewImageSignup } from "../actions/upload-image";
+import { useColor } from "../hooks/useColor";
 
 const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
   const [email, setEmail] = useState("");
@@ -21,6 +21,7 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     image: null,
     uploading: false,
   });
+  const { colors } = useColor();
   const handleImagePicked = async (pickerResult) => {
     try {
       if (!pickerResult.cancelled) {
@@ -52,7 +53,7 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     <Modal
       isVisible={isVisible}
       backdropOpacity={1}
-      backgroundColor="white"
+      backgroundColor={colors.background}
       style={{ margin: 0 }}
     >
       <View style={styles.modal}>
@@ -108,8 +109,8 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
             title="Go Back"
             style={{
               marginTop: 8,
-              backgroundColor: appColors.lightGray,
-              color: "black",
+              backgroundColor: colors.lightGray,
+              color: colors.text,
             }}
             onPress={onClose}
           />

@@ -1,21 +1,13 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { AppButton } from "../components/layout/Native-components";
+import { AppButton, AppScreen } from "../components/layout/Native-components";
 
 const LanguagesScreen = (props) => {
   return (
-    <View style={styles.screen}>
+    <AppScreen>
       <Text>Languages Screen</Text>
-    </View>
+    </AppScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
 
 export default LanguagesScreen;

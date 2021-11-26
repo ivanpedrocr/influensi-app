@@ -14,6 +14,8 @@ import { useFocusEffect } from "@react-navigation/native";
 import fetchExploreUserList from "../actions/fetch-explore-user-list";
 import { getAge } from "../utils/getBirthDate";
 import AppText from "../components/layout/AppText";
+import ToggleTheme from "../components/ToggleTheme";
+import { useColor } from "../hooks/useColor";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -23,6 +25,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const [showReview, setShowReview] = useState(true);
   const [authValues, authDispatch] = useAuthContext();
   const [loading, setLoading] = useState(false);
+  const { colors, dark } = useColor();
 
   const onSwipeRight = async (currentUser) => {
     await favoriteUser(currentUser, authValues);
@@ -62,11 +65,11 @@ const ExploreScreen = ({ navigation, ...props }) => {
             setAccountType(accountType === "USER" ? "BUSINESS" : "USER");
           }}
         >
-          <Ionicons name="log-out-outline" size={28} />
+          <Ionicons name="log-out-outline" color={colors.text} size={28} />
         </AppIconButton>
       ),
     });
-  }, [navigation, accountType]);
+  }, [navigation, accountType, dark]);
   return (
     <AppScreen style={{ alignItems: "center" }}>
       {currentIndex + 1 > userList.length && !loading ? (
@@ -114,16 +117,12 @@ const ExploreScreen = ({ navigation, ...props }) => {
           })
           .reverse()
       )}
+      <ToggleTheme />
     </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "white",
-  },
   frontCard: {
     shadowOpacity: 0.3,
     shadowColor: "black",

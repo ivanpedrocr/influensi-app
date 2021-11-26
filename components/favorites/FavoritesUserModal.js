@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ReactNativeModal from "react-native-modal";
-import { appColors } from "../../styles/app-styles";
+import { useColor } from "../../hooks/useColor";
 import AppText from "../layout/AppText";
-import { AppButton } from "../layout/Native-components";
 
 const FavoritesUserModal = ({
   isVisible,
@@ -12,49 +11,51 @@ const FavoritesUserModal = ({
   sendMessage,
   ...props
 }) => {
+  const { colors } = useColor();
   return (
     <ReactNativeModal
       isVisible={isVisible}
       onBackdropPress={closeModal}
       backdropOpacity={0.2}
       animationIn="zoomIn"
-      style={styles.modal}
+      style={styles(colors).modal}
       animationOut="zoomOut"
     >
-      <View style={styles.menu}>
-        <TouchableOpacity style={styles.options}>
+      <View style={styles(colors).menu}>
+        <TouchableOpacity style={styles(colors).options}>
           <AppText>User Profile</AppText>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.options} onPress={sendMessage}>
+        <TouchableOpacity style={styles(colors).options} onPress={sendMessage}>
           <AppText>Send Message</AppText>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ ...styles.options, borderBottomWidth: 0 }}
+          style={{ ...styles(colors).options, borderBottomWidth: 0 }}
           onPress={() => {
             props.onDelete();
             closeModal();
           }}
         >
-          <AppText style={{ color: appColors.red }}>Delete</AppText>
+          <AppText style={{ color: colors.red }}>Delete</AppText>
         </TouchableOpacity>
       </View>
     </ReactNativeModal>
   );
 };
 
-const styles = StyleSheet.create({
-  options: {
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    borderColor: appColors.accentGray,
-    borderBottomWidth: 1,
-    borderRadius: 12,
-  },
-  menu: {
-    backgroundColor: "white",
-    borderRadius: 16,
-  },
-  modal: {},
-});
+const styles = (colors) =>
+  StyleSheet.create({
+    options: {
+      paddingVertical: 16,
+      paddingHorizontal: 16,
+      borderColor: colors.accentGray,
+      borderBottomWidth: 1,
+      borderRadius: 12,
+    },
+    menu: {
+      backgroundColor: colors.background,
+      borderRadius: 16,
+    },
+    modal: {},
+  });
 
 export default FavoritesUserModal;

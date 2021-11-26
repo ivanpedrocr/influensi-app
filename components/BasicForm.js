@@ -1,9 +1,11 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
 import { View } from "react-native";
+import { useColor } from "../hooks/useColor";
 import { AppTextInput } from "./layout/Native-components";
 
 const BasicForm = ({ formMap, onChange, values, ...props }) => {
+  const { colors, dark } = useColor();
   return (
     <View>
       {formMap.map((field, i) => {
@@ -27,6 +29,8 @@ const BasicForm = ({ formMap, onChange, values, ...props }) => {
                 onChange={(e, date) => {
                   onChange({ [field.name]: date });
                 }}
+                themeVariant={dark ? "dark" : "light"}
+                textColor={colors.primary}
                 {...field}
               />
             );

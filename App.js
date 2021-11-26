@@ -7,6 +7,7 @@ import UserNavigator from "./navigation/UserNavigator";
 import AuthProvider from "./auth/auth-context";
 import { firebaseConfig } from "./config/firebase";
 import firebase from "firebase";
+import ThemeProvider from "./theme/theme-context";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -31,7 +32,9 @@ export default function App() {
   }
   return (
     <AuthProvider>
-      <UserNavigator />
+      <ThemeProvider>
+        <UserNavigator />
+      </ThemeProvider>
     </AuthProvider>
   );
 }

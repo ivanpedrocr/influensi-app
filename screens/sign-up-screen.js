@@ -6,17 +6,19 @@ import signupUser from "../actions/signup-user";
 import { useAuthContext } from "../auth/auth-context";
 import {
   AppButton,
+  AppScreen,
   AppTextInput,
 } from "../components/layout/Native-components";
-import { appColors } from "../styles/app-styles";
 import UserSignUpModal from "../user/UserSignUp-modal";
 import firebase from "firebase";
+import { useColor } from "../hooks/useColor";
 
 const AuthScreen = ({ navigation, ...props }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [authState, authDispatch] = useAuthContext();
+  const { colors } = useColor();
   const auth = firebase.auth();
   const onSignUp = async (user) => {
     authDispatch({ type: "LOADING" });
@@ -37,7 +39,7 @@ const AuthScreen = ({ navigation, ...props }) => {
     });
   };
   return (
-    <View style={styles.screen}>
+    <AppScreen style={styles.screen}>
       <View style={styles.card}>
         <ScrollView>
           <AppTextInput
@@ -56,8 +58,8 @@ const AuthScreen = ({ navigation, ...props }) => {
             title="Sign-In"
             style={{
               marginTop: 8,
-              backgroundColor: appColors.lightGray,
-              color: "black",
+              backgroundColor: colors.lightGray,
+              color: colors.text,
             }}
             onPress={onSignIn}
           />
@@ -75,7 +77,7 @@ const AuthScreen = ({ navigation, ...props }) => {
         onSignUp={onSignUp}
         onClose={() => setOpenModal(false)}
       />
-    </View>
+    </AppScreen>
   );
 };
 
@@ -84,7 +86,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
   },
   card: {
     padding: 24,

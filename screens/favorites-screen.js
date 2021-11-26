@@ -14,7 +14,6 @@ import FavoritesUserModal from "../components/favorites/FavoritesUserModal";
 import AppText from "../components/layout/AppText";
 import MenuItemTouchable from "../components/layout/MenuItemTouchable";
 import { AppScreen } from "../components/layout/Native-components";
-import { appColors } from "../styles/app-styles";
 import SplashScreen from "./splash-screen";
 
 const FavoritesScreen = ({ navigation, ...props }) => {

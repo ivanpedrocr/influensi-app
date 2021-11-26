@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput, StatusBar } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
-import { appColors } from "../../styles/app-styles";
+import { useColor } from "../../hooks/useColor";
 import AppText from "./AppText";
 
 export const Container = styled.View`
@@ -22,16 +22,23 @@ export const AppTextInput = ({
   autoFocus,
   ...props
 }) => {
+  const { colors } = useColor();
   return (
     <TextInput
       {...props}
       onSubmitEditing={onSubmitEditing}
       placeholder={placeholder}
+      placeholderTextColor={colors.text}
       onChangeText={onChangeText}
       autoCapitalize={autoCapitalize ?? "none"}
       value={value}
       autoFocus={autoFocus}
-      style={{ ...defaultStyles.textInput, ...style }}
+      style={{
+        ...defaultStyles.textInput,
+        backgroundColor: colors.lightGray,
+        color: colors.text,
+        ...style,
+      }}
     ></TextInput>
   );
 };
@@ -55,10 +62,15 @@ export const AppButton = ({ style, title, onPress, ...props }) => {
     activeOpacity: 0.9,
   };
   const restProps = { ...defaultProps, ...props };
+  const { colors } = useColor();
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{ ...defaultStyles.button, ...style }}
+      style={{
+        ...defaultStyles.button,
+        backgroundColor: colors.primary,
+        ...style,
+      }}
       {...restProps}
     >
       <AppText
@@ -92,7 +104,19 @@ export const AppIconButton = ({
 };
 
 export const AppScreen = ({ children, style, ...props }) => {
-  return <View style={{ ...defaultStyles.screen, ...style }}>{children}</View>;
+  const { colors, dark } = useColor();
+  return (
+    <View
+      style={{
+        ...defaultStyles.screen,
+        backgroundColor: colors.background,
+        ...style,
+      }}
+    >
+      <StatusBar barStyle={dark ? "light-content" : "dark-content"} />
+      {children}
+    </View>
+  );
 };
 
 const defaultStyles = StyleSheet.create({
@@ -101,7 +125,6 @@ const defaultStyles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 10,
-    backgroundColor: appColors.primary,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -113,13 +136,11 @@ const defaultStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     borderRadius: 30,
-    backgroundColor: appColors.lightGray,
     width: "100%",
     paddingVertical: 14,
     paddingHorizontal: 12,
   },
   screen: {
     flex: 1,
-    backgroundColor: "white",
   },
 });

@@ -3,12 +3,14 @@ import { Image, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
+import { useColor } from "../hooks/useColor";
 import UserReviewsModal from "./UserReviews-modal";
 
 const UserCard = ({ user, ...props }) => {
   const [viewModal, setViewModal] = useState(false);
+  const { colors } = useColor();
   return (
-    <View style={styles.card}>
+    <View style={{ ...styles.card, backgroundColor: colors.background }}>
       <View>
         <View style={styles.nameContainer}>
           <View>
@@ -24,7 +26,9 @@ const UserCard = ({ user, ...props }) => {
               >{`${user.first_name} ${user.last_name} `}</AppText>
               <AppText style={{ fontSize: 32 }}>{user.age}</AppText>
             </View>
-            <AppText style={styles.username}>{user.username}</AppText>
+            <AppText style={{ ...styles.username, color: colors.primary }}>
+              {user.username}
+            </AppText>
             {/* {user?.followers && (
               <AppText style={{ fontWeight: "bold" }}>
                 {user?.followers}k
@@ -74,7 +78,6 @@ const UserCard = ({ user, ...props }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "white",
     borderRadius: 32,
     alignItems: "stretch",
     justifyContent: "space-between",
@@ -87,9 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  username: {
-    color: "#1f7fbf",
-  },
+  username: {},
   descriptionContainer: {
     marginTop: 8,
   },

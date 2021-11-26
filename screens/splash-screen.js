@@ -1,22 +1,15 @@
 import React from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
-import { appColors } from "../styles/app-styles";
+import { AppScreen } from "../components/layout/Native-components";
+import { useColor } from "../hooks/useColor";
 
 const SplashScreen = (props) => {
+  const { colors } = useColor();
   return (
-    <View style={styles.screen}>
-      <ActivityIndicator size="small" color={appColors.accentGray} />
-    </View>
+    <AppScreen>
+      <ActivityIndicator size="small" color={colors.primary} />
+    </AppScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-  },
-});
 
 export default SplashScreen;
