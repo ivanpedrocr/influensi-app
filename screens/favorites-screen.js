@@ -57,6 +57,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                 style={styles.listItem}
               >
                 <FavoritesUserModal
+                  user={user}
                   isVisible={modalVisible.i === i && modalVisible.true === true}
                   closeModal={() => setModalVisible(false)}
                   onDelete={deleteUser}
