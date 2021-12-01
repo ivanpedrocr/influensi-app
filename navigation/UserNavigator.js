@@ -89,6 +89,7 @@ const FavoritesStackScreen = () => {
   return (
     <FavoritesStack.Navigator>
       <FavoritesStack.Screen name="FAVORITES" component={FavoritesScreen} />
+      <FavoritesStack.Screen name="PROFILE" component={UserProfileScreen} />
     </FavoritesStack.Navigator>
   );
 };

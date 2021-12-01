@@ -15,8 +15,10 @@ import { uploadImage, uploadNewImageSignup } from "../actions/upload-image";
 import { useColor } from "../hooks/useColor";
 
 const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [userForm, dispatchUserForm] = useReducer(
+    SignUpReducer,
+    signUpInitialState
+  );
   const [profileImage, setProfileImage] = useState({
     image: null,
     uploading: false,
@@ -39,10 +41,7 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     });
     handleImagePicked(pickerResult);
   };
-  const [userForm, dispatchUserForm] = useReducer(
-    SignUpReducer,
-    signUpInitialState
-  );
+
   const handleInput = (payload) => {
     dispatchUserForm({
       type: "UPDATE_FORM_VALUES",

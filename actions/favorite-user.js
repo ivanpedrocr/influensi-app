@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import { getAge } from "../utils/getBirthDate";
 
 export const favoriteUser = async (user, { userId }) => {
   const db = firebase.database();
@@ -27,7 +28,7 @@ export const fetchFavoriteUsersList = async ({ token, userId }) => {
           return { id: userId, ...user };
         })
       );
-      return users;
+      return users.map((user) => ({ ...user, age: getAge(user.age) }));
     }
   } catch (e) {
     console.log(e);

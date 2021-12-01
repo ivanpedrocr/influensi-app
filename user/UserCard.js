@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import FastImage from "react-native-fast-image";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
@@ -41,7 +42,7 @@ const UserCard = ({ user, ...props }) => {
           </View>
         </View>
         {user?.avatar && (
-          <Image
+          <FastImage
             style={{
               width: 100,
               height: 100,

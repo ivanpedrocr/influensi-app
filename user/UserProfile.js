@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { Image, StyleSheet, TouchableHighlight, View } from "react-native";
+import React from "react";
+import { StyleSheet, TouchableHighlight, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { StarRating } from "../components/layout/Star";
 import {
@@ -8,6 +8,7 @@ import {
 } from "expo-image-picker";
 import { uploadImage } from "../actions/upload-image";
 import { useAuthContext } from "../auth/auth-context";
+import FastImage from "react-native-fast-image";
 
 const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
   const [authValues, authDispatch] = useAuthContext();
@@ -44,7 +45,7 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
               pickImage();
             }}
           >
-            <Image
+            <FastImage
               style={{
                 width: 150,
                 height: 150,

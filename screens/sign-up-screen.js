@@ -12,6 +12,7 @@ import {
 import UserSignUpModal from "../user/UserSignUp-modal";
 import firebase from "firebase";
 import { useColor } from "../hooks/useColor";
+import { fetchUserProfile } from "../actions/fetch-user-profile";
 
 const AuthScreen = ({ navigation, ...props }) => {
   const [email, setEmail] = useState("");
@@ -24,18 +25,24 @@ const AuthScreen = ({ navigation, ...props }) => {
     authDispatch({ type: "LOADING" });
     await signupUser(user);
     const token = await auth.currentUser.getIdToken();
+    const loggedInUser = await fetchUserProfile({
+      userId: auth.currentUser.uid,
+    });
     authDispatch({
       type: "SIGNUP",
-      payload: { token, userId: auth.currentUser.uid },
+      payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
     });
   };
   const onSignIn = async () => {
     authDispatch({ type: "LOADING" });
     await signInUser(email, password);
     const token = await auth.currentUser.getIdToken();
+    const loggedInUser = await fetchUserProfile({
+      userId: auth.currentUser.uid,
+    });
     authDispatch({
       type: "SIGNIN",
-      payload: { token, userId: auth.currentUser.uid },
+      payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
     });
   };
   return (

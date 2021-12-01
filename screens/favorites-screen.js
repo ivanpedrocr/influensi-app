@@ -52,6 +52,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
           favoritesList
             .map((user, i) => (
               <MenuItemTouchable
+                activeOpacity={0.2}
                 key={i}
                 onPress={() => setModalVisible({ i, true: true })}
                 style={styles.listItem}
@@ -73,9 +74,9 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                     });
                   }}
                 />
-                <AppText
-                  style={styles.userListName}
-                >{`${user.first_name} ${user.last_name}`}</AppText>
+                <AppText style={styles.userListName}>
+                  {user.first_name} {user.last_name}
+                </AppText>
                 <Image
                   style={styles.userImage}
                   source={{

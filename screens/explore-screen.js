@@ -12,10 +12,9 @@ import DeckSwipeAnimate from "../components/layout/DeckSwipeAnimate";
 import { useAuthContext } from "../auth/auth-context";
 import { useFocusEffect } from "@react-navigation/native";
 import fetchExploreUserList from "../actions/fetch-explore-user-list";
-import { getAge } from "../utils/getBirthDate";
 import AppText from "../components/layout/AppText";
-import ToggleTheme from "../components/ToggleTheme";
 import { useColor } from "../hooks/useColor";
+import { useHeaderButton } from "../hooks/useHeaderButton";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -39,37 +38,27 @@ const ExploreScreen = ({ navigation, ...props }) => {
     React.useCallback(() => {
       (async () => {
         setLoading(true);
-        const users = await fetchExploreUserList();
+        const users = await fetchExploreUserList(authValues);
         if (users) {
-          setUserList(
-            Object.entries(users)
-              .filter(([key, value]) => key !== authValues.userId)
-              .map(([key, value]) => ({
-                ...value,
-                age: getAge(value.age),
-                id: key,
-              }))
-          );
+          setUserList(users);
         }
         setLoading(false);
       })();
     }, [])
   );
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <AppIconButton
-          style={{ marginRight: 8 }}
-          onPress={() => {
-            setAccountType(accountType === "USER" ? "BUSINESS" : "USER");
-          }}
-        >
-          <Ionicons name="log-out-outline" color={colors.text} size={28} />
-        </AppIconButton>
-      ),
-    });
-  }, [navigation, accountType, dark]);
+  useHeaderButton({
+    headerRight: () => (
+      <AppIconButton
+        style={{ marginRight: 8 }}
+        onPress={() => {
+          setAccountType(accountType === "USER" ? "BUSINESS" : "USER");
+        }}
+      >
+        <Ionicons name="log-out-outline" color={colors.text} size={28} />
+      </AppIconButton>
+    ),
+  });
   return (
     <AppScreen style={{ alignItems: "center" }}>
       {currentIndex + 1 > userList.length && !loading ? (

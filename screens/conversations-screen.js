@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useEffect } from "react";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import React from "react";
+import { ScrollView, StyleSheet, View } from "react-native";
+import FastImage from "react-native-fast-image";
 import { useState } from "react/cjs/react.development";
 import fetchConversations from "../actions/fetch-conversations";
 import { useAuthContext } from "../auth/auth-context";
@@ -51,7 +52,7 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                     <AppText style={{ fontSize: 20 }}>
                       {c.first_name} {c.last_name}
                     </AppText>
-                    <Image
+                    <FastImage
                       style={styles.userImage}
                       source={{
                         uri: c.avatar,

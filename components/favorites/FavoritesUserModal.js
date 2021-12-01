@@ -1,11 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ReactNativeModal from "react-native-modal";
 import { useColor } from "../../hooks/useColor";
-import UserCard from "../../user/UserCard";
 import AppText from "../layout/AppText";
-import UserProfileCard from "../UserProfileCard";
 
 const FavoritesUserModal = ({
   isVisible,
@@ -15,7 +14,7 @@ const FavoritesUserModal = ({
   ...props
 }) => {
   const { colors } = useColor();
-  const [showUserProfile, setShowUserProfile] = useState(false);
+  const navigation = useNavigation();
   return (
     <ReactNativeModal
       isVisible={isVisible}
@@ -29,7 +28,8 @@ const FavoritesUserModal = ({
         <TouchableOpacity
           style={styles(colors).options}
           onPress={() => {
-            setShowUserProfile(true);
+            navigation.navigate("PROFILE", { user });
+            closeModal();
           }}
         >
           <AppText>User Profile</AppText>
@@ -47,14 +47,6 @@ const FavoritesUserModal = ({
           <AppText style={{ color: colors.red }}>Delete</AppText>
         </TouchableOpacity>
       </View>
-      <ReactNativeModal
-        isVisible={showUserProfile}
-        onBackdropPress={() => {
-          setShowUserProfile(false);
-        }}
-      >
-        <UserProfileCard user={user} />
-      </ReactNativeModal>
     </ReactNativeModal>
   );
 };

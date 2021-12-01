@@ -3,7 +3,7 @@ import { useTheme } from "../theme/theme-context";
 export const useColor = () => {
   const [colorMode, toggleColorMode] = useTheme();
   const defaultColors = {
-    primary: "#A14BD2",
+    primary: "#bd52ff",
     blue: "#2a5bfa",
     accentGray: "#666666",
     red: "#C70039",
@@ -17,7 +17,7 @@ export const useColor = () => {
       card: "white",
       border: "white",
       lightGray: "#f0f0f0",
-      notification: "#A14BD2",
+      notification: "#bd52ff",
     },
     dark: {
       ...defaultColors,
@@ -27,7 +27,7 @@ export const useColor = () => {
       card: "#252229",
       border: "#252229",
       lightGray: "#333333",
-      notification: "#A14BD2",
+      notification: "#bd52ff",
     },
   };
   return {

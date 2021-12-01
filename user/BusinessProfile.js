@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dimensions, Image, StyleSheet, View } from "react-native";
+import FastImage from "react-native-fast-image";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
@@ -20,7 +21,7 @@ const BusinessProfile = ({ ...props }) => {
       <View>
         <View style={styles.nameContainer}>
           <View>
-            <Image
+            <FastImage
               style={{
                 width: 150,
                 height: 150,

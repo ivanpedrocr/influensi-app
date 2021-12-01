@@ -18,9 +18,7 @@ export const uploadImage = async (uri, { userId }) => {
     xhr.send(null);
   });
   const fileRef = storage.ref(`profile_pictures/${userId}`);
-  await fileRef.put(blob).then((snapshot) => {
-    console.log("UPLOADED IMAGE BLOB");
-  });
+  await fileRef.put(blob).then((snapshot) => {});
   blob.close();
   const fileUri = await fileRef.getDownloadURL(fileRef);
   await db.ref(`users/${userId}`).update({ avatar: fileUri });
@@ -44,9 +42,7 @@ export const uploadNewImageSignup = async (uri) => {
     xhr.send(null);
   });
   const fileRef = storage.ref(`profile_pictures/${new Date().toISOString()}`);
-  await fileRef.put(blob).then((snapshot) => {
-    console.log("UPLOADED IMAGE BLOB");
-  });
+  await fileRef.put(blob).then((snapshot) => {});
   blob.close();
   const fileUri = await fileRef.getDownloadURL(fileRef);
   return fileUri;
