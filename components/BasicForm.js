@@ -1,5 +1,5 @@
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import React, { useState } from "react";
+import React from "react";
 import { View } from "react-native";
 import { useColor } from "../hooks/useColor";
 import { AppTextInput } from "./layout/Native-components";
