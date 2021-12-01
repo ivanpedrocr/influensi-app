@@ -1,10 +1,11 @@
 import React from "react";
 import { Text, View, Stylesheet, StyleSheet } from "react-native";
+import AppText from "../components/layout/AppText";
 
 const AboutUsScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Text>About Us Screen</Text>
+      <AppText>About Us Screen</AppText>
     </View>
   );
 };

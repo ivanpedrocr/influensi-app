@@ -19,6 +19,7 @@ import ConversationsScreen from "../screens/conversations-screen";
 import StartUpScreen from "../screens/startup-screen";
 import { useColor } from "../hooks/useColor";
 import { color } from "react-native-reanimated";
+import FavoritesUserProfileScreen from "../screens/favorites-user-profile-screen";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -89,7 +90,10 @@ const FavoritesStackScreen = () => {
   return (
     <FavoritesStack.Navigator>
       <FavoritesStack.Screen name="FAVORITES" component={FavoritesScreen} />
-      <FavoritesStack.Screen name="PROFILE" component={UserProfileScreen} />
+      <FavoritesStack.Screen
+        name="PROFILE"
+        component={FavoritesUserProfileScreen}
+      />
     </FavoritesStack.Navigator>
   );
 };

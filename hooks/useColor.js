@@ -26,7 +26,7 @@ export const useColor = () => {
       contrastText: "black",
       card: "#252229",
       border: "#252229",
-      lightGray: "#333333",
+      lightGray: "#29292e",
       notification: "#bd52ff",
     },
   };

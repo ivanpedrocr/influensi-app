@@ -16,20 +16,12 @@ import { useColor } from "../hooks/useColor";
 
 const UserProfileScreen = ({ navigation, route, ...props }) => {
   const [authValues, authDispatch] = useAuthContext();
+  const { colors } = useColor();
   const { user } = route.params || authValues;
-  // const [user, setUser] = useState({});
   const [profileImage, setProfileImage] = useState({
     image: null,
     uploading: false,
   });
-  const [type, setType] = useState("USER");
-  const { colors } = useColor();
-  // useEffect(() => {
-  //   (async () => {
-  //     const userData = await fetchUserProfile(authValues);
-  //     setUser(userData);
-  //   })();
-  // }, []);
   useHeaderButton({
     headerRight: () => (
       <View style={{ flexDirection: "row" }}>
@@ -48,18 +40,13 @@ const UserProfileScreen = ({ navigation, route, ...props }) => {
     <SplashScreen />
   ) : (
     <AppScreen>
-      <View style={{ alignSelf: "flex-end", marginBottom: 16 }}></View>
-      {type === "USER" ? (
-        <UserProfile
-          user={user}
-          imageUri={profileImage?.image ?? user?.avatar}
-          setProfileImageUri={(uri) => {
-            setProfileImage((prev) => ({ ...prev, image: uri }));
-          }}
-        />
-      ) : (
-        <BusinessProfile />
-      )}
+      <UserProfile
+        user={user}
+        imageUri={profileImage?.image ?? user?.avatar}
+        setProfileImageUri={(uri) => {
+          setProfileImage((prev) => ({ ...prev, image: uri }));
+        }}
+      />
     </AppScreen>
   );
 };
