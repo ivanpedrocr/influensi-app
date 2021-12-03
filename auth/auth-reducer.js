@@ -27,6 +27,8 @@ const AuthReducer = (state, { type, payload }) => {
       return { token: null, userId: null, loading: false, user: {} };
     case "GET_USER":
       return { ...state, user: payload.user };
+    case "UPDATE_USER":
+      return { ...state, user: { ...state.user, ...payload.user } };
   }
 };
 

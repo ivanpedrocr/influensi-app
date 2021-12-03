@@ -15,11 +15,13 @@ export const Container = styled.View`
 export const AppTextInput = ({
   style,
   onChangeText,
-  autoCapitalize,
+  autoCapitalize = "none",
   value,
   placeholder,
   onSubmitEditing,
   autoFocus,
+  multiline,
+  autoCorrect = false,
   ...props
 }) => {
   const { colors } = useColor();
@@ -30,9 +32,11 @@ export const AppTextInput = ({
       placeholder={placeholder}
       placeholderTextColor={colors.text}
       onChangeText={onChangeText}
-      autoCapitalize={autoCapitalize ?? "none"}
+      autoCapitalize={autoCapitalize}
       value={value}
       autoFocus={autoFocus}
+      multiline={multiline}
+      autoCorrect={autoCorrect}
       style={{
         ...defaultStyles.textInput,
         backgroundColor: colors.lightGray,

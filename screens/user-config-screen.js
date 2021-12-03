@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import {
   Button,
   SafeAreaView,
@@ -7,62 +7,57 @@ import {
   TextInput,
   View,
 } from "react-native";
-import AppText from "../components/layout/AppText";
-import {
-  AppButton,
-  AppScreen,
-  AppTextInput,
-  Container,
-  TypingInput,
-} from "../components/layout/Native-components";
+import { updateUserValues } from "../actions/update-user-values";
+import { useAuthContext } from "../auth/auth-context";
+import BasicForm from "../components/BasicForm";
+import { AppButton, AppScreen } from "../components/layout/Native-components";
+import { TextField } from "../components/signUp/FormField-model";
 import { userInitialState, UserReducer } from "../user/UserProfile-reducer";
-import { camelize } from "../utils/camelize";
 
 const UserConfigScreen = () => {
-  const [userValues, dispatch] = useReducer(UserReducer, userInitialState);
-  const fields = [
-    { name: "username" },
-    { name: "First Name" },
-    { name: "Last Name" },
-    { name: "Age" },
-    { name: "Description" },
+  const [authValues, authDispatch] = useAuthContext();
+  const { first_name, last_name, username } = authValues.user;
+  const [formValue, dispatch] = useReducer(UserReducer, {
+    first_name,
+    last_name,
+    username,
+  });
+  const configurationFields = [
+    new TextField("username", {
+      placeholder: "username",
+      style: styles.textInput,
+    }),
+    new TextField("first_name", {
+      placeholder: "First Name",
+      style: styles.textInput,
+    }),
+    new TextField("last_name", {
+      placeholder: "Last Name",
+      style: styles.textInput,
+    }),
   ];
+  const handleInput = (value) =>
+    dispatch({ type: "UPDATE_USER", payload: value });
+  const saveFormValues = async () => {
+    try {
+      await updateUserValues(authValues, formValue);
+      authDispatch({ type: "UPDATE_USER", payload: { user: formValue } });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <AppScreen>
-      {fields.map((field) => {
-        return (
-          <View
-            key={field.name}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              margin: 8,
-              width: "100%",
-              paddingHorizontal: 20,
-            }}
-          >
-            <AppText>{field.name}</AppText>
-            <AppTextInput
-              autoCapitalize="none"
-              value={userValues[`${camelize(field.name)}`]}
-              onChangeText={(text) => {
-                dispatch({
-                  type: `${field.name.replace(/ /g, "_").toUpperCase()}`,
-                  payload: { [`userValues.${camelize(field.name)}`]: text },
-                });
-              }}
-            />
-          </View>
-        );
-      })}
+      <BasicForm
+        formMap={configurationFields}
+        values={formValue}
+        onChange={handleInput}
+      />
       <AppButton
         style={{ margin: 8 }}
         title="Save"
         onPress={() => {
-          dispatch({
-            type: "ADD_USER",
-            payload: userValues,
-          });
+          saveFormValues();
         }}
       />
     </AppScreen>
@@ -72,12 +67,6 @@ const UserConfigScreen = () => {
 const styles = StyleSheet.create({
   textInput: {
     margin: 4,
-    borderRadius: 8,
-    height: "auto",
-    borderWidth: 1,
-    width: "100%",
-    paddingVertical: 8,
-    paddingHorizontal: 12,
   },
   description: {
     margin: 4,
