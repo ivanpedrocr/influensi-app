@@ -15,6 +15,7 @@ import { uploadImage, uploadNewImageSignup } from "../actions/upload-image";
 import { useColor } from "../hooks/useColor";
 
 const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
+  const { colors } = useColor();
   const [userForm, dispatchUserForm] = useReducer(
     SignUpReducer,
     signUpInitialState
@@ -23,7 +24,6 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     image: null,
     uploading: false,
   });
-  const { colors } = useColor();
   const handleImagePicked = async (pickerResult) => {
     try {
       if (!pickerResult.cancelled) {

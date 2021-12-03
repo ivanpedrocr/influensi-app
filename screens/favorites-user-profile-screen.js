@@ -30,7 +30,7 @@ const FavoritesUserProfileScreen = ({ route, navigation }) => {
             <AppText style={styles.username}>{user.username}</AppText>
             <AppText>{user.age}</AppText>
             <AppText style={{ fontWeight: "bold" }}>{user?.followers}</AppText>
-            <AppText style={{ color: "green" }}>+{user?.averageReturn}</AppText>
+            <AppText style={{ color: "green" }}>{user?.averageReturn}</AppText>
             <StarRating rating={user?.rating} />
           </View>
         </View>
