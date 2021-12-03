@@ -57,18 +57,6 @@ const UserSignUpModal = ({ isVisible, onSignUp, onClose, ...props }) => {
     >
       <View style={styles.modal}>
         <View style={{ width: "100%" }} contentContainerStyle={styles.card}>
-          {/* <AppTextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <AppTextInput
-            placeholder="Password"
-            value={password}
-            secureTextEntry={true}
-            onChangeText={(text) => setPassword(text)}
-            style={{ marginTop: 8 }}
-          /> */}
           <TouchableHighlight
             activeOpacity={0.05}
             style={{
