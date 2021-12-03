@@ -12,28 +12,10 @@ const RadioButton = ({ style, onSelect, label, values, options }) => {
         onPress={() => {
           onSelect(value);
         }}
-        style={[
-          {
-            height: 40,
-            width: 40,
-            borderRadius: 20,
-            borderWidth: 2,
-            borderColor: colors.primary,
-            alignItems: "center",
-            justifyContent: "center",
-          },
-          style,
-        ]}
+        style={[styles(colors).item, style]}
       >
         {values === value ? (
-          <View
-            style={{
-              height: "65%",
-              width: "65%",
-              borderRadius: 20,
-              backgroundColor: colors.primary,
-            }}
-          />
+          <View style={styles(colors).itemInnerButton} />
         ) : (
           <></>
         )}
@@ -56,8 +38,23 @@ const styles = (colors) =>
       alignItems: "center",
     },
     itemLabel: {
-      fontWeight: "bold",
+      fontWeight: "400",
       paddingBottom: 4,
+    },
+    itemInnerButton: {
+      height: "65%",
+      width: "65%",
+      borderRadius: 20,
+      backgroundColor: colors?.primary,
+    },
+    item: {
+      height: 40,
+      width: 40,
+      borderRadius: 20,
+      borderWidth: 2,
+      borderColor: colors?.primary,
+      alignItems: "center",
+      justifyContent: "center",
     },
   });
 
