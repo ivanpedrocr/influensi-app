@@ -25,7 +25,7 @@ const RadioButton = ({ style, onSelect, label, values, options }) => {
   return (
     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
       {options.map(({ label, value }) => (
-        <RadioButtonItem label={label} value={value} />
+        <RadioButtonItem label={label} value={value} key={value} />
       ))}
     </View>
   );

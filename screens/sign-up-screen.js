@@ -1,26 +1,27 @@
-import React from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
-import { useState } from "react/cjs/react.development";
-import { signInUser } from "../actions/signin-user";
-import signupUser from "../actions/signup-user";
-import { useAuthContext } from "../auth/auth-context";
+import React, { useReducer, useState } from "react";
+import { View, StyleSheet, TouchableHighlight, Image } from "react-native";
+import { AppButton, AppScreen } from "../components/layout/Native-components";
+import SignUpReducer, {
+  signUpInitialState,
+} from "../components/signUp/SignUp-reducer";
+import BasicForm from "../components/BasicForm";
+import { signUpForm } from "../components/signUp/SignUp-form";
 import {
-  AppButton,
-  AppScreen,
-  AppTextInput,
-} from "../components/layout/Native-components";
-import UserSignUpModal from "../user/UserSignUp-modal";
-import firebase from "firebase";
+  launchImageLibraryAsync,
+  requestMediaLibraryPermissionsAsync,
+} from "expo-image-picker";
+import { uploadNewImageSignup } from "../actions/upload-image";
 import { useColor } from "../hooks/useColor";
+import signupUser from "../actions/signup-user";
 import { fetchUserProfile } from "../actions/fetch-user-profile";
 
-const AuthScreen = ({ navigation, ...props }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [openModal, setOpenModal] = useState(false);
-  const [authState, authDispatch] = useAuthContext();
+const SignUpScreen = ({ navigation, route, isVisible, onClose, ...props }) => {
   const { colors } = useColor();
-  const auth = firebase.auth();
+  const [userForm, dispatchUserForm] = useReducer(
+    SignUpReducer,
+    signUpInitialState
+  );
+
   const onSignUp = async (user) => {
     authDispatch({ type: "LOADING" });
     await signupUser(user);
@@ -33,70 +34,94 @@ const AuthScreen = ({ navigation, ...props }) => {
       payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
     });
   };
-  const onSignIn = async () => {
-    authDispatch({ type: "LOADING" });
-    await signInUser(email, password);
-    const token = await auth.currentUser.getIdToken();
-    const loggedInUser = await fetchUserProfile({
-      userId: auth.currentUser.uid,
+
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadNewImageSignup(pickerResult.uri);
+        dispatchUserForm({
+          type: "SET_PROFILE_IMAGE",
+          payload: { image: uploadUrl, uploading: false },
+        });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const pickImage = async () => {
+    const pickerResult = await launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [3, 3],
     });
-    authDispatch({
-      type: "SIGNIN",
-      payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
+    handleImagePicked(pickerResult);
+  };
+
+  const handleInput = (payload) => {
+    dispatchUserForm({
+      type: "UPDATE_FORM_VALUES",
+      payload,
     });
   };
   return (
-    <AppScreen style={styles.screen}>
-      <View style={styles.card}>
-        <ScrollView>
-          <AppTextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <AppTextInput
-            placeholder="Password"
-            value={password}
-            secureTextEntry={true}
-            onChangeText={(text) => setPassword(text)}
-            style={{ marginTop: 8 }}
-          />
-          <AppButton
-            title="Sign-In"
+    <AppScreen>
+      <View style={styles.modal}>
+        <View style={{ width: "100%" }} contentContainerStyle={styles.card}>
+          <TouchableHighlight
+            activeOpacity={0.05}
             style={{
-              marginTop: 8,
-              backgroundColor: colors.lightGray,
-              color: colors.text,
+              borderRadius: 100,
+              width: 150,
+              height: 150,
             }}
-            onPress={onSignIn}
+            onPress={async () => {
+              const { status } = await requestMediaLibraryPermissionsAsync();
+              pickImage();
+            }}
+          >
+            <Image
+              source={{ uri: userForm.formValues.profileImage.image }}
+              style={{
+                width: 150,
+                height: 150,
+                borderWidth: 2,
+                borderColor: "black",
+                borderRadius: 100,
+              }}
+            />
+          </TouchableHighlight>
+          <BasicForm
+            formMap={signUpForm}
+            values={userForm.formValues}
+            onChange={handleInput}
           />
           <AppButton
             title="Sign-Up"
-            onPress={() => {
-              setOpenModal(true);
-            }}
+            onPress={() =>
+              onSignUp({
+                ...userForm.formValues,
+                avatar: userForm.formValues.profileImage.image,
+              })
+            }
             style={{ marginTop: 8 }}
           />
-        </ScrollView>
+        </View>
       </View>
-      <UserSignUpModal
-        isVisible={openModal}
-        onSignUp={onSignUp}
-        onClose={() => setOpenModal(false)}
-      />
     </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   card: {
     padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
     width: "100%",
   },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 24,
+  },
 });
-export default AuthScreen;
+
+export default SignUpScreen;

@@ -1,5 +1,9 @@
 export const signUpInitialState = {
-  formValues: { age: new Date() },
+  formValues: {
+    age: new Date(),
+    user_type: "",
+    profileImage: { image: null, uploading: false },
+  },
 };
 
 const SignUpReducer = (state, action) => {
@@ -8,6 +12,11 @@ const SignUpReducer = (state, action) => {
       return {
         ...state,
         formValues: { ...state.formValues, ...action.payload },
+      };
+    case "SET_PROFILE_IMAGE":
+      return {
+        ...state,
+        formValues: { ...state.formValues, profileImage: action.payload },
       };
   }
 };

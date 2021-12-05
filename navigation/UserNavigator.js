@@ -18,7 +18,6 @@ import SplashScreen from "../screens/splash-screen";
 import ConversationsScreen from "../screens/conversations-screen";
 import StartUpScreen from "../screens/startup-screen";
 import { useColor } from "../hooks/useColor";
-import { color } from "react-native-reanimated";
 import FavoritesUserProfileScreen from "../screens/favorites-user-profile-screen";
 
 const FavoritesStack = createStackNavigator();
@@ -101,10 +100,9 @@ const FavoritesStackScreen = () => {
 const UserNavigator = () => {
   const [{ token, userId, loading }, authDispatch] = useAuthContext();
   const { colors, dark } = useColor();
-  const appTheme = { dark, colors };
 
   return (
-    <NavigationContainer theme={appTheme}>
+    <NavigationContainer theme={{ colors, dark }}>
       {token && userId ? (
         <BottomTab.Navigator screenOptions={{ headerShown: false }}>
           <BottomTab.Screen

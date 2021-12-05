@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
 import SplashScreen from "./splash-screen";
 import { useAuthContext } from "../auth/auth-context";
-import AuthScreen from "./sign-up-screen";
 import firebase from "firebase";
 import { fetchUserProfile } from "../actions/fetch-user-profile";
-import FastImage from "react-native-fast-image";
+import SignInScreen from "./sign-in-screen";
+import SignUpScreen from "./sign-up-screen";
+import { createStackNavigator } from "@react-navigation/stack";
+
+const AuthStack = createStackNavigator();
+
+const AuthStackScreen = () => {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="SIGNIN" component={SignInScreen} />
+      <AuthStack.Screen name="SIGNUP" component={SignUpScreen} />
+    </AuthStack.Navigator>
+  );
+};
 
 const StartUpScreen = ({ navigation, ...props }) => {
   const [signedIn, setSignedIn] = useState(null);
@@ -31,7 +43,7 @@ const StartUpScreen = ({ navigation, ...props }) => {
     };
   }, []);
   return signedIn === false ? (
-    <AuthScreen navigation={navigation} />
+    <AuthStackScreen navigation={navigation} />
   ) : (
     <SplashScreen />
   );
