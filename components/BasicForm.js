@@ -5,8 +5,17 @@ import { useColor } from "../hooks/useColor";
 import { AppTextInput } from "./layout/Native-components";
 import { Picker } from "@react-native-picker/picker";
 import RadioButton from "./layout/RadioButton";
+import { Controller } from "react-hook-form";
 
-const BasicForm = ({ formMap, onChange, values, style, ...props }) => {
+const BasicForm = ({
+  formMap,
+  onChange,
+  values,
+  style,
+  validationSchema,
+  control,
+  ...props
+}) => {
   const { colors, dark } = useColor();
   return (
     <View>
@@ -14,26 +23,43 @@ const BasicForm = ({ formMap, onChange, values, style, ...props }) => {
         switch (field.type) {
           case "text":
             return (
-              <AppTextInput
+              <Controller
                 key={field.name}
-                value={values[field.name] ?? ""}
-                onChangeText={(text) => {
-                  onChange({ [field.name]: text });
-                }}
-                {...field}
+                control={control}
+                name={field.name}
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <AppTextInput
+                    key={field.name}
+                    value={value}
+                    onChangeText={(text) => {
+                      onChange(text);
+                    }}
+                    onBlur={onBlur}
+                    {...field}
+                  />
+                )}
               />
             );
           case "date-picker":
             return (
-              <RNDateTimePicker
+              <Controller
                 key={field.name}
-                value={values[field.name]}
-                onChange={(e, date) => {
-                  onChange({ [field.name]: date });
-                }}
-                themeVariant={dark ? "dark" : "light"}
-                textColor={colors.primary}
-                {...field}
+                control={control}
+                name={field.name}
+                defaultValue={new Date()}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <RNDateTimePicker
+                    key={field.name}
+                    value={value}
+                    onChange={(e, date) => {
+                      onChange(date);
+                    }}
+                    themeVariant={dark ? "dark" : "light"}
+                    textColor={colors.primary}
+                    {...field}
+                  />
+                )}
               />
             );
           case "picker":
@@ -52,11 +78,19 @@ const BasicForm = ({ formMap, onChange, values, style, ...props }) => {
             );
           case "radio_button":
             return (
-              <RadioButton
+              <Controller
                 key={field.name}
-                onSelect={(value) => onChange({ [field.name]: value })}
-                values={values[field.name]}
-                {...field}
+                control={control}
+                name={field.name}
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <RadioButton
+                    key={field.name}
+                    onSelect={(value) => onChange(value)}
+                    value={value}
+                    {...field}
+                  />
+                )}
               />
             );
         }

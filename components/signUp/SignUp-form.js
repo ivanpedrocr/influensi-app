@@ -10,9 +10,9 @@ export const signUpForm = [
     options: [
       {
         label: "Business",
-        value: "BUSINESS",
+        item: "BUSINESS",
       },
-      { label: "Influencer", value: "INFLUENCER" },
+      { label: "Influencer", item: "INFLUENCER" },
     ],
   }),
   new TextField("email", { placeholder: "Email" }),

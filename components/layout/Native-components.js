@@ -22,12 +22,16 @@ export const AppTextInput = ({
   autoFocus,
   multiline,
   autoCorrect = false,
+  keyboardType,
+  editable,
+  onBlur,
   ...props
 }) => {
   const { colors } = useColor();
   return (
     <TextInput
       {...props}
+      onBlur={onBlur}
       onSubmitEditing={onSubmitEditing}
       placeholder={placeholder}
       placeholderTextColor={colors.text}
@@ -37,6 +41,8 @@ export const AppTextInput = ({
       autoFocus={autoFocus}
       multiline={multiline}
       autoCorrect={autoCorrect}
+      keyboardType={keyboardType}
+      editable={editable}
       style={{
         ...defaultStyles.textInput,
         backgroundColor: colors.lightGray,
