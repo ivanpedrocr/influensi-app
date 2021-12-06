@@ -3,7 +3,7 @@ import { StyleSheet, TouchableHighlight, View } from "react-native";
 import { useColor } from "../../hooks/useColor";
 import AppText from "./AppText";
 
-const RadioButton = ({ style, onSelect, label, value, options }) => {
+const RadioButton = ({ style, onSelect, label, value, options, error }) => {
   const { colors } = useColor();
   const RadioButtonItem = ({ item, label }) => (
     <View style={styles().itemContainer} key={item}>
@@ -24,10 +24,17 @@ const RadioButton = ({ style, onSelect, label, value, options }) => {
     </View>
   );
   return (
-    <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-      {options.map(({ label, item }) => (
-        <RadioButtonItem label={label} item={item} key={item} />
-      ))}
+    <View>
+      {error && (
+        <AppText style={{ color: colors.red, alignSelf: "center" }}>
+          {error.message}
+        </AppText>
+      )}
+      <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+        {options.map(({ label, item }) => (
+          <RadioButtonItem label={label} item={item} key={item} />
+        ))}
+      </View>
     </View>
   );
 };

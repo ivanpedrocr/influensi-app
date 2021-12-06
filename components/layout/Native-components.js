@@ -25,31 +25,37 @@ export const AppTextInput = ({
   keyboardType,
   editable,
   onBlur,
+  error,
   ...props
 }) => {
   const { colors } = useColor();
   return (
-    <TextInput
-      {...props}
-      onBlur={onBlur}
-      onSubmitEditing={onSubmitEditing}
-      placeholder={placeholder}
-      placeholderTextColor={colors.text}
-      onChangeText={onChangeText}
-      autoCapitalize={autoCapitalize}
-      value={value}
-      autoFocus={autoFocus}
-      multiline={multiline}
-      autoCorrect={autoCorrect}
-      keyboardType={keyboardType}
-      editable={editable}
-      style={{
-        ...defaultStyles.textInput,
-        backgroundColor: colors.lightGray,
-        color: colors.text,
-        ...style,
-      }}
-    ></TextInput>
+    <View>
+      {error && (
+        <AppText style={{ color: colors.red }}>{error.message}</AppText>
+      )}
+      <TextInput
+        {...props}
+        onBlur={onBlur}
+        onSubmitEditing={onSubmitEditing}
+        placeholder={placeholder}
+        placeholderTextColor={colors.text}
+        onChangeText={onChangeText}
+        autoCapitalize={autoCapitalize}
+        value={value}
+        autoFocus={autoFocus}
+        multiline={multiline}
+        autoCorrect={autoCorrect}
+        keyboardType={keyboardType}
+        editable={editable}
+        style={{
+          ...defaultStyles.textInput,
+          backgroundColor: colors.lightGray,
+          color: colors.text,
+          ...style,
+        }}
+      ></TextInput>
+    </View>
   );
 };
 

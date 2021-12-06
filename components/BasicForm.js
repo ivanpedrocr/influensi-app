@@ -28,7 +28,10 @@ const BasicForm = ({
                 control={control}
                 name={field.name}
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
                   <AppTextInput
                     key={field.name}
                     value={value}
@@ -36,6 +39,7 @@ const BasicForm = ({
                       onChange(text);
                     }}
                     onBlur={onBlur}
+                    error={error}
                     {...field}
                   />
                 )}
@@ -83,9 +87,13 @@ const BasicForm = ({
                 control={control}
                 name={field.name}
                 defaultValue=""
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState,
+                }) => (
                   <RadioButton
                     key={field.name}
+                    error={fieldState.error}
                     onSelect={(value) => onChange(value)}
                     value={value}
                     {...field}

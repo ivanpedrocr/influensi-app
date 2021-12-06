@@ -5,7 +5,7 @@ import SignUpReducer, {
   signUpInitialState,
 } from "../components/signUp/SignUp-reducer";
 import BasicForm from "../components/BasicForm";
-import { signUpForm } from "../components/signUp/SignUp-form";
+import { signUpForm, validationSchema } from "../components/signUp/SignUp-form";
 import {
   launchImageLibraryAsync,
   requestMediaLibraryPermissionsAsync,
@@ -15,10 +15,12 @@ import { useColor } from "../hooks/useColor";
 import signupUser from "../actions/signup-user";
 import { fetchUserProfile } from "../actions/fetch-user-profile";
 import { useForm } from "react-hook-form";
+import useYupValidationResolver from "../hooks/useYupValidationResolver";
 
 const SignUpScreen = ({ navigation, route, ...props }) => {
+  const resolver = useYupValidationResolver(validationSchema);
   const { colors } = useColor();
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control } = useForm({ resolver });
   const [step, setStep] = useState(0);
   const [userForm, dispatchUserForm] = useReducer(
     SignUpReducer,
@@ -26,7 +28,6 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
   );
 
   const onSubmit = async (values) => {
-    console.log(values);
     // authDispatch({ type: "LOADING" });
     // await signupUser(user);
     // const token = await auth.currentUser.getIdToken();
