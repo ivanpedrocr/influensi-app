@@ -18,6 +18,7 @@ export const useColor = () => {
       border: "white",
       lightGray: "#f0f0f0",
       notification: "#bd52ff",
+      placeholderText: "#dad7e0",
     },
     dark: {
       ...defaultColors,
@@ -28,6 +29,7 @@ export const useColor = () => {
       border: "#252229",
       lightGray: "#29292e",
       notification: "#bd52ff",
+      placeholderText: "#424145",
     },
   };
   return {

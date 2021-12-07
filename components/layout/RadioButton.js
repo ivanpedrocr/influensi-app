@@ -10,7 +10,6 @@ const RadioButton = ({ style, onSelect, label, value, options, error }) => {
       <AppText style={styles().itemLabel}>{label}</AppText>
       <TouchableHighlight
         onPress={() => {
-          console.log(item);
           onSelect(item);
         }}
         style={[styles(colors).item, style]}

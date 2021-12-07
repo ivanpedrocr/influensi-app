@@ -1,9 +1,11 @@
-import React, { useReducer, useState } from "react";
-import { View, StyleSheet, TouchableHighlight, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  TouchableHighlight,
+  Image,
+  ScrollView,
+} from "react-native";
 import { AppButton, AppScreen } from "../components/layout/Native-components";
-import SignUpReducer, {
-  signUpInitialState,
-} from "../components/signUp/SignUp-reducer";
 import BasicForm from "../components/BasicForm";
 import { signUpForm, validationSchema } from "../components/signUp/SignUp-form";
 import {
@@ -12,22 +14,23 @@ import {
 } from "expo-image-picker";
 import { uploadNewImageSignup } from "../actions/upload-image";
 import { useColor } from "../hooks/useColor";
-import signupUser from "../actions/signup-user";
-import { fetchUserProfile } from "../actions/fetch-user-profile";
 import { useForm } from "react-hook-form";
 import useYupValidationResolver from "../hooks/useYupValidationResolver";
+import InfluencerSignUpView from "../components/signUp/InfluencerSignUp-view";
+import BusinessSignUpView from "../components/signUp/BusinessSignUp-view";
 
 const SignUpScreen = ({ navigation, route, ...props }) => {
   const resolver = useYupValidationResolver(validationSchema);
+  const [profileImage, setProfileImage] = useState({
+    image: null,
+    uploading: false,
+  });
   const { colors } = useColor();
-  const { handleSubmit, control } = useForm({ resolver });
-  const [step, setStep] = useState(0);
-  const [userForm, dispatchUserForm] = useReducer(
-    SignUpReducer,
-    signUpInitialState
-  );
+  const { handleSubmit, control, watch } = useForm({ resolver });
+  const userType = watch("user_type");
 
   const onSubmit = async (values) => {
+    console.log(values);
     // authDispatch({ type: "LOADING" });
     // await signupUser(user);
     // const token = await auth.currentUser.getIdToken();
@@ -40,35 +43,26 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
     // });
   };
 
-  // const handleImagePicked = async (pickerResult) => {
-  //   try {
-  //     if (!pickerResult.cancelled) {
-  //       const uploadUrl = await uploadNewImageSignup(pickerResult.uri);
-  //       dispatchUserForm({
-  //         type: "SET_PROFILE_IMAGE",
-  //         payload: { image: uploadUrl, uploading: false },
-  //       });
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-  // const pickImage = async () => {
-  //   const pickerResult = await launchImageLibraryAsync({
-  //     allowsEditing: true,
-  //     aspect: [3, 3],
-  //   });
-  //   handleImagePicked(pickerResult);
-  // };
-  // const handleInput = (payload) => {
-  //   dispatchUserForm({
-  //     type: "UPDATE_FORM_VALUES",
-  //     payload,
-  //   });
-  // };
+  const handleImagePicked = async (pickerResult) => {
+    try {
+      if (!pickerResult.cancelled) {
+        const uploadUrl = await uploadNewImageSignup(pickerResult.uri);
+        setProfileImage({ image: uploadUrl, uploading: false });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const pickImage = async () => {
+    const pickerResult = await launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [3, 3],
+    });
+    handleImagePicked(pickerResult);
+  };
   return (
     <AppScreen style={{ padding: 24 }}>
-      {/* {step === 0 && (
+      <ScrollView>
         <TouchableHighlight
           activeOpacity={0.05}
           style={{
@@ -78,11 +72,13 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
           }}
           onPress={async () => {
             const { status } = await requestMediaLibraryPermissionsAsync();
-            // pickImage();
+            if (status === "granted") {
+              pickImage();
+            }
           }}
         >
           <Image
-            source={{ uri: userForm.formValues.profileImage.image }}
+            source={{ uri: profileImage.image }}
             style={{
               width: 150,
               height: 150,
@@ -92,13 +88,17 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
             }}
           />
         </TouchableHighlight>
-      )} */}
-      <BasicForm formMap={signUpForm} control={control} />
-      <AppButton
-        title="Sign-Up"
-        onPress={handleSubmit(onSubmit)}
-        style={{ marginTop: 8 }}
-      />
+        <BasicForm formMap={signUpForm} control={control} />
+        {userType === "INFLUENCER" && (
+          <InfluencerSignUpView control={control} />
+        )}
+        {userType === "BUSINESS" && <BusinessSignUpView control={control} />}
+        <AppButton
+          title="Sign-Up"
+          onPress={handleSubmit(onSubmit, (errors) => console.log(errors))}
+          style={{ marginTop: 8 }}
+        />
+      </ScrollView>
     </AppScreen>
   );
 };

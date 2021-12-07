@@ -6,6 +6,7 @@ import { AppTextInput } from "./layout/Native-components";
 import { Picker } from "@react-native-picker/picker";
 import RadioButton from "./layout/RadioButton";
 import { Controller } from "react-hook-form";
+import DatePicker from "./layout/DatePicker";
 
 const BasicForm = ({
   formMap,
@@ -53,14 +54,12 @@ const BasicForm = ({
                 name={field.name}
                 defaultValue={new Date()}
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <RNDateTimePicker
+                  <DatePicker
                     key={field.name}
                     value={value}
                     onChange={(e, date) => {
                       onChange(date);
                     }}
-                    themeVariant={dark ? "dark" : "light"}
-                    textColor={colors.primary}
                     {...field}
                   />
                 )}
