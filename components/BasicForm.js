@@ -41,6 +41,7 @@ const BasicForm = ({
                     }}
                     onBlur={onBlur}
                     error={error}
+                    style={{ ...style, ...field?.style }}
                     {...field}
                   />
                 )}
@@ -53,13 +54,18 @@ const BasicForm = ({
                 control={control}
                 name={field.name}
                 defaultValue={new Date()}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
                   <DatePicker
                     key={field.name}
                     value={value}
                     onChange={(e, date) => {
                       onChange(date);
                     }}
+                    style={{ ...style, ...field?.style }}
+                    error={error}
                     {...field}
                   />
                 )}
@@ -95,6 +101,7 @@ const BasicForm = ({
                     error={fieldState.error}
                     onSelect={(value) => onChange(value)}
                     value={value}
+                    style={{ ...style, ...field?.style }}
                     {...field}
                   />
                 )}

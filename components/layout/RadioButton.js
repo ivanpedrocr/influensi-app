@@ -7,19 +7,15 @@ const RadioButton = ({ style, onSelect, label, value, options, error }) => {
   const { colors } = useColor();
   const RadioButtonItem = ({ item, label }) => (
     <View style={styles().itemContainer} key={item}>
-      <AppText style={styles().itemLabel}>{label}</AppText>
       <TouchableHighlight
         onPress={() => {
           onSelect(item);
         }}
-        style={[styles(colors).item, style]}
+        style={[styles(colors, value === item).item, style]}
       >
-        {value === item ? (
-          <View style={styles(colors).itemInnerButton} />
-        ) : (
-          <></>
-        )}
+        <View style={styles(colors, value === item).itemInnerButton} />
       </TouchableHighlight>
+      <AppText style={styles().itemLabel}>{label}</AppText>
     </View>
   );
   return (
@@ -38,30 +34,33 @@ const RadioButton = ({ style, onSelect, label, value, options, error }) => {
   );
 };
 
-const styles = (colors) =>
+const styles = (colors, isSelected) =>
   StyleSheet.create({
     itemContainer: {
       justifyContent: "center",
       alignItems: "center",
+      flexDirection: "row",
     },
     itemLabel: {
       fontWeight: "400",
       paddingBottom: 4,
     },
     itemInnerButton: {
-      height: "65%",
-      width: "65%",
+      height: "72%",
+      width: "72%",
       borderRadius: 20,
       backgroundColor: colors?.primary,
+      display: isSelected ? "flex" : "none",
     },
     item: {
-      height: 40,
-      width: 40,
+      height: 32,
+      width: 32,
       borderRadius: 20,
-      borderWidth: 2,
-      borderColor: colors?.primary,
+      borderWidth: 4,
+      borderColor: isSelected ? colors?.primary : colors?.lightGray,
       alignItems: "center",
       justifyContent: "center",
+      marginRight: 4,
     },
   });
 

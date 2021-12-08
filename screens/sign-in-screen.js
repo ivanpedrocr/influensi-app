@@ -36,36 +36,34 @@ const SignInScreen = ({ route, navigation }) => {
   return (
     <AppScreen style={styles.screen}>
       <View style={styles.card}>
-        <ScrollView>
-          <AppTextInput
-            placeholder="Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <AppTextInput
-            placeholder="Password"
-            value={password}
-            secureTextEntry={true}
-            onChangeText={(text) => setPassword(text)}
-            style={{ marginTop: 8 }}
-          />
-          <AppButton
-            title="Sign-In"
-            style={{
-              marginTop: 8,
-              backgroundColor: colors.lightGray,
-              color: colors.text,
-            }}
-            onPress={onSignIn}
-          />
-          <AppButton
-            title="Sign-Up"
-            onPress={() => {
-              navigation.navigate("SIGNUP");
-            }}
-            style={{ marginTop: 8 }}
-          />
-        </ScrollView>
+        <AppTextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <AppTextInput
+          placeholder="Password"
+          value={password}
+          secureTextEntry={true}
+          onChangeText={(text) => setPassword(text)}
+          style={{ marginTop: 8 }}
+        />
+        <AppButton
+          title="Sign-In"
+          style={{
+            marginTop: 8,
+            backgroundColor: colors.lightGray,
+            color: colors.text,
+          }}
+          onPress={onSignIn}
+        />
+        <AppButton
+          title="Sign-Up"
+          onPress={() => {
+            navigation.navigate("SIGNUP");
+          }}
+          style={{ marginTop: 8 }}
+        />
       </View>
     </AppScreen>
   );

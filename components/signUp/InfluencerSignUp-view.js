@@ -7,7 +7,13 @@ import {
 } from "./SignUp-form";
 
 const InfluencerSignUpView = ({ control }) => {
-  return <BasicForm control={control} formMap={influencerSignUpForm} />;
+  return (
+    <BasicForm
+      control={control}
+      formMap={influencerSignUpForm}
+      style={{ marginBottom: 8 }}
+    />
+  );
 };
 
 export default InfluencerSignUpView;

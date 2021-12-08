@@ -6,6 +6,9 @@ import {
 } from "./FormField-model";
 
 import * as Yup from "yup";
+import { addYears } from "date-fns";
+
+const minDate = addYears(new Date(), -13);
 
 const influencerRequiredField = (requiredText) => ({
   is: (val) => val === "INFLUENCER",
@@ -23,14 +26,16 @@ export const influencerValidationSchema = {
   ),
   age: Yup.date().when("user_type", {
     is: (val) => val === "INFLUENCER",
-    then: Yup.date().required("Required"),
+    then: Yup.date()
+      .max(minDate, "Minimum age must be 13 years old.")
+      .required("Required"),
   }),
 };
 
 export const businessValidationSchema = {
   business_name: Yup.string().when("user_type", {
     is: (val) => val === "BUSINESS",
-    then: Yup.string().required("Business Name is required"),
+    then: Yup.string().required("Business Name is required").min(),
   }),
   business_category: Yup.string(),
 };
@@ -45,9 +50,6 @@ export const validationSchema = Yup.object({
 });
 
 export const signUpForm = [
-  new TextField("email", { placeholder: "Email" }),
-  new TextField("password", { placeholder: "Password", secureTextEntry: true }),
-  new TextField("username", { placeholder: "Username" }),
   new RadioButtonField("user_type", {
     options: [
       {
@@ -57,15 +59,17 @@ export const signUpForm = [
       { label: "Influencer", item: "INFLUENCER" },
     ],
   }),
+  new TextField("email", { placeholder: "Email" }),
+  new TextField("password", { placeholder: "Password", secureTextEntry: true }),
+  new TextField("username", { placeholder: "Username" }),
 ];
 
 export const influencerSignUpForm = [
   new TextField("first_name", { placeholder: "First Name" }),
   new TextField("last_name", { placeholder: "Last Name" }),
-  new DatePickerField("age", {}),
+  new DatePickerField("age", { label: "Birth Date" }),
 ];
 
 export const businessSignUpForm = [
   new TextField("business_name", { placeholder: "Business Name" }),
-  new TextField("business_category", { placeholder: "Business Category" }),
 ];

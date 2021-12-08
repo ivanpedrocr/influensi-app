@@ -4,6 +4,7 @@ import {
   TouchableHighlight,
   Image,
   ScrollView,
+  Alert,
 } from "react-native";
 import { AppButton, AppScreen } from "../components/layout/Native-components";
 import BasicForm from "../components/BasicForm";
@@ -63,7 +64,7 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
   return (
     <AppScreen style={{ padding: 24 }}>
       <ScrollView>
-        <TouchableHighlight
+        {/* <TouchableHighlight
           activeOpacity={0.05}
           style={{
             borderRadius: 100,
@@ -74,6 +75,11 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
             const { status } = await requestMediaLibraryPermissionsAsync();
             if (status === "granted") {
               pickImage();
+            } else {
+              Alert.prompt(
+                "Photos Permission Required",
+                "We need photos permission to upload your photos."
+              );
             }
           }}
         >
@@ -87,17 +93,17 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
               borderRadius: 100,
             }}
           />
-        </TouchableHighlight>
-        <BasicForm formMap={signUpForm} control={control} />
+        </TouchableHighlight> */}
+        <BasicForm
+          formMap={signUpForm}
+          control={control}
+          style={{ marginBottom: 8 }}
+        />
         {userType === "INFLUENCER" && (
           <InfluencerSignUpView control={control} />
         )}
         {userType === "BUSINESS" && <BusinessSignUpView control={control} />}
-        <AppButton
-          title="Sign-Up"
-          onPress={handleSubmit(onSubmit, (errors) => console.log(errors))}
-          style={{ marginTop: 8 }}
-        />
+        <AppButton title="Create Account" onPress={handleSubmit(onSubmit)} />
       </ScrollView>
     </AppScreen>
   );

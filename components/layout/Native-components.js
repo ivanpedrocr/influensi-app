@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import { useColor } from "../../hooks/useColor";
 import AppText from "./AppText";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const Container = styled.View`
   flex: 1;
@@ -48,12 +49,7 @@ export const AppTextInput = ({
         autoCorrect={autoCorrect}
         keyboardType={keyboardType}
         editable={editable}
-        style={{
-          ...defaultStyles.textInput,
-          backgroundColor: colors.lightGray,
-          color: colors.text,
-          ...style,
-        }}
+        style={[defaultStyles(colors).textInput, style]}
       ></TextInput>
     </View>
   );
@@ -66,9 +62,7 @@ export const Typography = ({
 }) => {
   return (
     <View {...restStyle}>
-      <Text style={{ fontSize: fontSize, fontFamily: fontFamily }}>
-        {children}
-      </Text>
+      <Text style={{ fontSize, fontFamily }}>{children}</Text>
     </View>
   );
 };
@@ -82,11 +76,7 @@ export const AppButton = ({ style, title, onPress, ...props }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{
-        ...defaultStyles.button,
-        backgroundColor: colors.primary,
-        ...style,
-      }}
+      style={[defaultStyles(colors).button, style]}
       {...restProps}
     >
       <AppText
@@ -114,7 +104,7 @@ export const AppIconButton = ({
   return (
     <TouchableOpacity
       activeOpacity={activeOpacity ?? 0.7}
-      style={{ ...defaultStyles.iconButton, ...style }}
+      style={[defaultStyles().iconButton, style]}
       onPress={onPress}
     >
       {children}
@@ -125,41 +115,40 @@ export const AppIconButton = ({
 export const AppScreen = ({ children, style, ...props }) => {
   const { colors, dark } = useColor();
   return (
-    <View
-      style={{
-        ...defaultStyles.screen,
-        backgroundColor: colors.background,
-        ...style,
-      }}
-    >
+    <View style={[defaultStyles().screen, style]}>
       <StatusBar barStyle={dark ? "light-content" : "dark-content"} />
       {children}
     </View>
   );
 };
 
-const defaultStyles = StyleSheet.create({
-  button: {
-    minWidth: 100,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  iconButton: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textInput: {
-    alignItems: "center",
-    justifyContent: "flex-start",
-    borderRadius: 30,
-    width: "100%",
-    paddingVertical: 14,
-    paddingHorizontal: 12,
-  },
-  screen: {
-    flex: 1,
-  },
-});
+const defaultStyles = (colors) =>
+  StyleSheet.create({
+    button: {
+      minWidth: 100,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: colors?.primary,
+    },
+    iconButton: {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    textInput: {
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      borderRadius: 30,
+      width: "100%",
+      paddingVertical: 14,
+      paddingHorizontal: 12,
+      backgroundColor: colors?.lightGray,
+      color: colors?.text,
+    },
+    screen: {
+      flex: 1,
+      backgroundColor: colors?.background,
+    },
+  });

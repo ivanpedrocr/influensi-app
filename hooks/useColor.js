@@ -27,9 +27,9 @@ export const useColor = () => {
       contrastText: "black",
       card: "#252229",
       border: "#252229",
-      lightGray: "#29292e",
+      lightGray: "#28262b",
       notification: "#bd52ff",
-      placeholderText: "#424145",
+      placeholderText: "#7e7685",
     },
   };
   return {
