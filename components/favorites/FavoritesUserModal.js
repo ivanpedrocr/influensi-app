@@ -56,9 +56,8 @@ const styles = (colors) =>
     options: {
       paddingVertical: 16,
       paddingHorizontal: 16,
-      borderColor: colors.accentGray,
+      borderColor: colors.lightGray,
       borderBottomWidth: 1,
-      borderRadius: 12,
     },
     menu: {
       backgroundColor: colors.background,

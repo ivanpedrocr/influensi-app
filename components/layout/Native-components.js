@@ -4,7 +4,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 import { useColor } from "../../hooks/useColor";
 import AppText from "./AppText";
-import Ionicons from "@expo/vector-icons/Ionicons";
 
 export const Container = styled.View`
   flex: 1;

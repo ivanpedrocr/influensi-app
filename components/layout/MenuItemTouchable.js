@@ -30,7 +30,7 @@ const styles = (colors) =>
       width: "100%",
       paddingVertical: 8,
       paddingHorizontal: 16,
-      borderBottomWidth: 4,
+      borderBottomWidth: 2,
       flexDirection: "row",
       justifyContent: "flex-start",
       alignItems: "center",
