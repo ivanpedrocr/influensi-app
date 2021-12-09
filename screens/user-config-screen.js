@@ -16,14 +16,17 @@ const UserConfigScreen = () => {
     new TextField("username", {
       placeholder: "username",
       style: styles.textInput,
+      defaultValue: username,
     }),
     new TextField("first_name", {
       placeholder: "First Name",
       style: styles.textInput,
+      defaultValue: first_name,
     }),
     new TextField("last_name", {
       placeholder: "Last Name",
       style: styles.textInput,
+      defaultValue: last_name,
     }),
   ];
   const saveFormValues = async (values) => {
