@@ -28,7 +28,7 @@ const BasicForm = ({
                 key={field.name}
                 control={control}
                 name={field.name}
-                defaultValue=""
+                defaultValue={field.defaultValue ?? ""}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
@@ -53,7 +53,7 @@ const BasicForm = ({
                 key={field.name}
                 control={control}
                 name={field.name}
-                defaultValue={new Date()}
+                defaultValue={field.defaultValue ?? new Date()}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState: { error },
@@ -91,7 +91,7 @@ const BasicForm = ({
                 key={field.name}
                 control={control}
                 name={field.name}
-                defaultValue=""
+                defaultValue={field.defaultValue ?? ""}
                 render={({
                   field: { onChange, onBlur, value },
                   fieldState,

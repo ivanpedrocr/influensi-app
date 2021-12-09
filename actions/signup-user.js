@@ -1,13 +1,27 @@
 import firebase from "firebase";
 
-const signupUser = async ({ email, password, ...userValues }) => {
+const signupUser = async ({
+  email,
+  password,
+  user_type,
+  username,
+  business_name,
+  ...userValues
+}) => {
   const auth = firebase.auth();
   const db = firebase.database();
+  const values =
+    user_type === "BUSINESS"
+      ? { business_name }
+      : { ...userValues, age: userValues.age.toISOString() };
   try {
     const user = await auth.createUserWithEmailAndPassword(email, password);
-    await db
-      .ref(`users/${user.user.uid}`)
-      .set({ ...userValues, email, age: userValues.age.toISOString() });
+    await db.ref(`users/${user.user.uid}`).set({
+      email,
+      username,
+      user_type,
+      ...values,
+    });
   } catch (e) {
     console.log(e);
   }

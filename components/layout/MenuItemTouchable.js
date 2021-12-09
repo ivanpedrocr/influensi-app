@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import React from "react";
+import { useColor } from "../../hooks/useColor";
 
 const MenuItemTouchable = ({
   onPress,
@@ -9,10 +10,11 @@ const MenuItemTouchable = ({
   activeOpacity,
   ...props
 }) => {
+  const { colors } = useColor();
   return (
     <View style={{ width: "100%" }}>
       <TouchableOpacity
-        style={{ ...styles.default, ...style }}
+        style={{ ...styles(colors).default, ...style }}
         onPress={onPress}
         activeOpacity={activeOpacity ?? 0.9}
         {...props}
@@ -22,17 +24,17 @@ const MenuItemTouchable = ({
     </View>
   );
 };
-const styles = StyleSheet.create({
-  default: {
-    width: "100%",
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderColor: "#a6a6a6",
-    borderBottomWidth: 1,
-    marginVertical: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-});
+const styles = (colors) =>
+  StyleSheet.create({
+    default: {
+      width: "100%",
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      borderBottomWidth: 4,
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      borderColor: colors.lightGray,
+    },
+  });
 export default MenuItemTouchable;

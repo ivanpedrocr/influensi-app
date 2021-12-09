@@ -27,16 +27,17 @@ export const AppTextInput = ({
   editable,
   onBlur,
   error,
+  defaultValue,
   ...props
 }) => {
   const { colors } = useColor();
   return (
-    <View>
+    <View style={{ flexGrow: 1 }}>
       {error && (
         <AppText style={{ color: colors.red }}>{error.message}</AppText>
       )}
       <TextInput
-        {...props}
+        defaultValue={defaultValue}
         onBlur={onBlur}
         onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
@@ -50,6 +51,7 @@ export const AppTextInput = ({
         keyboardType={keyboardType}
         editable={editable}
         style={[defaultStyles(colors).textInput, style]}
+        {...props}
       ></TextInput>
     </View>
   );

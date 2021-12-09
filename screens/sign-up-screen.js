@@ -19,8 +19,14 @@ import { useForm } from "react-hook-form";
 import useYupValidationResolver from "../hooks/useYupValidationResolver";
 import InfluencerSignUpView from "../components/signUp/InfluencerSignUp-view";
 import BusinessSignUpView from "../components/signUp/BusinessSignUp-view";
+import signupUser from "../actions/signup-user";
+import { fetchUserProfile } from "../actions/fetch-user-profile";
+import { useAuthContext } from "../auth/auth-context";
+import firebase from "firebase";
 
 const SignUpScreen = ({ navigation, route, ...props }) => {
+  const [authState, authDispatch] = useAuthContext();
+  const auth = firebase.auth();
   const resolver = useYupValidationResolver(validationSchema);
   const [profileImage, setProfileImage] = useState({
     image: null,
@@ -31,17 +37,16 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
   const userType = watch("user_type");
 
   const onSubmit = async (values) => {
-    console.log(values);
-    // authDispatch({ type: "LOADING" });
-    // await signupUser(user);
-    // const token = await auth.currentUser.getIdToken();
-    // const loggedInUser = await fetchUserProfile({
-    //   userId: auth.currentUser.uid,
-    // });
-    // authDispatch({
-    //   type: "SIGNUP",
-    //   payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
-    // });
+    authDispatch({ type: "LOADING" });
+    await signupUser(values);
+    const token = await auth.currentUser.getIdToken();
+    const loggedInUser = await fetchUserProfile({
+      userId: auth.currentUser.uid,
+    });
+    authDispatch({
+      type: "SIGNUP",
+      payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
+    });
   };
 
   const handleImagePicked = async (pickerResult) => {

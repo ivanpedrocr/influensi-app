@@ -58,7 +58,6 @@ const UserMenuScreen = ({ navigation, ...props }) => {
             <MenuItemTouchable
               activeOpacity={0.9}
               key={menu.title}
-              style={{ ...styles.menu, borderColor: colors.accentGray }}
               onPress={() => navigation.navigate(menu.route)}
             >
               <AppText>{menu.title}</AppText>
@@ -71,19 +70,6 @@ const UserMenuScreen = ({ navigation, ...props }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  menu: {
-    width: "100%",
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderBottomWidth: 1,
-    marginVertical: 1,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default UserMenuScreen;

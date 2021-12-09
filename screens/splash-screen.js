@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { AppScreen } from "../components/layout/Native-components";
 import { useColor } from "../hooks/useColor";

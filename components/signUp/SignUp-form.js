@@ -35,7 +35,7 @@ export const influencerValidationSchema = {
 export const businessValidationSchema = {
   business_name: Yup.string().when("user_type", {
     is: (val) => val === "BUSINESS",
-    then: Yup.string().required("Business Name is required").min(),
+    then: Yup.string().required("Business Name is required"),
   }),
   business_category: Yup.string(),
 };

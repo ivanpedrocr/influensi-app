@@ -1,27 +1,17 @@
-import React, { useReducer } from "react";
-import {
-  Button,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { StyleSheet, View } from "react-native";
 import { updateUserValues } from "../actions/update-user-values";
 import { useAuthContext } from "../auth/auth-context";
 import BasicForm from "../components/BasicForm";
 import { AppButton, AppScreen } from "../components/layout/Native-components";
 import { TextField } from "../components/signUp/FormField-model";
-import { userInitialState, UserReducer } from "../user/UserProfile-reducer";
 
 const UserConfigScreen = () => {
+  const { control, handleSubmit } = useForm();
   const [authValues, authDispatch] = useAuthContext();
   const { first_name, last_name, username } = authValues.user;
-  const [formValue, dispatch] = useReducer(UserReducer, {
-    first_name,
-    last_name,
-    username,
-  });
+
   const configurationFields = [
     new TextField("username", {
       placeholder: "username",
@@ -36,40 +26,27 @@ const UserConfigScreen = () => {
       style: styles.textInput,
     }),
   ];
-  const handleInput = (value) =>
-    dispatch({ type: "UPDATE_USER", payload: value });
-  const saveFormValues = async () => {
+  const saveFormValues = async (values) => {
     try {
-      await updateUserValues(authValues, formValue);
-      authDispatch({ type: "UPDATE_USER", payload: { user: formValue } });
+      await updateUserValues(authValues, values);
+      authDispatch({ type: "UPDATE_USER", payload: { user: values } });
     } catch (e) {
       console.log(e);
     }
   };
   return (
-    <AppScreen>
-      <BasicForm
-        formMap={configurationFields}
-        values={formValue}
-        onChange={handleInput}
-      />
-      <AppButton
-        style={{ margin: 8 }}
-        title="Save"
-        onPress={() => {
-          saveFormValues();
-        }}
-      />
+    <AppScreen style={{ padding: 24 }}>
+      <BasicForm formMap={configurationFields} control={control} />
+      <AppButton title="Save" onPress={handleSubmit(saveFormValues)} />
     </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
   textInput: {
-    margin: 4,
+    marginBottom: 8,
   },
   description: {
-    margin: 4,
     borderRadius: 8,
     width: "100%",
     height: "auto",

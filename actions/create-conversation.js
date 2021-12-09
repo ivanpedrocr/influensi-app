@@ -5,19 +5,21 @@ const createConversation = async (user1, { userId }) => {
   const userConversations = await (
     await db.ref(`users/${userId}/conversations`).get()
   ).val();
-  const conversationUsers = await Promise.all(
-    Object.values(userConversations).map(async (conversation) => {
-      const users = await (
-        await db.ref(`conversations/${conversation}/users`).get()
-      ).val();
-      return { users: Object.values(users), conversation };
-    })
-  );
-  const currentConversation = conversationUsers.filter((conversation) =>
-    conversation.users.includes(user1)
-  );
-  if (currentConversation[0].conversation) {
-    return currentConversation[0].conversation;
+  if (userConversations) {
+    const conversationUsers = await Promise.all(
+      Object.values(userConversations).map(async (conversation) => {
+        const users = await (
+          await db.ref(`conversations/${conversation}/users`).get()
+        ).val();
+        return { users: Object.values(users), conversation };
+      })
+    );
+    const currentConversation = conversationUsers.filter((conversation) =>
+      conversation.users.includes(user1)
+    );
+    if (currentConversation[0].conversation) {
+      return currentConversation[0].conversation;
+    }
   }
   try {
     if (user1 && userId) {

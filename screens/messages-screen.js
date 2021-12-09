@@ -175,9 +175,7 @@ const styles = StyleSheet.create({
   textInputContainer: {
     alignItems: "center",
     marginTop: "auto",
-    paddingTop: 8,
-    paddingHorizontal: 24,
-    paddingBottom: 8,
+    padding: 8,
     flexDirection: "row",
     justifyContent: "center",
   },
