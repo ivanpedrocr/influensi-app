@@ -13,29 +13,36 @@ import UserSignUpModal from "../user/UserSignUp-modal";
 import firebase from "firebase";
 import { useColor } from "../hooks/useColor";
 import { fetchUserProfile } from "../actions/fetch-user-profile";
+import AppText from "../components/layout/AppText";
 
 const SignInScreen = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [openModal, setOpenModal] = useState(false);
   const [authState, authDispatch] = useAuthContext();
+  const [error, setError] = useState("");
   const { colors } = useColor();
+
   const auth = firebase.auth();
+
   const onSignIn = async () => {
-    authDispatch({ type: "LOADING" });
-    await signInUser(email, password);
-    const token = await auth.currentUser.getIdToken();
-    const loggedInUser = await fetchUserProfile({
-      userId: auth.currentUser.uid,
-    });
-    authDispatch({
-      type: "SIGNIN",
-      payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
-    });
+    await signInUser(email, password, (error) => setError(error));
+    const token = await auth?.currentUser?.getIdToken();
+    if (token) {
+      authDispatch({ type: "LOADING" });
+      const loggedInUser = await fetchUserProfile({
+        userId: auth.currentUser.uid,
+      });
+      authDispatch({
+        type: "SIGNIN",
+        payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
+      });
+    }
   };
+
   return (
     <AppScreen style={styles.screen}>
       <View style={styles.card}>
+        <AppText style={{ color: colors.red }}>{error}</AppText>
         <AppTextInput
           placeholder="Email"
           value={email}
