@@ -140,13 +140,14 @@ const defaultStyles = (colors) =>
     },
     textInput: {
       flexDirection: "row",
-      justifyContent: "flex-start",
+      justifyContent: "center",
       borderRadius: 30,
       width: "100%",
       paddingVertical: 14,
       paddingHorizontal: 12,
       backgroundColor: colors?.lightGray,
       color: colors?.text,
+      fontSize: 14,
     },
     screen: {
       flex: 1,

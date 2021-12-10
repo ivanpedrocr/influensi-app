@@ -11,6 +11,8 @@ const FavoritesUserModal = ({
   closeModal,
   sendMessage,
   user,
+  showReviewTextBox,
+  onModalHide,
   ...props
 }) => {
   const { colors } = useColor();
@@ -21,8 +23,8 @@ const FavoritesUserModal = ({
       onBackdropPress={closeModal}
       backdropOpacity={0.2}
       animationIn="zoomIn"
-      style={styles(colors).modal}
       animationOut="zoomOut"
+      onModalHide={onModalHide}
     >
       <View style={styles(colors).menu}>
         <TouchableOpacity
@@ -34,8 +36,20 @@ const FavoritesUserModal = ({
         >
           <AppText>User Profile</AppText>
         </TouchableOpacity>
-        <TouchableOpacity style={styles(colors).options} onPress={sendMessage}>
+        <TouchableOpacity
+          style={styles(colors).options}
+          onPress={() => sendMessage(user)}
+        >
           <AppText>Send Message</AppText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles(colors).options}
+          onPress={() => {
+            closeModal();
+            showReviewTextBox();
+          }}
+        >
+          <AppText>Write Review</AppText>
         </TouchableOpacity>
         <TouchableOpacity
           style={{ ...styles(colors).options, borderBottomWidth: 0 }}
@@ -63,7 +77,6 @@ const styles = (colors) =>
       backgroundColor: colors.background,
       borderRadius: 16,
     },
-    modal: {},
   });
 
 export default FavoritesUserModal;
