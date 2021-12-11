@@ -10,7 +10,10 @@ export const favoriteUser = async (user, { userId }) => {
   }
 };
 
-export const fetchFavoriteUsersList = async ({ token, userId }) => {
+export const fetchFavoriteUsersList = async (
+  { token, userId },
+  onError = (error) => {}
+) => {
   const db = firebase.database();
   try {
     const favoritesList = await db
@@ -31,7 +34,7 @@ export const fetchFavoriteUsersList = async ({ token, userId }) => {
       return users.map((user) => ({ ...user, age: getAge(user.age) }));
     }
   } catch (e) {
-    console.log(e);
+    onError(e);
   }
 };
 

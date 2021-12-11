@@ -1,12 +1,6 @@
 import firebase from "firebase";
 import { format } from "date-fns";
-const sendMessage = async (
-  message,
-  timestamp,
-  { userId },
-  chatId,
-  setMessageStatus
-) => {
+const sendMessage = async (message, timestamp, { userId }, chatId, onError) => {
   const msg = {
     message,
     timestamp,
@@ -17,10 +11,10 @@ const sendMessage = async (
     try {
       await db.ref(`chatMessages/${chatId}`).push(msg);
       await db.ref(`conversations/${chatId}/lastMessage`).set(msg);
-      setMessageStatus(`Sent ${format(new Date(timestamp), "h:mm aa")}`);
+      return `Sent ${format(new Date(timestamp), "h:mm aa")}`;
     } catch (e) {
-      setMessageStatus("Failed to send");
       console.log(e);
+      onError(e);
     }
   }
 };

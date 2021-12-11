@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-const fetchConversations = async ({ userId }) => {
+const fetchConversations = async ({ userId }, onError = (error) => {}) => {
   const db = firebase.database();
   try {
     const userChats = await db
@@ -49,7 +49,7 @@ const fetchConversations = async ({ userId }) => {
       return null;
     }
   } catch (e) {
-    console.log(e);
+    onError(e);
   }
 };
 

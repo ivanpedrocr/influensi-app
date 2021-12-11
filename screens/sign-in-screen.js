@@ -25,7 +25,7 @@ const SignInScreen = ({ route, navigation }) => {
   const auth = firebase.auth();
 
   const onSignIn = async () => {
-    await signInUser(email, password, (error) => setError(error));
+    await signInUser(email, password, (error) => setError(error.message));
     const token = await auth?.currentUser?.getIdToken();
     if (token) {
       authDispatch({ type: "LOADING" });

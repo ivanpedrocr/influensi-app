@@ -37,13 +37,14 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
     if (messageInput.trim()) {
       setMessageStatus("");
       setMessageInput("");
-      await sendMessage(
+      const status = await sendMessage(
         messageInput,
         timestamp,
         authValues,
         chatId,
-        setMessageStatus
+        (e) => setMessageStatus("Failed to send.")
       );
+      setMessageStatus(status);
       updateMessages({
         message: messageInput,
         timestamp,

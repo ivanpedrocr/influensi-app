@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import { getAge } from "../utils/getBirthDate";
 
-const fetchExploreUserList = async ({ userId }) => {
+const fetchExploreUserList = async ({ userId }, onError = (error) => {}) => {
   const db = firebase.database();
   try {
     const userList = await db.ref(`users`).get();
@@ -16,6 +16,7 @@ const fetchExploreUserList = async ({ userId }) => {
     return formattedUserList;
   } catch (e) {
     console.log(e);
+    onError(e);
   }
 };
 

@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-const fetchMessages = async (chatId) => {
+const fetchMessages = async (chatId, onError = (error) => {}) => {
   const db = firebase.database();
   try {
     const msgSnapshot = await db.ref(`chatMessages/${chatId}`).get();
@@ -9,6 +9,7 @@ const fetchMessages = async (chatId) => {
     }
   } catch (error) {
     console.log(error);
+    onError(error);
   }
 };
 
