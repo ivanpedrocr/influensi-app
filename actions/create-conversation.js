@@ -23,7 +23,7 @@ const createConversation = async (
       const currentConversation = conversationUsers.filter((conversation) =>
         conversation.users.includes(user1)
       );
-      if (currentConversation[0].conversation) {
+      if (currentConversation.length && currentConversation[0].conversation) {
         return currentConversation[0].conversation;
       }
     }
