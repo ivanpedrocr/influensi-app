@@ -1,6 +1,7 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
-import { View, StyleSheet, Image, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
+import FastImage from "react-native-fast-image";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ReactNativeModal from "react-native-modal";
 import { useState } from "react/cjs/react.development";
@@ -76,7 +77,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                 }
                 style={styles.listItem}
               >
-                <Image
+                <FastImage
                   style={styles.userImage}
                   source={{
                     uri: user.avatar,
