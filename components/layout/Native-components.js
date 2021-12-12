@@ -68,21 +68,18 @@ export const Typography = ({
   );
 };
 
-export const AppButton = ({ style, title, onPress, ...props }) => {
-  const defaultProps = {
-    activeOpacity: 0.9,
-  };
-  const restProps = { ...defaultProps, ...props };
+export const AppButton = ({ style, title, onPress, fontSize, ...props }) => {
   const { colors } = useColor();
   return (
     <TouchableOpacity
       onPress={onPress}
       style={[defaultStyles(colors).button, style]}
-      {...restProps}
+      activeOpacity={0.9}
+      {...props}
     >
       <AppText
         style={{
-          fontSize: restProps.fontSize ?? 18,
+          fontSize: fontSize ?? 18,
           color:
             style?.color || style?.backgroundColor === colors.lightGray
               ? colors.text
@@ -126,10 +123,9 @@ export const AppScreen = ({ children, style, ...props }) => {
 const defaultStyles = (colors) =>
   StyleSheet.create({
     button: {
-      minWidth: 100,
       paddingVertical: 8,
-      paddingHorizontal: 16,
-      borderRadius: 10,
+      paddingHorizontal: 14,
+      borderRadius: 12,
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: colors?.primary,

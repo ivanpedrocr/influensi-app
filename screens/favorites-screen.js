@@ -20,6 +20,7 @@ import {
   AppTextInput,
 } from "../components/layout/Native-components";
 import TextBox from "../components/layout/TextBox";
+import WriteReviewModal from "../components/reviews/WriteReviewModal";
 import SplashScreen from "./splash-screen";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
@@ -96,6 +97,12 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                     setModalVisible({ closed: true });
                   }}
                 />
+                <WriteReviewModal
+                  setShowReviewTextBox={setShowReviewTextBox}
+                  showReviewTextBox={showReviewTextBox}
+                  modalVisible={modalVisible}
+                  user={authValues.user}
+                />
                 <AppText style={styles.userListName}>
                   {user.first_name} {user.last_name}
                 </AppText>
@@ -103,19 +110,6 @@ const FavoritesScreen = ({ navigation, ...props }) => {
             ))
             .reverse()
         )}
-        <ReactNativeModal
-          isVisible={showReviewTextBox && modalVisible?.closed}
-          onBackdropPress={() => setShowReviewTextBox(false)}
-          animationIn="slideInUp"
-          animationOut="slideOutDown"
-          hasBackdrop={true}
-          backdropOpacity={0.3}
-        >
-          <View style={{ alignItems: "center" }}>
-            <TextBox />
-            <AppButton title="Send" />
-          </View>
-        </ReactNativeModal>
       </ScrollView>
     </AppScreen>
   );

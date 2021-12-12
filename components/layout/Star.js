@@ -1,11 +1,18 @@
 import React from "react";
 import { Text, View } from "react-native";
+import { useColor } from "../../hooks/useColor";
+import Ionicons from "../../styles/icons";
 
 const Star = ({ marked, starId }) => {
+  const { colors } = useColor();
   return (
-    <Text data-star-id={starId} style={{ color: "#ffca6e", fontSize: 20 }}>
-      {marked ? "\u2605" : "\u2606"}
-    </Text>
+    <Ionicons
+      style={{ marginHorizontal: 0.6 }}
+      name={marked ? "star" : "star-outline"}
+      key={starId}
+      color={colors.placeholderText}
+      size={24}
+    />
   );
 };
 

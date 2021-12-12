@@ -46,20 +46,11 @@ const defaultStyles = (colors) =>
     textInput: {
       flexDirection: "row",
       justifyContent: "center",
-      borderRadius: 30,
       width: "100%",
-      height: 200,
-      paddingTop: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      paddingBottom: 20,
+      height: 120,
       backgroundColor: colors?.lightGray,
       color: colors?.text,
-      fontSize: 14,
-      shadowColor: "black",
-      shadowOpacity: 0.2,
-      shadowOffset: { height: 2, width: -1 },
-      shadowRadius: 10,
+      fontSize: 16,
     },
   });
 
