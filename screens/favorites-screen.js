@@ -22,6 +22,7 @@ import {
 import TextBox from "../components/layout/TextBox";
 import WriteReviewModal from "../components/reviews/WriteReviewModal";
 import SplashScreen from "./splash-screen";
+import { StarPicker } from "../components/layout/Star";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
