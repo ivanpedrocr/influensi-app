@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import FastImage from "react-native-fast-image";
 import ReactNativeModal from "react-native-modal";
 import { useColor } from "../../hooks/useColor";
@@ -24,25 +24,11 @@ const WriteReviewModal = ({
       animationOut="fadeOut"
       backdropOpacity={0.3}
     >
-      <View
-        style={{
-          backgroundColor: colors.background,
-          borderRadius: 20,
-          paddingHorizontal: 16,
-          paddingTop: 8,
-          paddingBottom: 16,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-          }}
-        >
+      <View style={styles(colors).modal}>
+        <View style={styles(colors).topBar}>
           <FastImage
             source={{ uri: user?.avatar }}
-            style={{ width: 66, height: 66, borderRadius: 100 }}
+            style={styles(colors).profileImage}
           />
           <StarPicker
             rating={rating}
@@ -50,7 +36,7 @@ const WriteReviewModal = ({
           />
         </View>
         <TextBox
-          style={{ height: 200, backgroundColor: colors.background }}
+          style={styles(colors).textBox}
           placeholder="Write a review..."
         />
         <AppButton
@@ -62,5 +48,23 @@ const WriteReviewModal = ({
     </ReactNativeModal>
   );
 };
+
+const styles = (colors) =>
+  StyleSheet.create({
+    textBox: { height: 200, backgroundColor: colors.background },
+    profileImage: { width: 66, height: 66, borderRadius: 100 },
+    modal: {
+      backgroundColor: colors.background,
+      borderRadius: 20,
+      paddingHorizontal: 16,
+      paddingTop: 8,
+      paddingBottom: 16,
+    },
+    topBar: {
+      flexDirection: "row",
+      alignItems: "flex-end",
+      justifyContent: "space-between",
+    },
+  });
 
 export default WriteReviewModal;

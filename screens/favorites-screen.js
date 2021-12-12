@@ -2,8 +2,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import FastImage from "react-native-fast-image";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import ReactNativeModal from "react-native-modal";
 import { useState } from "react/cjs/react.development";
 import createConversation from "../actions/create-conversation";
 import {
@@ -14,15 +12,9 @@ import { useAuthContext } from "../auth/auth-context";
 import FavoritesUserModal from "../components/favorites/FavoritesUserModal";
 import AppText from "../components/layout/AppText";
 import MenuItemTouchable from "../components/layout/MenuItemTouchable";
-import {
-  AppButton,
-  AppScreen,
-  AppTextInput,
-} from "../components/layout/Native-components";
-import TextBox from "../components/layout/TextBox";
+import { AppScreen } from "../components/layout/Native-components";
 import WriteReviewModal from "../components/reviews/WriteReviewModal";
 import SplashScreen from "./splash-screen";
-import { StarPicker } from "../components/layout/Star";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
