@@ -2,22 +2,34 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import FastImage from "react-native-fast-image";
 import ReactNativeModal from "react-native-modal";
+import writeReview from "../../actions/write-review";
 import { useColor } from "../../hooks/useColor";
 import { AppButton } from "../layout/Native-components";
 import { StarPicker } from "../layout/Star";
 import TextBox from "../layout/TextBox";
 
 const WriteReviewModal = ({
-  showReviewTextBox,
   setShowReviewTextBox,
-  modalVisible,
   user,
+  reviewedUser,
+  isVisible,
 }) => {
   const { colors } = useColor();
   const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+  const submitReview = async () => {
+    try {
+      await writeReview(review, rating, reviewedUser, user.id);
+      setShowReviewTextBox(false);
+      setReview("");
+      setRating(0);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <ReactNativeModal
-      isVisible={showReviewTextBox && modalVisible?.closed}
+      isVisible={isVisible}
       onBackdropPress={() => setShowReviewTextBox(false)}
       animationIn="fadeIn"
       animationInTiming={12}
@@ -38,11 +50,15 @@ const WriteReviewModal = ({
         <TextBox
           style={styles(colors).textBox}
           placeholder="Write a review..."
+          onChangeText={(text) => setReview(text)}
         />
         <AppButton
           title="Submit"
           style={{ alignSelf: "flex-end" }}
           fontSize={16}
+          onPress={() => {
+            submitReview();
+          }}
         />
       </View>
     </ReactNativeModal>

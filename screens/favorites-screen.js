@@ -20,7 +20,11 @@ const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [authValues, authDispatch] = useAuthContext();
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState({
+    open: false,
+    user: {},
+    closing: false,
+  });
   const [showReviewTextBox, setShowReviewTextBox] = useState(false);
 
   useFocusEffect(
@@ -50,8 +54,6 @@ const FavoritesScreen = ({ navigation, ...props }) => {
     });
   };
 
-  const writeReview = async (user) => {};
-
   if (isLoading && favoritesList.length === 0) {
     return <SplashScreen />;
   }
@@ -66,9 +68,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
               <MenuItemTouchable
                 activeOpacity={0.2}
                 key={i}
-                onPress={() =>
-                  setModalVisible({ i, true: true, closed: false })
-                }
+                onPress={() => setModalVisible({ open: true, user })}
                 style={styles.listItem}
               >
                 <FastImage
@@ -77,25 +77,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                     uri: user.avatar,
                   }}
                 />
-                <FavoritesUserModal
-                  user={user}
-                  isVisible={modalVisible.i === i && modalVisible.true === true}
-                  closeModal={() => setModalVisible(false)}
-                  onDelete={deleteUser}
-                  sendMessage={sendMessage}
-                  showReviewTextBox={() =>
-                    setShowReviewTextBox({ closed: false, closing: false })
-                  }
-                  onModalHide={() => {
-                    setModalVisible({ closed: true });
-                  }}
-                />
-                <WriteReviewModal
-                  setShowReviewTextBox={setShowReviewTextBox}
-                  showReviewTextBox={showReviewTextBox}
-                  modalVisible={modalVisible}
-                  user={authValues.user}
-                />
+
                 <AppText style={styles.userListName}>
                   {user.first_name} {user.last_name}
                 </AppText>
@@ -103,6 +85,25 @@ const FavoritesScreen = ({ navigation, ...props }) => {
             ))
             .reverse()
         )}
+        <FavoritesUserModal
+          user={modalVisible?.user}
+          isVisible={modalVisible.open && !modalVisible.closing}
+          closeModal={() =>
+            setModalVisible((prev) => ({ ...prev, closing: true }))
+          }
+          onDelete={deleteUser}
+          sendMessage={sendMessage}
+          showReviewTextBox={() => setShowReviewTextBox(true)}
+          onModalHide={() => {
+            setModalVisible((prev) => ({ ...prev, open: false }));
+          }}
+        />
+        <WriteReviewModal
+          setShowReviewTextBox={setShowReviewTextBox}
+          user={{ ...authValues.user, id: authValues.userId }}
+          reviewedUser={modalVisible?.user?.id}
+          isVisible={showReviewTextBox && !modalVisible.open}
+        />
       </ScrollView>
     </AppScreen>
   );
