@@ -5,7 +5,7 @@ export const writeReview = async (
   rating,
   reviewedUser,
   reviewer,
-  onError
+  onError = (error) => {}
 ) => {
   const db = firebase.database();
   const reviewKey = db.ref(`reviews`).push().key;

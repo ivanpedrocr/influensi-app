@@ -1,6 +1,12 @@
 import firebase from "firebase";
 import { format } from "date-fns";
-const sendMessage = async (message, timestamp, { userId }, chatId, onError) => {
+const sendMessage = async (
+  message,
+  timestamp,
+  { userId },
+  chatId,
+  onError = (error) => {}
+) => {
   const msg = {
     message,
     timestamp,

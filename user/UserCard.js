@@ -22,22 +22,14 @@ const UserCard = ({ user, ...props }) => {
                 justifyContent: "space-around",
               }}
             >
-              <AppText
-                style={{ fontSize: 24 }}
-              >{`${user.first_name} ${user.last_name} `}</AppText>
-              <AppText style={{ fontSize: 32 }}>{user.age}</AppText>
+              <AppText style={{ fontSize: 24 }}>
+                {user.first_name} {user.last_name}
+              </AppText>
             </View>
+            <AppText style={{ fontSize: 20 }}>{user.age}</AppText>
             <AppText style={{ ...styles.username, color: colors.primary }}>
               {user.username}
             </AppText>
-            {/* {user?.followers && (
-              <AppText style={{ fontWeight: "bold" }}>
-                {user?.followers}k
-              </AppText>
-            )} */}
-            {/* <AppText style={{ color: "green" }}>
-              +{user?.averageReturn}%
-            </AppText> */}
             <StarRating rating={user?.rating} />
           </View>
         </View>
@@ -68,6 +60,7 @@ const UserCard = ({ user, ...props }) => {
         />
       }
       <UserReviewsModal
+        user={user}
         visible={viewModal}
         onClose={() => {
           setViewModal(false);
