@@ -1,5 +1,6 @@
 import {
   DatePickerField,
+  ImageSelectorField,
   PickerField,
   RadioButtonField,
   TextField,
@@ -45,11 +46,13 @@ export const validationSchema = Yup.object({
   password: Yup.string().min(8).required(),
   username: Yup.string().min(5).required("Username is required"),
   user_type: Yup.string().required("Required"),
+  avatar: Yup.string().required("A Profile Image is required."),
   ...influencerValidationSchema,
   ...businessValidationSchema,
 });
 
 export const signUpForm = [
+  new ImageSelectorField("avatar", {}),
   new RadioButtonField("user_type", {
     options: [
       {

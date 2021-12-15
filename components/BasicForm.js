@@ -7,6 +7,8 @@ import { Picker } from "@react-native-picker/picker";
 import RadioButton from "./layout/RadioButton";
 import { Controller } from "react-hook-form";
 import DatePicker from "./layout/DatePicker";
+import TextBox from "./layout/TextBox";
+import ImageSelector from "./layout/ImageSelector";
 
 const BasicForm = ({
   formMap,
@@ -15,100 +17,151 @@ const BasicForm = ({
   style,
   validationSchema,
   control,
+  children,
   ...props
 }) => {
   const { colors, dark } = useColor();
   return (
     <View>
-      {formMap.map((field, i) => {
-        switch (field.type) {
-          case "text":
-            return (
-              <Controller
-                key={field.name}
-                control={control}
-                name={field.name}
-                defaultValue={field.defaultValue ?? ""}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <AppTextInput
-                    key={field.name}
-                    value={value}
-                    onChangeText={(text) => {
-                      onChange(text);
-                    }}
-                    onBlur={onBlur}
-                    error={error}
-                    style={{ ...style, ...field?.style }}
-                    {...field}
-                  />
-                )}
-              />
-            );
-          case "date-picker":
-            return (
-              <Controller
-                key={field.name}
-                control={control}
-                name={field.name}
-                defaultValue={field.defaultValue ?? new Date()}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState: { error },
-                }) => (
-                  <DatePicker
-                    key={field.name}
-                    value={value}
-                    onChange={(e, date) => {
-                      onChange(date);
-                    }}
-                    style={{ ...style, ...field?.style }}
-                    error={error}
-                    {...field}
-                  />
-                )}
-              />
-            );
-          case "picker":
-            return (
-              <Picker
-                key={field.name}
-                selectedValue={values[field.name]}
-                onValueChange={(value) => {
-                  onChange({ [field.name]: value });
-                }}
-              >
-                {field?.options?.map(({ label, value }) => (
-                  <Picker.Item label={label} value={value} key={label} />
-                ))}
-              </Picker>
-            );
-          case "radio_button":
-            return (
-              <Controller
-                key={field.name}
-                control={control}
-                name={field.name}
-                defaultValue={field.defaultValue ?? ""}
-                render={({
-                  field: { onChange, onBlur, value },
-                  fieldState,
-                }) => (
-                  <RadioButton
-                    key={field.name}
-                    error={fieldState.error}
-                    onSelect={(value) => onChange(value)}
-                    value={value}
-                    style={{ ...style, ...field?.style }}
-                    {...field}
-                  />
-                )}
-              />
-            );
-        }
-      })}
+      {children ||
+        formMap.map((field, i) => {
+          switch (field.type) {
+            case "text":
+              return (
+                <Controller
+                  key={field.name}
+                  control={control}
+                  name={field.name}
+                  defaultValue={field.defaultValue ?? ""}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <AppTextInput
+                      key={field.name}
+                      value={value}
+                      onChangeText={(text) => {
+                        onChange(text);
+                      }}
+                      onBlur={onBlur}
+                      error={error}
+                      style={{ ...style, ...field?.style }}
+                      {...field}
+                    />
+                  )}
+                />
+              );
+            case "textbox":
+              return (
+                <Controller
+                  key={field.name}
+                  control={control}
+                  name={field.name}
+                  defaultValue={field.defaultValue ?? ""}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <TextBox
+                      key={field.name}
+                      value={value}
+                      onChangeText={(text) => {
+                        onChange(text);
+                      }}
+                      onBlur={onBlur}
+                      error={error}
+                      style={{ ...style, ...field?.style }}
+                      {...field}
+                    />
+                  )}
+                />
+              );
+            case "image-selector":
+              return (
+                <Controller
+                  key={field.name}
+                  control={control}
+                  name={field.name}
+                  defaultValue={field.defaultValue ?? ""}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <ImageSelector
+                      key={field.name}
+                      profileImageUri={value}
+                      onImageUpload={(uri) => {
+                        onChange(uri);
+                      }}
+                      error={error}
+                      style={{ ...style, ...field?.style }}
+                      {...field}
+                    />
+                  )}
+                />
+              );
+            case "date-picker":
+              return (
+                <Controller
+                  key={field.name}
+                  control={control}
+                  name={field.name}
+                  defaultValue={field.defaultValue ?? new Date()}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <DatePicker
+                      key={field.name}
+                      value={value}
+                      onChange={(e, date) => {
+                        onChange(date);
+                      }}
+                      style={{ ...style, ...field?.style }}
+                      error={error}
+                      {...field}
+                    />
+                  )}
+                />
+              );
+            case "picker":
+              return (
+                <Picker
+                  key={field.name}
+                  selectedValue={values[field.name]}
+                  onValueChange={(value) => {
+                    onChange({ [field.name]: value });
+                  }}
+                >
+                  {field?.options?.map(({ label, value }) => (
+                    <Picker.Item label={label} value={value} key={label} />
+                  ))}
+                </Picker>
+              );
+            case "radio_button":
+              return (
+                <Controller
+                  key={field.name}
+                  control={control}
+                  name={field.name}
+                  defaultValue={field.defaultValue ?? ""}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState,
+                  }) => (
+                    <RadioButton
+                      key={field.name}
+                      error={fieldState.error}
+                      onSelect={(value) => onChange(value)}
+                      value={value}
+                      style={{ ...style, ...field?.style }}
+                      {...field}
+                    />
+                  )}
+                />
+              );
+          }
+        })}
     </View>
   );
 };

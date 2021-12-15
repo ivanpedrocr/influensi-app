@@ -2,13 +2,8 @@ import React from "react";
 import { StyleSheet, TouchableHighlight, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { StarRating } from "../components/layout/Star";
-import {
-  launchImageLibraryAsync,
-  requestMediaLibraryPermissionsAsync,
-} from "expo-image-picker";
-import { uploadImage } from "../actions/upload-image";
 import { useAuthContext } from "../auth/auth-context";
-import FastImage from "react-native-fast-image";
+import ImageSelector from "../components/layout/ImageSelector";
 
 const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
   const [authValues, authDispatch] = useAuthContext();
@@ -16,7 +11,7 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
     try {
       if (!pickerResult.cancelled) {
         const uploadUrl = await uploadImage(pickerResult.uri, authValues);
-        setProfileImageUri(uploadUrl);
+        setProfileImageUri(pickerResult.uri);
       }
     } catch (e) {
       console.log(e);
@@ -36,28 +31,10 @@ const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
     <View>
       <View style={styles.nameContainer}>
         <View>
-          <TouchableHighlight
-            activeOpacity={0.05}
-            style={{
-              borderRadius: 100,
-            }}
-            onPress={() => {
-              pickImage();
-            }}
-          >
-            <FastImage
-              style={{
-                width: 150,
-                height: 150,
-                borderWidth: 2,
-                borderColor: "black",
-                borderRadius: 100,
-              }}
-              source={{
-                uri: imageUri,
-              }}
-            />
-          </TouchableHighlight>
+          <ImageSelector
+            profileImageUri={imageUri}
+            setProfileImageUri={(uri) => setProfileImageUri(uri)}
+          />
           <AppText
             style={{ fontSize: 32, fontWeight: "bold" }}
           >{`${user.first_name} ${user.last_name}`}</AppText>

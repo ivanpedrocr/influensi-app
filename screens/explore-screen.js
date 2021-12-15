@@ -1,12 +1,8 @@
 import React, { useLayoutEffect, useMemo, useReducer, useState } from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import UserCard from "../user/UserCard";
-import {
-  AppIconButton,
-  AppScreen,
-} from "../components/layout/Native-components";
+import { AppScreen } from "../components/layout/Native-components";
 import BusinessCard from "../user/BusinessCard";
-import { Ionicons } from "@expo/vector-icons";
 import { favoriteUser } from "../actions/favorite-user";
 import DeckSwipeAnimate from "../components/layout/DeckSwipeAnimate";
 import { useAuthContext } from "../auth/auth-context";
@@ -14,7 +10,6 @@ import { useFocusEffect } from "@react-navigation/native";
 import fetchExploreUserList from "../actions/fetch-explore-user-list";
 import AppText from "../components/layout/AppText";
 import { useColor } from "../hooks/useColor";
-import { useHeaderButton } from "../hooks/useHeaderButton";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -46,19 +41,6 @@ const ExploreScreen = ({ navigation, ...props }) => {
       })();
     }, [])
   );
-
-  useHeaderButton({
-    headerRight: () => (
-      <AppIconButton
-        style={{ marginRight: 8 }}
-        onPress={() => {
-          setAccountType(accountType === "USER" ? "BUSINESS" : "USER");
-        }}
-      >
-        <Ionicons name="log-out-outline" color={colors.text} size={28} />
-      </AppIconButton>
-    ),
-  });
   return (
     <AppScreen style={{ alignItems: "center" }}>
       {currentIndex + 1 > userList.length && !loading ? (

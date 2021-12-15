@@ -63,6 +63,7 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
     const pickerResult = await launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [3, 3],
+      mediaTypes: "Images",
     });
     handleImagePicked(pickerResult);
   };

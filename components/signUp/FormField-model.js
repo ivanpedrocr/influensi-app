@@ -29,3 +29,11 @@ export class RadioButtonField {
     Object.assign(this, { name, type: "radio_button", ...args });
   }
 }
+
+export class ImageSelectorField {
+  name;
+  args;
+  constructor(name, args) {
+    Object.assign(this, { name, type: "image-selector", ...args });
+  }
+}

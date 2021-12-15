@@ -33,19 +33,17 @@ const UserCard = ({ user, ...props }) => {
             <StarRating rating={user?.rating} />
           </View>
         </View>
-        {user?.avatar && (
-          <FastImage
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 100,
-              borderWidth: 2,
-            }}
-            source={{
-              uri: user?.avatar,
-            }}
-          />
-        )}
+
+        <FastImage
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 100,
+          }}
+          source={{
+            uri: user?.avatar,
+          }}
+        />
         <View style={styles.descriptionContainer}>
           <AppText>{user?.description}</AppText>
         </View>
