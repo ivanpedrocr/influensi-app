@@ -18,7 +18,7 @@ import SplashScreen from "./splash-screen";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [authValues, authDispatch] = useAuthContext();
   const [modalVisible, setModalVisible] = useState({
     open: false,
@@ -30,7 +30,6 @@ const FavoritesScreen = ({ navigation, ...props }) => {
   useFocusEffect(
     React.useCallback(() => {
       const getFavoritesList = async () => {
-        setIsLoading(true);
         const usersList = await fetchFavoriteUsersList(authValues);
         if (usersList && usersList.length !== 0) {
           setFavoritesList(Object.values(usersList));
@@ -77,7 +76,6 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                     uri: user.avatar,
                   }}
                 />
-
                 <AppText style={styles.userListName}>
                   {user.first_name} {user.last_name}
                 </AppText>

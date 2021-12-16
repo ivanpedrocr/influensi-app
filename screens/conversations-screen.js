@@ -8,12 +8,14 @@ import { useAuthContext } from "../auth/auth-context";
 import AppText from "../components/layout/AppText";
 import MenuItemTouchable from "../components/layout/MenuItemTouchable";
 import { AppScreen } from "../components/layout/Native-components";
+import { useColor } from "../hooks/useColor";
 import SplashScreen from "./splash-screen";
 
 const ConversationsScreen = ({ navigation, ...props }) => {
   const [loading, setLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [authValues, authDispatch] = useAuthContext();
+  const { colors } = useColor();
   useFocusEffect(
     React.useCallback(() => {
       const getConversations = async () => {
@@ -49,15 +51,30 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                       });
                     }}
                   >
-                    <AppText style={{ fontSize: 20 }}>
-                      {c.first_name} {c.last_name}
-                    </AppText>
-                    <FastImage
-                      style={styles.userImage}
-                      source={{
-                        uri: c.avatar,
-                      }}
-                    />
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <FastImage
+                        style={styles.userImage}
+                        source={{
+                          uri: c.avatar,
+                        }}
+                      />
+                      <AppText style={{ fontSize: 20, fontWeight: "600" }}>
+                        {c.first_name} {c.last_name}
+                      </AppText>
+                    </View>
+                    {c?.last_message?.message && (
+                      <AppText
+                        style={{
+                          alignSelf: "flex-end",
+                          color: colors.placeholderText,
+                        }}
+                        numberOfLines={1}
+                      >
+                        {c?.last_message?.message}
+                      </AppText>
+                    )}
                   </MenuItemTouchable>
                 );
               })
@@ -70,15 +87,9 @@ const ConversationsScreen = ({ navigation, ...props }) => {
 };
 
 const styles = StyleSheet.create({
-  userListContainer: {
-    padding: 8,
-    borderBottomWidth: 1,
-    borderColor: "#bfbfbf",
-    width: "100%",
-  },
   listItem: {
-    justifyContent: "space-between",
-    paddingVertical: 4,
+    flexDirection: "column",
+    alignItems: "flex-start",
   },
   userListName: {
     fontSize: 20,
@@ -87,6 +98,7 @@ const styles = StyleSheet.create({
     minWidth: 44,
     minHeight: 44,
     borderRadius: 100,
+    marginRight: 16,
   },
 });
 

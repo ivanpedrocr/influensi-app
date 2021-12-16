@@ -146,17 +146,15 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
         <View style={styles.textInputContainer}>
           <AppTextInput
             autoFocus={true}
+            multiline={true}
             placeholder="type your message here..."
             value={messageInput}
             onChangeText={(text) => {
               setMessageInput(text);
             }}
+            style={styles.textInput}
           />
-          <TouchableOpacity
-            onPress={sendNewMessage}
-            style={{ marginLeft: 4 }}
-            activeOpacity={0.19}
-          >
+          <TouchableOpacity onPress={sendNewMessage} activeOpacity={0.19}>
             <Ionicons
               name="arrow-forward-circle-outline"
               size={32}
@@ -174,11 +172,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   textInputContainer: {
-    alignItems: "center",
-    marginTop: "auto",
-    padding: 8,
     flexDirection: "row",
-    justifyContent: "center",
+    alignItems: "flex-end",
+    marginTop: "auto",
+    justifyContent: "space-around",
   },
   message: {
     display: "flex",
@@ -190,6 +187,10 @@ const styles = StyleSheet.create({
   },
   messagesList: {
     justifyContent: "space-around",
+  },
+  textInput: {
+    minWidth: "95%",
+    maxWidth: "95%",
   },
 });
 

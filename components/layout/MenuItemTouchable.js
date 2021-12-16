@@ -12,16 +12,14 @@ const MenuItemTouchable = ({
 }) => {
   const { colors } = useColor();
   return (
-    <View style={{ width: "100%" }}>
-      <TouchableOpacity
-        style={{ ...styles(colors).default, ...style }}
-        onPress={onPress}
-        activeOpacity={activeOpacity ?? 0.9}
-        {...props}
-      >
-        {children}
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={{ ...styles(colors).default, ...style }}
+      onPress={onPress}
+      activeOpacity={activeOpacity ?? 0.9}
+      {...props}
+    >
+      {children}
+    </TouchableOpacity>
   );
 };
 const styles = (colors) =>
