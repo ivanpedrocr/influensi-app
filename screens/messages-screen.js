@@ -82,7 +82,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
     }, [authValues.userId])
   );
   return (
-    <AppScreen style={styles(colors).screen}>
+    <AppScreen>
       <KeyboardAvoidingView
         behavior="padding"
         keyboardVerticalOffset={headerHeight}
@@ -144,16 +144,17 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
           }}
         ></FlatList>
         <View style={styles(colors).textInputContainer}>
-          <AppTextInput
-            autoFocus={true}
-            multiline={true}
-            placeholder="type your message here..."
-            value={messageInput}
-            onChangeText={(text) => {
-              setMessageInput(text);
-            }}
-            style={styles(colors).textInput}
-          />
+          <View style={{ maxWidth: "90%", minWidth: "90%" }}>
+            <AppTextInput
+              autoFocus={true}
+              multiline={true}
+              placeholder="type your message here..."
+              value={messageInput}
+              onChangeText={(text) => {
+                setMessageInput(text);
+              }}
+            />
+          </View>
           <TouchableOpacity onPress={sendNewMessage} activeOpacity={0.19}>
             <Ionicons
               name="arrow-forward-circle-outline"
@@ -171,31 +172,24 @@ const styles = (colors) =>
   StyleSheet.create({
     screen: {
       flex: 1,
+      width: "100%",
+      paddingHorizontal: 8,
     },
     textInputContainer: {
       flexDirection: "row",
       alignItems: "flex-end",
-      marginTop: "auto",
-      justifyContent: "space-around",
       backgroundColor: colors.lightGray,
-      marginHorizontal: 4,
-      borderRadius: 20,
-      paddingHorizontal: 4,
+      borderRadius: 30,
     },
     message: {
       display: "flex",
       maxWidth: "60%",
-      marginHorizontal: 8,
       marginBottom: 6,
       padding: 12,
       borderRadius: 20,
     },
     messagesList: {
       justifyContent: "space-around",
-    },
-    textInput: {
-      minWidth: "95%",
-      maxWidth: "95%",
     },
   });
 
