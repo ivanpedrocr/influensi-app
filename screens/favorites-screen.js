@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   },
   userListName: {
     fontSize: 20,
+    fontWeight: "600",
   },
   userImage: {
     minWidth: 44,

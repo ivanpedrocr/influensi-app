@@ -27,11 +27,18 @@ export const AppTextInput = ({
   onBlur,
   error,
   defaultValue,
+  label,
+  labelStyle,
   ...props
 }) => {
   const { colors } = useColor();
   return (
     <View style={{ flexGrow: 1 }}>
+      {label && (
+        <AppText style={[{ color: colors.accentGray, fontSize: 15 }]}>
+          {label}
+        </AppText>
+      )}
       {error && (
         <AppText style={{ color: colors.red }}>{error.message}</AppText>
       )}
@@ -136,11 +143,11 @@ const defaultStyles = (colors) =>
     },
     textInput: {
       borderRadius: 30,
-      paddingVertical: 14,
-      paddingHorizontal: 12,
+      paddingVertical: 12,
+      paddingHorizontal: 16,
       backgroundColor: colors?.lightGray,
       color: colors?.text,
-      fontSize: 14,
+      fontSize: 16,
     },
     screen: {
       flex: 1,

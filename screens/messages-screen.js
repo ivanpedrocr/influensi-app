@@ -82,14 +82,14 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
     }, [authValues.userId])
   );
   return (
-    <AppScreen style={styles.screen}>
+    <AppScreen style={styles(colors).screen}>
       <KeyboardAvoidingView
         behavior="padding"
         keyboardVerticalOffset={headerHeight}
-        style={styles.screen}
+        style={styles(colors).screen}
       >
         <FlatList
-          contentContainerStyle={styles.messagesList}
+          contentContainerStyle={styles(colors).messagesList}
           nestedScrollEnabled
           ref={listViewRef}
           onContentSizeChange={() => {
@@ -102,7 +102,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
               <View>
                 <View
                   style={{
-                    ...styles.message,
+                    ...styles(colors).message,
                     backgroundColor:
                       item.sentBy === authValues.userId
                         ? colors.primary
@@ -143,7 +143,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
             );
           }}
         ></FlatList>
-        <View style={styles.textInputContainer}>
+        <View style={styles(colors).textInputContainer}>
           <AppTextInput
             autoFocus={true}
             multiline={true}
@@ -152,7 +152,7 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
             onChangeText={(text) => {
               setMessageInput(text);
             }}
-            style={styles.textInput}
+            style={styles(colors).textInput}
           />
           <TouchableOpacity onPress={sendNewMessage} activeOpacity={0.19}>
             <Ionicons
@@ -167,31 +167,36 @@ const MessagesScreen = ({ route, navigation, ...props }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  textInputContainer: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    marginTop: "auto",
-    justifyContent: "space-around",
-  },
-  message: {
-    display: "flex",
-    maxWidth: "60%",
-    marginHorizontal: 8,
-    marginBottom: 6,
-    padding: 12,
-    borderRadius: 20,
-  },
-  messagesList: {
-    justifyContent: "space-around",
-  },
-  textInput: {
-    minWidth: "95%",
-    maxWidth: "95%",
-  },
-});
+const styles = (colors) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+    },
+    textInputContainer: {
+      flexDirection: "row",
+      alignItems: "flex-end",
+      marginTop: "auto",
+      justifyContent: "space-around",
+      backgroundColor: colors.lightGray,
+      marginHorizontal: 4,
+      borderRadius: 20,
+      paddingHorizontal: 4,
+    },
+    message: {
+      display: "flex",
+      maxWidth: "60%",
+      marginHorizontal: 8,
+      marginBottom: 6,
+      padding: 12,
+      borderRadius: 20,
+    },
+    messagesList: {
+      justifyContent: "space-around",
+    },
+    textInput: {
+      minWidth: "95%",
+      maxWidth: "95%",
+    },
+  });
 
 export default MessagesScreen;

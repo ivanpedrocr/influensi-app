@@ -70,46 +70,21 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
   return (
     <AppScreen style={{ padding: 24 }}>
       <ScrollView>
-        {/* <TouchableHighlight
-          activeOpacity={0.05}
-          style={{
-            borderRadius: 100,
-            width: 150,
-            height: 150,
-          }}
-          onPress={async () => {
-            const { status } = await requestMediaLibraryPermissionsAsync();
-            if (status === "granted") {
-              pickImage();
-            } else {
-              Alert.prompt(
-                "Photos Permission Required",
-                "We need photos permission to upload your photos."
-              );
-            }
-          }}
-        >
-          <Image
-            source={{ uri: profileImage.image }}
-            style={{
-              width: 150,
-              height: 150,
-              borderWidth: 2,
-              borderColor: "black",
-              borderRadius: 100,
-            }}
-          />
-        </TouchableHighlight> */}
         <BasicForm
           formMap={signUpForm}
           control={control}
           style={{ marginBottom: 8 }}
         />
-        {userType === "INFLUENCER" && (
+        {userType === "INFLUENCER" ? (
           <InfluencerSignUpView control={control} />
-        )}
-        {userType === "BUSINESS" && <BusinessSignUpView control={control} />}
-        <AppButton title="Create Account" onPress={handleSubmit(onSubmit)} />
+        ) : userType === "BUSINESS" ? (
+          <BusinessSignUpView control={control} />
+        ) : null}
+        <AppButton
+          style={{ marginTop: 8 }}
+          title="Create Account"
+          onPress={handleSubmit(onSubmit)}
+        />
       </ScrollView>
     </AppScreen>
   );

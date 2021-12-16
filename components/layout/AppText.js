@@ -4,11 +4,11 @@ import { useColor } from "../../hooks/useColor";
 
 const AppText = ({ style, children, numberOfLines, ...props }) => {
   const { colors } = useColor();
-  const defaultStyle = { fontSize: 16 };
+  const defaultStyle = { fontSize: 16, color: colors.text };
   return (
     <Text
       {...props}
-      style={{ ...defaultStyle, color: colors.text, ...style }}
+      style={[defaultStyle, style]}
       numberOfLines={numberOfLines}
     >
       {children}

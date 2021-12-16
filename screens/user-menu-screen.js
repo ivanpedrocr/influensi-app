@@ -60,7 +60,7 @@ const UserMenuScreen = ({ navigation, ...props }) => {
               key={menu.title}
               onPress={() => navigation.navigate(menu.route)}
             >
-              <AppText>{menu.title}</AppText>
+              <AppText style={{ fontSize: 18 }}>{menu.title}</AppText>
             </MenuItemTouchable>
           );
         })}
