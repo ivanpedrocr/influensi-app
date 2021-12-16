@@ -10,6 +10,7 @@ import MenuItemTouchable from "../components/layout/MenuItemTouchable";
 import { AppScreen } from "../components/layout/Native-components";
 import { useColor } from "../hooks/useColor";
 import SplashScreen from "./splash-screen";
+import { formatMessageTime } from "../utils/formatMessageTime";
 
 const ConversationsScreen = ({ navigation, ...props }) => {
   const [loading, setLoading] = useState(false);
@@ -52,7 +53,11 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                     }}
                   >
                     <View
-                      style={{ flexDirection: "row", alignItems: "center" }}
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
                     >
                       <FastImage
                         style={styles.userImage}
@@ -63,8 +68,18 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                       <AppText style={{ fontSize: 20, fontWeight: "600" }}>
                         {c.first_name} {c.last_name}
                       </AppText>
+                      {c.last_message && (
+                        <AppText
+                          style={{
+                            marginLeft: "auto",
+                            color: colors.placeholderText,
+                          }}
+                        >
+                          {formatMessageTime(c.last_message.timestamp)}
+                        </AppText>
+                      )}
                     </View>
-                    {c?.last_message?.message && (
+                    {c?.last_message && (
                       <AppText
                         style={{
                           alignSelf: "flex-end",
