@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
-import FastImage from "react-native-fast-image";
+import { Dimensions, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
-import { AppButton } from "../components/layout/Native-components";
+
 import { StarRating } from "../components/layout/Star";
-import UserReviewsModal from "./UserReviews-modal";
+import Image from "../components/layout/AppImage";
 
 const BusinessProfile = ({ ...props }) => {
   const user = {
@@ -21,7 +20,7 @@ const BusinessProfile = ({ ...props }) => {
       <View>
         <View style={styles.nameContainer}>
           <View>
-            <FastImage
+            <Image
               style={{
                 width: 150,
                 height: 150,

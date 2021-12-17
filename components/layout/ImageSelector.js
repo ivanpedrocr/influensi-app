@@ -1,18 +1,13 @@
 import React from "react";
-import {
-  StyleSheet,
-  TouchableHighlight,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { uploadImage } from "../../actions/upload-image";
 import {
   launchImageLibraryAsync,
   requestMediaLibraryPermissionsAsync,
 } from "expo-image-picker";
-import FastImage from "react-native-fast-image";
 import { useColor } from "../../hooks/useColor";
 import AppText from "./AppText";
+import Image from "./AppImage";
 
 const ImageSelector = ({
   style,
@@ -54,7 +49,7 @@ const ImageSelector = ({
         }}
         style={[styles(profileImageUri).image, style, { borderWidth: 0 }]}
       >
-        <FastImage
+        <Image
           style={[styles(profileImageUri).image, style]}
           source={{
             uri: profileImageUri,

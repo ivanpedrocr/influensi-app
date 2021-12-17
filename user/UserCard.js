@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import FastImage from "react-native-fast-image";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
 import { useColor } from "../hooks/useColor";
 import UserReviewsModal from "./UserReviews-modal";
+import Image from "../components/layout/AppImage";
 
 const UserCard = ({ user, ...props }) => {
   const [viewModal, setViewModal] = useState(false);
@@ -34,7 +34,7 @@ const UserCard = ({ user, ...props }) => {
           </View>
         </View>
 
-        <FastImage
+        <Image
           style={{
             width: 100,
             height: 100,

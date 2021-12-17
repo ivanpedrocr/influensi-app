@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import FastImage from "react-native-fast-image";
 import ReactNativeModal from "react-native-modal";
 import writeReview from "../../actions/write-review";
 import { useColor } from "../../hooks/useColor";
 import { AppButton } from "../layout/Native-components";
 import { StarPicker } from "../layout/Star";
 import TextBox from "../layout/TextBox";
+import Image from "../layout/AppImage";
 
 const WriteReviewModal = ({
   setShowReviewTextBox,
@@ -38,7 +38,7 @@ const WriteReviewModal = ({
     >
       <View style={styles(colors).modal}>
         <View style={styles(colors).topBar}>
-          <FastImage
+          <Image
             source={{ uri: user?.avatar }}
             style={styles(colors).profileImage}
           />

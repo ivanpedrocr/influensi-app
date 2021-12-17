@@ -1,7 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import FastImage from "react-native-fast-image";
 import { useState } from "react/cjs/react.development";
 import createConversation from "../actions/create-conversation";
 import {
@@ -15,6 +14,7 @@ import MenuItemTouchable from "../components/layout/MenuItemTouchable";
 import { AppScreen } from "../components/layout/Native-components";
 import WriteReviewModal from "../components/reviews/WriteReviewModal";
 import SplashScreen from "./splash-screen";
+import Image from "../components/layout/AppImage";
 
 const FavoritesScreen = ({ navigation, ...props }) => {
   const [favoritesList, setFavoritesList] = useState([]);
@@ -70,7 +70,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                 onPress={() => setModalVisible({ open: true, user })}
                 style={styles.listItem}
               >
-                <FastImage
+                <Image
                   style={styles.userImage}
                   source={{
                     uri: user.avatar,

@@ -1,7 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import FastImage from "react-native-fast-image";
 import { useState } from "react/cjs/react.development";
 import fetchConversations from "../actions/fetch-conversations";
 import { useAuthContext } from "../auth/auth-context";
@@ -11,6 +10,7 @@ import { AppScreen } from "../components/layout/Native-components";
 import { useColor } from "../hooks/useColor";
 import SplashScreen from "./splash-screen";
 import { formatMessageTime } from "../utils/formatMessageTime";
+import Image from "../components/layout/AppImage";
 
 const ConversationsScreen = ({ navigation, ...props }) => {
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                         width: "100%",
                       }}
                     >
-                      <FastImage
+                      <Image
                         style={styles.userImage}
                         source={{
                           uri: c.avatar,

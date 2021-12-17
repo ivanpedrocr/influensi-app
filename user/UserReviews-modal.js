@@ -5,10 +5,10 @@ import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
 import { ReactNativeModal } from "react-native-modal";
-import FastImage from "react-native-fast-image";
 import { useColor } from "../hooks/useColor";
 import { fetchUserReviews } from "../actions/fetch-user-reviews";
 import { useState } from "react/cjs/react.development";
+import Image from "../components/layout/AppImage";
 
 const UserReviewsModal = ({ visible, onClose, user }) => {
   const { colors } = useColor();
@@ -44,7 +44,7 @@ const UserReviewsModal = ({ visible, onClose, user }) => {
               return (
                 <View key={i} style={{ paddingVertical: 8 }}>
                   <View style={{ flexDirection: "row" }}>
-                    <FastImage
+                    <Image
                       style={{ width: 24, height: 24 }}
                       source={{
                         uri: "https://i.pinimg.com/474x/9b/47/a0/9b47a023caf29f113237d61170f34ad9.jpg",

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
 import { appStyles } from "../styles/app-styles";
 import UserReviewsModal from "./UserReviews-modal";
+import Image from "../components/layout/AppImage";
 
 const BusinessCard = ({ user, ...props }) => {
   const [viewModal, setViewModal] = useState(false);

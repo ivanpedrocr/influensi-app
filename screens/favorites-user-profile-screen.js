@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import FastImage from "react-native-fast-image";
 import AppText from "../components/layout/AppText";
 import { AppScreen } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
+import Image from "../components/layout/AppImage";
 
 const FavoritesUserProfileScreen = ({ route, navigation }) => {
   const { user } = route.params;
@@ -12,7 +12,7 @@ const FavoritesUserProfileScreen = ({ route, navigation }) => {
       <View>
         <View style={styles.nameContainer}>
           <View>
-            <FastImage
+            <Image
               style={{
                 width: 150,
                 height: 150,
