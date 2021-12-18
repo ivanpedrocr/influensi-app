@@ -43,14 +43,18 @@ const UserReviewsModal = ({ visible, onClose, user }) => {
             {userReviews.map((review, i) => {
               return (
                 <View key={i} style={{ paddingVertical: 8 }}>
-                  <View style={{ flexDirection: "row" }}>
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Image
-                      style={{ width: 24, height: 24 }}
+                      style={{ width: 36, height: 36, borderRadius: 100 }}
                       source={{
-                        uri: "https://i.pinimg.com/474x/9b/47/a0/9b47a023caf29f113237d61170f34ad9.jpg",
+                        uri: review?.reviewer?.avatar,
                       }}
                     />
-                    <AppText>{review.name}</AppText>
+                    <AppText
+                      style={{ fontWeight: "600", fontSize: 18, marginLeft: 4 }}
+                    >
+                      {review.reviewer.first_name} {review.reviewer.last_name}
+                    </AppText>
                   </View>
                   <StarRating rating={review.rating} />
                   <AppText>{review.review}</AppText>

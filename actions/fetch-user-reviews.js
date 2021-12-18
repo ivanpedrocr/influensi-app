@@ -11,7 +11,25 @@ export const fetchUserReviews = async (userId, onError = (error) => {}) => {
       const reviews = await Promise.all(
         Object.keys(userReviewsList).map(async (reviewId) => {
           const reviewSnapshot = await db.ref(`reviews/${reviewId}`).get();
-          return await reviewSnapshot.val();
+          const reviewData = await reviewSnapshot.val();
+          const reviewerRef = db.ref(`users/${reviewData.reviewer}`);
+          const first_name = await reviewerRef
+            .child("first_name")
+            .get()
+            .then((s) => s.val());
+          const last_name = await reviewerRef
+            .child("last_name")
+            .get()
+            .then((s) => s.val());
+          const avatar = await reviewerRef
+            .child("avatar")
+            .get()
+            .then((s) => s.val());
+          console.log({
+            ...reviewData,
+            reviewer: { first_name, last_name, avatar },
+          });
+          return { ...reviewData, reviewer: { first_name, last_name, avatar } };
         })
       );
       return reviews;
