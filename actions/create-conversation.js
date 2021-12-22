@@ -13,11 +13,11 @@ const createConversation = async (
       .then((snapshot) => snapshot.val());
     if (userConversations) {
       const conversationUsers = await Promise.all(
-        Object.values(userConversations).map(async (conversation) => {
+        Object.keys(userConversations).map(async (conversation) => {
           const users = await (
             await db.ref(`conversations/${conversation}/users`).get()
           ).val();
-          return { users: Object.values(users), conversation };
+          return { users: Object.keys(users), conversation };
         })
       );
       const currentConversation = conversationUsers.filter((conversation) =>
@@ -29,10 +29,12 @@ const createConversation = async (
     }
     if (user1 && userId) {
       const pushKey = db.ref("conversations").push().key;
-      await db.ref(`/users/${user1}/conversations`).push(pushKey);
-      await db.ref(`/users/${userId}/conversations`).push(pushKey);
-      await db.ref(`/conversations/${pushKey}/users`).push(user1);
-      await db.ref(`/conversations/${pushKey}/users`).push(userId);
+      await db.ref().update({
+        [`/users/${user1}/conversations/${pushKey}`]: true,
+        [`/users/${userId}/conversations/${pushKey}`]: true,
+        [`/conversations/${pushKey}/users/${user1}`]: true,
+        [`/conversations/${pushKey}/users/${userId}`]: true,
+      });
       return pushKey;
     }
   } catch (e) {

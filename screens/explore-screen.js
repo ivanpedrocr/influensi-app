@@ -12,18 +12,17 @@ import AppText from "../components/layout/AppText";
 import { useColor } from "../hooks/useColor";
 
 const ExploreScreen = ({ navigation, ...props }) => {
-  const SCREEN_WIDTH = Dimensions.get("window").width;
-  const [accountType, setAccountType] = useState("USER");
+  const [authValues, authDispatch] = useAuthContext();
   const [userList, setUserList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showReview, setShowReview] = useState(true);
-  const [authValues, authDispatch] = useAuthContext();
   const [loading, setLoading] = useState(false);
   const { colors, dark } = useColor();
+  const SCREEN_WIDTH = Dimensions.get("window").width;
 
   const onSwipeRight = async (currentUser) => {
-    await favoriteUser(currentUser, authValues);
     setCurrentIndex(currentIndex + 1);
+    await favoriteUser(currentUser, authValues);
   };
   const onSwipeLeft = () => {
     setCurrentIndex(currentIndex + 1);
@@ -32,12 +31,10 @@ const ExploreScreen = ({ navigation, ...props }) => {
   useFocusEffect(
     React.useCallback(() => {
       (async () => {
-        setLoading(true);
         const users = await fetchExploreUserList(authValues);
         if (users) {
           setUserList(users);
         }
-        setLoading(false);
       })();
     }, [])
   );
@@ -60,10 +57,10 @@ const ExploreScreen = ({ navigation, ...props }) => {
                   style={styles.frontCard}
                   SCREEN_WIDTH={SCREEN_WIDTH}
                 >
-                  {accountType === "USER" ? (
-                    <UserCard user={user} showReview={showReview} />
-                  ) : (
+                  {authValues.user.user_type === "INFLUENCER" ? (
                     <BusinessCard user={user} />
+                  ) : (
+                    <UserCard user={user} showReview={showReview} />
                   )}
                 </DeckSwipeAnimate>
               );
@@ -77,10 +74,10 @@ const ExploreScreen = ({ navigation, ...props }) => {
                   onSwipeRight={() => onSwipeRight(user)}
                   SCREEN_WIDTH={SCREEN_WIDTH}
                 >
-                  {accountType === "USER" ? (
-                    <UserCard user={user} />
-                  ) : (
+                  {authValues.user.user_type === "INFLUENCER" ? (
                     <BusinessCard user={user} />
+                  ) : (
+                    <UserCard user={user} showReview={showReview} />
                   )}
                 </DeckSwipeAnimate>
               );

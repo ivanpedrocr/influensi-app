@@ -10,7 +10,7 @@ const fetchConversations = async ({ userId }, onError = (error) => {}) => {
     if (userChats) {
       const conversationsUsers = async () => {
         const conversationsList = await Promise.all(
-          Object.values(userChats).map(async (chatId) => {
+          Object.keys(userChats).map(async (chatId) => {
             return db
               .ref(`conversations/${chatId}`)
               .get()
@@ -19,7 +19,7 @@ const fetchConversations = async ({ userId }, onError = (error) => {}) => {
         );
         const findUsers = await Promise.all(
           conversationsList.map(async (conversation, i) => {
-            const uid = Object.values(conversation.users).find(
+            const uid = Object.keys(conversation.users).find(
               (user) => user !== userId
             );
             const userRef = db.ref(`users/${uid}`);
@@ -39,7 +39,7 @@ const fetchConversations = async ({ userId }, onError = (error) => {}) => {
               first_name,
               last_name,
               avatar,
-              chatId: Object.values(userChats)[i],
+              chatId: Object.keys(userChats)[i],
               last_message: conversation.lastMessage,
             };
           })

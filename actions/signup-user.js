@@ -16,11 +16,16 @@ const signupUser = async ({
       : { ...userValues, age: userValues.age.toISOString() };
   try {
     const user = await auth.createUserWithEmailAndPassword(email, password);
-    await db.ref(`users/${user.user.uid}`).set({
-      email,
-      username,
-      user_type,
-      ...values,
+    await db.ref().update({
+      [`users/${user.user.uid}`]: {
+        email,
+        username,
+        user_type,
+        ...values,
+      },
+      [`${user_type === "BUSINESS" ? "businesses" : "influencers"}/${
+        user.user.uid
+      }`]: true,
     });
   } catch (e) {
     console.log(e);

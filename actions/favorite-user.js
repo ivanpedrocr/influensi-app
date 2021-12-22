@@ -4,7 +4,7 @@ import { getAge } from "../utils/getBirthDate";
 export const favoriteUser = async (user, { userId }) => {
   const db = firebase.database();
   try {
-    await db.ref(`users/${userId}/favorites/${user.id}`).set(user.id);
+    await db.ref(`users/${userId}/favorites`).update({ [`${user.id}`]: true });
   } catch (e) {
     console.log(e);
   }
@@ -21,7 +21,7 @@ export const fetchFavoriteUsersList = async (
       .get()
       .then((snapshot) => snapshot.val());
     if (favoritesList) {
-      const favorites = Object.values(favoritesList);
+      const favorites = Object.keys(favoritesList);
       const users = await Promise.all(
         favorites.map(async (userId) => {
           const user = await db
