@@ -7,10 +7,7 @@ const AppText = ({ style, children, numberOfLines, ...props }) => {
   return (
     <Text
       {...props}
-      style={[
-        { fontFamily: "Heebo_500Medium", fontSize: 16, color: colors.text },
-        style,
-      ]}
+      style={[{ fontSize: 16, color: colors.text }, style]}
       numberOfLines={numberOfLines}
     >
       {children}
