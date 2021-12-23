@@ -52,7 +52,7 @@ const ImageSelector = ({
         <Image
           style={[styles(profileImageUri).image, style]}
           source={{
-            uri: profileImageUri,
+            uri: profileImageUri || null,
           }}
         />
       </TouchableOpacity>

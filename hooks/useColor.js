@@ -3,7 +3,7 @@ import { useTheme } from "../theme/theme-context";
 export const useColor = () => {
   const [colorMode, toggleColorMode] = useTheme();
   const defaultColors = {
-    primary: "#bd52ff",
+    primary: "#ff2f2b",
     blue: "#2a5bfa",
     accentGray: "#666666",
     red: "#C70039",
