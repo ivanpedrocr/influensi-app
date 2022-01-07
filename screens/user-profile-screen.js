@@ -36,7 +36,7 @@ const UserProfileScreen = ({ navigation, route, ...props }) => {
       </View>
     ),
   });
-  return !user.username ? (
+  return !user?.username ? (
     <SplashScreen />
   ) : (
     <AppScreen>

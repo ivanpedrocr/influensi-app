@@ -10,6 +10,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import fetchExploreUserList from "../actions/fetch-explore-user-list";
 import AppText from "../components/layout/AppText";
 import { useColor } from "../hooks/useColor";
+import SelectMultiple from "../components/layout/SelectMultiple";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const [authValues, authDispatch] = useAuthContext();
@@ -19,6 +20,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const [loading, setLoading] = useState(false);
   const { colors, dark } = useColor();
   const SCREEN_WIDTH = Dimensions.get("window").width;
+  const [values, setValues] = useState({});
 
   const onSwipeRight = async (currentUser) => {
     setCurrentIndex(currentIndex + 1);
@@ -40,7 +42,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
   );
   return (
     <AppScreen style={{ alignItems: "center" }}>
-      {currentIndex + 1 > userList.length && !loading ? (
+      {/* {currentIndex + 1 > userList.length && !loading ? (
         <AppText>{"No More Users Found :("}</AppText>
       ) : (
         userList
@@ -84,7 +86,16 @@ const ExploreScreen = ({ navigation, ...props }) => {
             }
           })
           .reverse()
-      )}
+      )} */}
+      <SelectMultiple
+        options={[
+          { label: "1", value: "1" },
+          { label: "2", value: "2" },
+          { label: "3", value: "3" },
+        ]}
+        onSelect={(item) => setValues(item)}
+        values={values}
+      />
     </AppScreen>
   );
 };

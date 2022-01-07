@@ -5,7 +5,7 @@ import { StarRating } from "../components/layout/Star";
 import { useAuthContext } from "../auth/auth-context";
 import ImageSelector from "../components/layout/ImageSelector";
 
-const UserProfile = ({ user, setProfileImageUri, imageUri }) => {
+const UserProfile = ({ user = {}, setProfileImageUri, imageUri }) => {
   const [authValues, authDispatch] = useAuthContext();
   const handleImagePicked = async (pickerResult) => {
     try {

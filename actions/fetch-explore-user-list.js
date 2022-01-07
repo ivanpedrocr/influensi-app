@@ -15,7 +15,6 @@ const fetchExploreUserList = async ({ userId }, onError = (error) => {}) => {
       }));
     return formattedUserList;
   } catch (e) {
-    console.log(e);
     onError(e);
   }
 };

@@ -1,21 +1,24 @@
 import React from "react";
-import { StyleSheet, TouchableHighlight, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { useColor } from "../../hooks/useColor";
 import AppText from "./AppText";
 
 const RadioButton = ({ style, onSelect, label, value, options, error }) => {
   const { colors } = useColor();
   const RadioButtonItem = ({ item, label }) => (
-    <View style={styles().itemContainer} key={item}>
-      <TouchableHighlight
+    <View key={item}>
+      <TouchableOpacity
         onPress={() => {
           onSelect(item);
         }}
-        style={[styles(colors, value === item).item, style]}
       >
-        <View style={styles(colors, value === item).itemInnerButton} />
-      </TouchableHighlight>
-      <AppText style={styles().itemLabel}>{label}</AppText>
+        <View style={styles().itemContainer}>
+          <View style={[styles(colors, value === item).item, style]}>
+            <View style={styles(colors, value === item).itemInnerButton} />
+          </View>
+          <AppText style={styles().itemLabel}>{label}</AppText>
+        </View>
+      </TouchableOpacity>
     </View>
   );
   return (
@@ -53,8 +56,8 @@ const styles = (colors, isSelected) =>
       display: isSelected ? "flex" : "none",
     },
     item: {
-      height: 32,
-      width: 32,
+      height: 24,
+      width: 24,
       borderRadius: 20,
       borderWidth: 2,
       borderColor: isSelected ? colors?.primary : colors?.lightGray,

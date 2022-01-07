@@ -33,7 +33,7 @@ export const AppTextInput = ({
 }) => {
   const { colors } = useColor();
   return (
-    <View style={{ flexGrow: 1 }}>
+    <>
       {label && (
         <AppText style={[{ color: colors.accentGray, fontSize: 15 }]}>
           {label}
@@ -59,7 +59,7 @@ export const AppTextInput = ({
         style={[defaultStyles(colors).textInput, style]}
         {...props}
       ></TextInput>
-    </View>
+    </>
   );
 };
 
