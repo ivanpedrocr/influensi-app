@@ -10,7 +10,6 @@ const fetchExploreUserList = async ({ userId }, onError = (error) => {}) => {
       .filter(([key, value]) => key !== userId)
       .map(([key, value]) => ({
         ...value,
-        age: getAge(value.age),
         id: key,
       }));
     return formattedUserList;

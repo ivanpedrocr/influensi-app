@@ -5,7 +5,12 @@ import Icon from "../../styles/icons";
 import MenuItemTouchable from "./MenuItemTouchable";
 import { useColor } from "../../hooks/useColor";
 
-const SelectMultiple = ({ onSelect = (value) => {}, options = [], values }) => {
+const SelectMultiple = ({
+  onSelect = (value) => {},
+  options = [],
+  values = {},
+  style = {},
+}) => {
   const { colors } = useColor();
   const [open, setOpen] = useState(false);
   const SelectListItem = ({ label, value, selected, onSelect, onDeselect }) => {
@@ -53,7 +58,7 @@ const SelectMultiple = ({ onSelect = (value) => {}, options = [], values }) => {
     );
   };
   return (
-    <View style={styles(colors).container}>
+    <View style={[style, styles(colors).container]}>
       <MenuItemTouchable
         onPress={() => setOpen((prev) => !prev)}
       ></MenuItemTouchable>

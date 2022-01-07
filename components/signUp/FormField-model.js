@@ -37,3 +37,11 @@ export class ImageSelectorField {
     Object.assign(this, { name, type: "image-selector", ...args });
   }
 }
+
+export class SelectMultipleField {
+  name;
+  args;
+  constructor(name, args) {
+    Object.assign(this, { name, type: "select-multi", ...args });
+  }
+}

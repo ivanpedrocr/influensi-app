@@ -25,10 +25,6 @@ export const fetchUserReviews = async (userId, onError = (error) => {}) => {
             .child("avatar")
             .get()
             .then((s) => s.val());
-          console.log({
-            ...reviewData,
-            reviewer: { first_name, last_name, avatar },
-          });
           return { ...reviewData, reviewer: { first_name, last_name, avatar } };
         })
       );

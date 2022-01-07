@@ -8,7 +8,7 @@ export const fetchUserProfile = async ({ userId }, onError = (error) => {}) => {
       .ref(`users/${userId}`)
       .get()
       .then((snapshot) => snapshot.val());
-    return { ...user, age: getAge(user.age) };
+    return { ...user };
   } catch (e) {
     onError(e);
   }

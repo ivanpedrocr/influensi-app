@@ -9,6 +9,7 @@ import { Controller } from "react-hook-form";
 import DatePicker from "./layout/DatePicker";
 import TextBox from "./layout/TextBox";
 import ImageSelector from "./layout/ImageSelector";
+import SelectMultiple from "./layout/SelectMultiple";
 
 const BasicForm = ({
   formMap,
@@ -116,6 +117,30 @@ const BasicForm = ({
                       value={value}
                       onChange={(e, date) => {
                         onChange(date);
+                      }}
+                      style={{ ...style, ...field?.style }}
+                      error={error}
+                      {...field}
+                    />
+                  )}
+                />
+              );
+            case "select-multi":
+              return (
+                <Controller
+                  key={field.name}
+                  control={control}
+                  name={field.name}
+                  defaultValue={field.defaultValue ?? new Date()}
+                  render={({
+                    field: { onChange, onBlur, value },
+                    fieldState: { error },
+                  }) => (
+                    <SelectMultiple
+                      key={field.name}
+                      values={value}
+                      onSelect={(value) => {
+                        onChange(value);
                       }}
                       style={{ ...style, ...field?.style }}
                       error={error}

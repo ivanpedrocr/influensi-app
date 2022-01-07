@@ -4,6 +4,7 @@ import AppText from "../components/layout/AppText";
 import { StarRating } from "../components/layout/Star";
 import { useAuthContext } from "../auth/auth-context";
 import ImageSelector from "../components/layout/ImageSelector";
+import { differenceInYears } from "date-fns";
 
 const UserProfile = ({ user = {}, setProfileImageUri, imageUri }) => {
   const [authValues, authDispatch] = useAuthContext();
@@ -39,7 +40,7 @@ const UserProfile = ({ user = {}, setProfileImageUri, imageUri }) => {
             style={{ fontSize: 32, fontWeight: "bold" }}
           >{`${user.first_name} ${user.last_name}`}</AppText>
           <AppText style={styles.username}>{user.username}</AppText>
-          <AppText>{user.age}</AppText>
+          <AppText>{differenceInYears(new Date(), new Date(user.age))}</AppText>
           <AppText style={{ fontWeight: "bold" }}>{user.followers}</AppText>
           <AppText style={{ color: "green" }}>{user.averageReturn}</AppText>
           <StarRating rating={user.rating} />

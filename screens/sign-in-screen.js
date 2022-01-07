@@ -32,10 +32,12 @@ const SignInScreen = ({ route, navigation }) => {
       const loggedInUser = await fetchUserProfile({
         userId: auth.currentUser.uid,
       });
-      authDispatch({
-        type: "SIGNIN",
-        payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
-      });
+      if (loggedInUser) {
+        authDispatch({
+          type: "SIGNIN",
+          payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
+        });
+      }
     }
   };
 

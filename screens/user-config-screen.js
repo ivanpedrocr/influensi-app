@@ -5,7 +5,10 @@ import { updateUserValues } from "../actions/update-user-values";
 import { useAuthContext } from "../auth/auth-context";
 import BasicForm from "../components/BasicForm";
 import { AppButton, AppScreen } from "../components/layout/Native-components";
-import { TextField } from "../components/signUp/FormField-model";
+import {
+  SelectMultipleField,
+  TextField,
+} from "../components/signUp/FormField-model";
 
 const UserConfigScreen = () => {
   const { control, handleSubmit } = useForm();
@@ -31,14 +34,24 @@ const UserConfigScreen = () => {
       defaultValue: last_name,
       label: "Last Name",
     }),
+    new SelectMultipleField("categories", {
+      placeholder: "Categories",
+      options: [
+        { label: "1", value: "1" },
+        { label: "2", value: "2" },
+        { label: "3", value: "3" },
+        { label: "4", value: "4" },
+      ],
+    }),
   ];
   const saveFormValues = async (values) => {
-    try {
-      await updateUserValues(authValues, values);
-      authDispatch({ type: "UPDATE_USER", payload: { user: values } });
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(values);
+    // try {
+    //   await updateUserValues(authValues, values);
+    //   authDispatch({ type: "UPDATE_USER", payload: { user: values } });
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
   return (
     <AppScreen style={{ padding: 24 }}>

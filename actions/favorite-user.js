@@ -31,7 +31,7 @@ export const fetchFavoriteUsersList = async (
           return { id: userId, ...user };
         })
       );
-      return users.map((user) => ({ ...user, age: getAge(user.age) }));
+      return users.map((user) => ({ ...user }));
     }
   } catch (e) {
     onError(e);
