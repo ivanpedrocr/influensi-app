@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import { updateUserValues } from "../actions/update-user-values";
+import firebase from "firebase";
 import { useAuthContext } from "../auth/auth-context";
 import BasicForm from "../components/BasicForm";
 import { AppButton, AppScreen } from "../components/layout/Native-components";
@@ -9,11 +10,31 @@ import {
   SelectMultipleField,
   TextField,
 } from "../components/signUp/FormField-model";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 const UserConfigScreen = () => {
   const { control, handleSubmit } = useForm();
   const [authValues, authDispatch] = useAuthContext();
   const { first_name, last_name, username } = authValues.user;
+  const [loadedCategories, setLoadedCategories] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const fetchedCategories = await firebase
+        .database()
+        .ref(`categories`)
+        .get()
+        .then((snapshot) => snapshot.val());
+      if (fetchedCategories) {
+        setLoadedCategories(
+          Object.keys(fetchedCategories).map((category) => ({
+            value: category.toUpperCase(),
+            label: capitalizeFirstLetter(category),
+          }))
+        );
+      }
+    })();
+  }, []);
 
   const configurationFields = [
     new TextField("username", {
@@ -35,13 +56,8 @@ const UserConfigScreen = () => {
       label: "Last Name",
     }),
     new SelectMultipleField("categories", {
-      placeholder: "Categories",
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-        { label: "4", value: "4" },
-      ],
+      label: "Categories",
+      options: loadedCategories,
     }),
   ];
   const saveFormValues = async (values) => {

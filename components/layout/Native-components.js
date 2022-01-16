@@ -29,6 +29,7 @@ export const AppTextInput = ({
   defaultValue,
   label,
   labelStyle,
+  onFocus,
   ...props
 }) => {
   const { colors } = useColor();
@@ -45,6 +46,7 @@ export const AppTextInput = ({
       <TextInput
         defaultValue={defaultValue}
         onBlur={onBlur}
+        onFocus={onFocus}
         onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
         placeholderTextColor={colors.placeholderText}

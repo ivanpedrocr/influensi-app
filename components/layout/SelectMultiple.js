@@ -1,18 +1,21 @@
 import React, { useState } from "react";
-import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import AppText from "./AppText";
 import Icon from "../../styles/icons";
 import MenuItemTouchable from "./MenuItemTouchable";
 import { useColor } from "../../hooks/useColor";
+import { AppTextInput } from "./Native-components";
 
 const SelectMultiple = ({
   onSelect = (value) => {},
   options = [],
   values = {},
   style = {},
+  label,
 }) => {
   const { colors } = useColor();
   const [open, setOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   const SelectListItem = ({ label, value, selected, onSelect, onDeselect }) => {
     const { [value]: c, ...rest } = values;
 
@@ -25,7 +28,7 @@ const SelectMultiple = ({
         <View style={styles(colors).selectListItemTouchable}>
           <View style={styles(colors, selected).checkbox}>
             <Icon
-              name="checkmark-outline"
+              name="checkmark-sharp"
               color={selected ? colors.primary : colors.background}
               adjustsFontSizeToFit
               style={{
@@ -58,15 +61,21 @@ const SelectMultiple = ({
     );
   };
   return (
-    <View style={[style, styles(colors).container]}>
-      <MenuItemTouchable
-        onPress={() => setOpen((prev) => !prev)}
-      ></MenuItemTouchable>
+    <>
+      <AppTextInput
+        label={label}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        onChangeText={(text) => setSearchInput(text)}
+        value={searchInput}
+      />
       <SelectMultipleList
-        data={options}
+        data={options.filter(({ label }) =>
+          label?.toUpperCase().includes(searchInput.toUpperCase())
+        )}
         style={{ display: open ? "flex" : "none" }}
       />
-    </View>
+    </>
   );
 };
 
