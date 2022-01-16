@@ -1,10 +1,17 @@
 import React, { useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import AppText from "./AppText";
 import Icon from "../../styles/icons";
 import MenuItemTouchable from "./MenuItemTouchable";
 import { useColor } from "../../hooks/useColor";
 import { AppTextInput } from "./Native-components";
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 const SelectMultiple = ({
   onSelect = (value) => {},
@@ -16,7 +23,7 @@ const SelectMultiple = ({
   const { colors } = useColor();
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const SelectListItem = ({ label, value, selected, onSelect, onDeselect }) => {
+  const SelectListItem = ({ label, value, selected, onSelect }) => {
     const { [value]: c, ...rest } = values;
 
     return (
@@ -69,6 +76,24 @@ const SelectMultiple = ({
         onChangeText={(text) => setSearchInput(text)}
         value={searchInput}
       />
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+        {values &&
+          Object?.keys?.(values).map((value) => {
+            const { [value]: c, ...rest } = values;
+            return (
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => onSelect(rest)}
+              >
+                <View style={styles(colors).selectedText}>
+                  <AppText key={value}>
+                    {capitalizeFirstLetter(value?.toLowerCase())}
+                  </AppText>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+      </View>
       <SelectMultipleList
         data={options.filter(({ label }) =>
           label?.toUpperCase().includes(searchInput.toUpperCase())
@@ -96,6 +121,13 @@ const styles = (colors, isSelected) =>
       alignItems: "center",
       justifyContent: "center",
       marginRight: 4,
+    },
+    selectedText: {
+      borderColor: colors?.background,
+      borderWidth: 2,
+      padding: 6,
+      backgroundColor: colors?.primary,
+      borderRadius: 20,
     },
   });
 
