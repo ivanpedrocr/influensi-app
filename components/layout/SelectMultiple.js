@@ -78,10 +78,11 @@ const SelectMultiple = ({
       />
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {values &&
-          Object?.keys?.(values).map((value) => {
+          Object?.keys?.(values).map((value, i) => {
             const { [value]: c, ...rest } = values;
             return (
               <TouchableOpacity
+                key={`selection-${i}`}
                 activeOpacity={1}
                 onPress={() => onSelect(rest)}
               >

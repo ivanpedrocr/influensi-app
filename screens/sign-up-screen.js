@@ -48,25 +48,6 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
       payload: { token, userId: auth.currentUser.uid, user: loggedInUser },
     });
   };
-
-  const handleImagePicked = async (pickerResult) => {
-    try {
-      if (!pickerResult.cancelled) {
-        const uploadUrl = await uploadNewImageSignup(pickerResult.uri);
-        setProfileImage({ image: uploadUrl, uploading: false });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  const pickImage = async () => {
-    const pickerResult = await launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [3, 3],
-      mediaTypes: "Images",
-    });
-    handleImagePicked(pickerResult);
-  };
   return (
     <AppScreen style={{ padding: 24 }}>
       <ScrollView>
