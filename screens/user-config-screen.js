@@ -11,30 +11,13 @@ import {
   TextField,
 } from "../components/signUp/FormField-model";
 import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
+import { fetchCategories } from "../actions/fetch-categories";
 
 const UserConfigScreen = () => {
   const { control, handleSubmit } = useForm();
   const [authValues, authDispatch] = useAuthContext();
   const { first_name, last_name, username } = authValues.user;
   const [loadedCategories, setLoadedCategories] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const fetchedCategories = await firebase
-        .database()
-        .ref(`categories`)
-        .get()
-        .then((snapshot) => snapshot.val());
-      if (fetchedCategories) {
-        setLoadedCategories(
-          Object.keys(fetchedCategories).map((category) => ({
-            value: category.toUpperCase(),
-            label: capitalizeFirstLetter(category),
-          }))
-        );
-      }
-    })();
-  }, []);
 
   const configurationFields = [
     new TextField("username", {
@@ -57,17 +40,16 @@ const UserConfigScreen = () => {
     }),
     new SelectMultipleField("categories", {
       label: "Categories",
-      options: loadedCategories,
+      getOptions: fetchCategories,
     }),
   ];
   const saveFormValues = async (values) => {
-    console.log(values);
-    // try {
-    //   await updateUserValues(authValues, values);
-    //   authDispatch({ type: "UPDATE_USER", payload: { user: values } });
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      await updateUserValues(authValues, values);
+      authDispatch({ type: "UPDATE_USER", payload: { user: values } });
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <AppScreen style={{ padding: 24 }}>

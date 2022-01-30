@@ -41,7 +41,7 @@ const UserCard = ({ user, ...props }) => {
             borderRadius: 100,
           }}
           source={{
-            uri: user?.avatar,
+            uri: user?.avatar || null,
           }}
         />
         <View style={styles.descriptionContainer}>

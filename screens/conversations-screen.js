@@ -62,7 +62,7 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                       <Image
                         style={styles.userImage}
                         source={{
-                          uri: c.avatar,
+                          uri: c.avatar || null,
                         }}
                       />
                       <AppText style={{ fontSize: 20, fontWeight: "600" }}>

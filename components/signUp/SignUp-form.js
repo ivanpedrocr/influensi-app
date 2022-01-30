@@ -3,11 +3,13 @@ import {
   ImageSelectorField,
   PickerField,
   RadioButtonField,
+  SelectMultipleField,
   TextField,
 } from "./FormField-model";
 
 import * as Yup from "yup";
 import { addYears } from "date-fns";
+import { fetchCategories } from "../../actions/fetch-categories";
 
 const minDate = addYears(new Date(), -13);
 
@@ -46,7 +48,7 @@ export const validationSchema = Yup.object({
   password: Yup.string().min(8).required(),
   username: Yup.string().min(5).required("Username is required"),
   user_type: Yup.string().required("Required"),
-  avatar: Yup.string().required("A Profile Image is required."),
+  categories: Yup.object().required(),
   ...influencerValidationSchema,
   ...businessValidationSchema,
 });
@@ -62,17 +64,22 @@ export const signUpForm = [
       { label: "Influencer", item: "INFLUENCER" },
     ],
   }),
-  new TextField("email", { placeholder: "Email" }),
-  new TextField("password", { placeholder: "Password", secureTextEntry: true }),
-  new TextField("username", { placeholder: "Username" }),
+  new TextField("email", { label: "Email" }),
+  new TextField("password", { label: "Password", secureTextEntry: true }),
+  new TextField("username", { label: "Username" }),
+  new SelectMultipleField("categories", {
+    label: "Categories",
+    getOptions: fetchCategories,
+    listStyle: { flexGrow: 0, height: 250 },
+  }),
 ];
 
 export const influencerSignUpForm = [
-  new TextField("first_name", { placeholder: "First Name" }),
-  new TextField("last_name", { placeholder: "Last Name" }),
+  new TextField("first_name", { label: "First Name" }),
+  new TextField("last_name", { label: "Last Name" }),
   new DatePickerField("age", { label: "Birth Date" }),
 ];
 
 export const businessSignUpForm = [
-  new TextField("business_name", { placeholder: "Business Name" }),
+  new TextField("business_name", { label: "Business Name" }),
 ];

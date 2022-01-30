@@ -47,7 +47,7 @@ const UserReviewsModal = ({ visible, onClose, user }) => {
                     <Image
                       style={{ width: 36, height: 36, borderRadius: 100 }}
                       source={{
-                        uri: review?.reviewer?.avatar,
+                        uri: review?.reviewer?.avatar || null,
                       }}
                     />
                     <AppText

@@ -6,6 +6,7 @@ const signupUser = async ({
   user_type,
   username,
   business_name,
+  categories,
   ...userValues
 }) => {
   const auth = firebase.auth();
@@ -21,11 +22,12 @@ const signupUser = async ({
         email,
         username,
         user_type,
+        categories,
         ...values,
       },
-      [`${user_type === "BUSINESS" ? "businesses" : "influencers"}/${
-        user.user.uid
-      }`]: true,
+      [`${user_type.toLowerCase()}/${user.user.uid}`]: {
+        categories,
+      },
     });
   } catch (e) {
     console.log(e);

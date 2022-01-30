@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -17,15 +17,30 @@ const SelectMultiple = ({
   onSelect = (value) => {},
   options = [],
   values = {},
-  style = {},
   label,
+  getOptions,
+  scrollEnabled = true,
+  listStyle,
+  containerStyle,
 }) => {
   const { colors } = useColor();
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  const [loadedOptions, setLoadedOptions] = useState(null);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    if (getOptions) {
+      (async () => {
+        const res = await getOptions((e) => {
+          if (e) setError(e);
+        });
+        setLoadedOptions(res);
+      })();
+    }
+  }, []);
+
   const SelectListItem = ({ label, value, selected, onSelect }) => {
     const { [value]: c, ...rest } = values;
-
     return (
       <MenuItemTouchable
         onPress={() =>
@@ -55,6 +70,8 @@ const SelectMultiple = ({
         style={style}
         data={data}
         keyExtractor={(item) => item.label}
+        scrollEnabled={scrollEnabled}
+        maxToRenderPerBatch={5}
         renderItem={({ item }) => (
           <SelectListItem
             label={item.label}
@@ -76,7 +93,9 @@ const SelectMultiple = ({
         onChangeText={(text) => setSearchInput(text)}
         value={searchInput}
       />
-      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+      <View
+        style={{ flexDirection: "row", flexWrap: "wrap", paddingBottom: 8 }}
+      >
         {values &&
           Object?.keys?.(values).map((value, i) => {
             const { [value]: c, ...rest } = values;
@@ -96,10 +115,11 @@ const SelectMultiple = ({
           })}
       </View>
       <SelectMultipleList
-        data={options.filter(({ label }) =>
-          label?.toUpperCase().includes(searchInput.toUpperCase())
+        data={(loadedOptions?.length ? loadedOptions : options).filter(
+          ({ label }) =>
+            label?.toUpperCase().includes(searchInput.toUpperCase())
         )}
-        style={{ display: open ? "flex" : "none" }}
+        style={{ display: open ? "flex" : "none", ...listStyle }}
       />
     </>
   );

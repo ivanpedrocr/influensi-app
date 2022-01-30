@@ -27,7 +27,7 @@ const BusinessCard = ({ user, ...props }) => {
                 borderWidth: 2,
               }}
               source={{
-                uri: user.avatar,
+                uri: user.avatar || null,
               }}
             />
             <StarRating rating={user.rating} />

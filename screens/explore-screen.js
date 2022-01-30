@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useMemo, useReducer, useState } from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Dimensions } from "react-native";
 import UserCard from "../user/UserCard";
 import { AppScreen } from "../components/layout/Native-components";
 import BusinessCard from "../user/BusinessCard";
@@ -10,8 +10,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import fetchExploreUserList from "../actions/fetch-explore-user-list";
 import AppText from "../components/layout/AppText";
 import { useColor } from "../hooks/useColor";
-import SelectMultiple from "../components/layout/SelectMultiple";
-import {differenceInYears} from 'date-fns'
+import { differenceInYears } from "date-fns";
 
 const ExploreScreen = ({ navigation, ...props }) => {
   const [authValues, authDispatch] = useAuthContext();
@@ -21,7 +20,6 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const [loading, setLoading] = useState(false);
   const { colors, dark } = useColor();
   const SCREEN_WIDTH = Dimensions.get("window").width;
-  const [values, setValues] = useState({});
 
   const onSwipeRight = async (currentUser) => {
     setCurrentIndex(currentIndex + 1);
@@ -38,11 +36,17 @@ const ExploreScreen = ({ navigation, ...props }) => {
           console.log(e)
         );
         if (users) {
-          setUserList(users.map((user) => ({...user, age: differenceInYears(new Date(), new Date(user.age))})));
+          setUserList(
+            users.map((user) => ({
+              ...user,
+              age: differenceInYears(new Date(), new Date(user.age)),
+            }))
+          );
         }
       })();
     }, [])
   );
+
   return (
     <AppScreen style={{ alignItems: "center" }}>
       {currentIndex + 1 > userList.length && !loading ? (

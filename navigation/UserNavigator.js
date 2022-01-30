@@ -131,7 +131,7 @@ const UserNavigator = () => {
             name="Messages"
             component={MessagesStackScreen}
             options={{
-              lazy: true,
+              lazy: false,
               tabBarIcon: () => {
                 return (
                   <Icon
