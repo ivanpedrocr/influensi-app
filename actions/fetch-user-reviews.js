@@ -21,11 +21,16 @@ export const fetchUserReviews = async (userId, onError = (error) => {}) => {
             .child("last_name")
             .get()
             .then((s) => s.val());
+          const business_name = await reviewerRef
+            .child("business_name")
+            .get()
+            .then((s) => s.val());
           const avatar = await reviewerRef
             .child("avatar")
             .get()
             .then((s) => s.val());
-          return { ...reviewData, reviewer: { first_name, last_name, avatar } };
+          const name = business_name || `${first_name} ${last_name}`;
+          return { ...reviewData, reviewer: { name, avatar } };
         })
       );
       return reviews;

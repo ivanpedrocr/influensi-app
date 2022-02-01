@@ -3,18 +3,19 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import AppText from "../components/layout/AppText";
 import { AppButton } from "../components/layout/Native-components";
 import { StarRating } from "../components/layout/Star";
-import { appStyles } from "../styles/app-styles";
 import UserReviewsModal from "./UserReviews-modal";
 import Image from "../components/layout/AppImage";
+import { useColor } from "../hooks/useColor";
 
 const BusinessCard = ({ user, ...props }) => {
   const [viewModal, setViewModal] = useState(false);
+  const { colors } = useColor();
   return (
-    <View style={appStyles.card}>
+    <View style={styles(colors).card}>
       <View>
-        <View style={styles.nameContainer}>
+        <View style={styles(colors).nameContainer}>
           <View>
-            <AppText style={{ fontSize: 24 }}>{user.companyName}</AppText>
+            <AppText style={{ fontSize: 24 }}>{user.name}</AppText>
             <AppText style={{ color: "blue", fontSize: 20 }}>
               {user.location}
             </AppText>
@@ -33,7 +34,7 @@ const BusinessCard = ({ user, ...props }) => {
             <StarRating rating={user.rating} />
           </View>
         </View>
-        <View style={styles.descriptionContainer}>
+        <View style={styles(colors).descriptionContainer}>
           <AppText>{user.description}</AppText>
         </View>
       </View>
@@ -49,21 +50,31 @@ const BusinessCard = ({ user, ...props }) => {
         onClose={() => {
           setViewModal(false);
         }}
+        user={user}
       />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  nameContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  username: {
-    color: "#1f7fbf",
-  },
-  descriptionContainer: {
-    marginTop: 8,
-  },
-});
+const styles = (colors) =>
+  StyleSheet.create({
+    card: {
+      borderRadius: 32,
+      alignItems: "stretch",
+      justifyContent: "space-between",
+      flex: 1,
+      padding: 24,
+      marginTop: 16,
+      backgroundColor: colors.background,
+    },
+    nameContainer: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    username: {},
+    descriptionContainer: {
+      marginTop: 8,
+    },
+  });
 export default BusinessCard;

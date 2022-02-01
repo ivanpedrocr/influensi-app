@@ -66,7 +66,7 @@ const ConversationsScreen = ({ navigation, ...props }) => {
                         }}
                       />
                       <AppText style={{ fontSize: 20, fontWeight: "600" }}>
-                        {c.first_name} {c.last_name}
+                        {c.name}
                       </AppText>
                       {c.last_message && (
                         <AppText

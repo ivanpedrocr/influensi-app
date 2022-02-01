@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import AppText from "../components/layout/AppText";
@@ -7,7 +7,6 @@ import { StarRating } from "../components/layout/Star";
 import { ReactNativeModal } from "react-native-modal";
 import { useColor } from "../hooks/useColor";
 import { fetchUserReviews } from "../actions/fetch-user-reviews";
-import { useState } from "react/cjs/react.development";
 import Image from "../components/layout/AppImage";
 
 const UserReviewsModal = ({ visible, onClose, user }) => {
@@ -53,7 +52,7 @@ const UserReviewsModal = ({ visible, onClose, user }) => {
                     <AppText
                       style={{ fontWeight: "600", fontSize: 18, marginLeft: 4 }}
                     >
-                      {review.reviewer.first_name} {review.reviewer.last_name}
+                      {review.reviewer.name}
                     </AppText>
                   </View>
                   <StarRating rating={review.rating} />

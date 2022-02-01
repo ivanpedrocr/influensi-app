@@ -28,7 +28,9 @@ export const fetchFavoriteUsersList = async (
             .ref(`users/${userId}`)
             .get()
             .then((snapshot) => snapshot.val());
-          return { id: userId, ...user };
+          const name =
+            user.business_name || `${user.first_name} ${user.last_name}`;
+          return { ...user, name, id: userId };
         })
       );
       return users.map((user) => ({ ...user }));

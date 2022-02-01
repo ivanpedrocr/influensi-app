@@ -35,9 +35,13 @@ const fetchConversations = async ({ userId }, onError = (error) => {}) => {
               .child("avatar")
               .get()
               .then((snapshot) => snapshot.val());
+            const business_name = await userRef
+              .child("business_name")
+              .get()
+              .then((s) => s.val());
+            const name = business_name || `${first_name} ${last_name}`;
             return {
-              first_name,
-              last_name,
+              name,
               avatar,
               chatId: Object.keys(userChats)[i],
               last_message: conversation.lastMessage,

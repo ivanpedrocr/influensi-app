@@ -76,9 +76,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                     uri: user.avatar,
                   }}
                 />
-                <AppText style={styles.userListName}>
-                  {user.first_name} {user.last_name}
-                </AppText>
+                <AppText style={styles.userListName}>{user.name}</AppText>
               </MenuItemTouchable>
             ))
             .reverse()

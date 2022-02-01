@@ -22,9 +22,7 @@ const UserCard = ({ user, ...props }) => {
                 justifyContent: "space-around",
               }}
             >
-              <AppText style={{ fontSize: 24 }}>
-                {user.first_name} {user.last_name}
-              </AppText>
+              <AppText style={{ fontSize: 24 }}>{user.name}</AppText>
             </View>
             <AppText style={{ fontSize: 20 }}>{user.age}</AppText>
             <AppText style={{ ...styles.username, color: colors.primary }}>

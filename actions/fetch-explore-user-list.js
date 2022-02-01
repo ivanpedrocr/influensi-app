@@ -16,8 +16,19 @@ const fetchExploreUserList = async (
     for (const userId in res) {
       const userRef = db.ref(`users/${userId}`);
       const userValues = await userRef.get().then((snapshot) => snapshot.val());
-      updateList({ ...userValues, id: userId });
-      fetchedUsers.push({ ...userValues, id: userId });
+      const name =
+        userValues.business_name ||
+        `${userValues.first_name} ${userValues.last_name}`;
+      updateList({
+        ...userValues,
+        id: userId,
+        name,
+      });
+      fetchedUsers.push({
+        ...userValues,
+        id: userId,
+        name,
+      });
     }
     return fetchedUsers;
   } catch (e) {
