@@ -12,11 +12,12 @@ import {
 } from "../components/signUp/FormField-model";
 import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 import { fetchCategories } from "../actions/fetch-categories";
+import { ScrollView } from "react-native-gesture-handler";
 
 const UserConfigScreen = () => {
   const { control, handleSubmit } = useForm();
   const [authValues, authDispatch] = useAuthContext();
-  const { first_name, last_name, username } = authValues.user;
+  const { first_name, last_name, username, categories } = authValues.user;
   const [loadedCategories, setLoadedCategories] = useState([]);
 
   const configurationFields = [
@@ -40,7 +41,12 @@ const UserConfigScreen = () => {
     }),
     new SelectMultipleField("categories", {
       label: "Categories",
+      defaultValue: categories,
       getOptions: fetchCategories,
+      onSubmit: (value) => {
+        firebase.database().ref(`categories`).update(value);
+      },
+      listStyle: { height: 250 },
     }),
   ];
   const saveFormValues = async (values) => {
@@ -53,8 +59,10 @@ const UserConfigScreen = () => {
   };
   return (
     <AppScreen style={{ padding: 24 }}>
-      <BasicForm formMap={configurationFields} control={control} />
-      <AppButton title="Save" onPress={handleSubmit(saveFormValues)} />
+      <ScrollView nestedScrollEnabled>
+        <BasicForm formMap={configurationFields} control={control} />
+        <AppButton title="Save" onPress={handleSubmit(saveFormValues)} />
+      </ScrollView>
     </AppScreen>
   );
 };

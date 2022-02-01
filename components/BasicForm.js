@@ -131,7 +131,7 @@ const BasicForm = ({
                   key={field.name}
                   control={control}
                   name={field.name}
-                  defaultValue={field.defaultValue ?? new Date()}
+                  defaultValue={field.defaultValue ?? {}}
                   render={({
                     field: { onChange, onBlur, value },
                     fieldState: { error },

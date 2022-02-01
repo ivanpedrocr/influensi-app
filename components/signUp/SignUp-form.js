@@ -6,6 +6,7 @@ import {
   SelectMultipleField,
   TextField,
 } from "./FormField-model";
+import firebase from "firebase";
 
 import * as Yup from "yup";
 import { addYears } from "date-fns";
@@ -71,6 +72,9 @@ export const signUpForm = [
     label: "Categories",
     getOptions: fetchCategories,
     listStyle: { flexGrow: 0, height: 250 },
+    onSubmit: (value) => {
+      firebase.database().ref(`categories`).update(value);
+    },
   }),
 ];
 

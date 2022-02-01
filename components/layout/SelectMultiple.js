@@ -10,8 +10,9 @@ import AppText from "./AppText";
 import Icon from "../../styles/icons";
 import MenuItemTouchable from "./MenuItemTouchable";
 import { useColor } from "../../hooks/useColor";
-import { AppTextInput } from "./Native-components";
+import { AppButton, AppIconButton, AppTextInput } from "./Native-components";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import Ionicons from "../../styles/icons";
 
 const SelectMultiple = ({
   onSelect = (value) => {},
@@ -22,6 +23,9 @@ const SelectMultiple = ({
   scrollEnabled = true,
   listStyle,
   containerStyle,
+  placeholder,
+  submitButtonEnabled = true,
+  onSubmit = (values) => {},
 }) => {
   const { colors } = useColor();
   const [open, setOpen] = useState(false);
@@ -86,13 +90,53 @@ const SelectMultiple = ({
   };
   return (
     <>
-      <AppTextInput
-        label={label}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-        onChangeText={(text) => setSearchInput(text)}
-        value={searchInput}
-      />
+      {label && (
+        <AppText style={[{ color: colors.accentGray, fontSize: 15 }]}>
+          {label}
+        </AppText>
+      )}
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: colors.lightGray,
+          paddingRight: 8,
+          borderRadius: 30,
+        }}
+      >
+        <View style={{ flex: 9 }}>
+          <AppTextInput
+            onEndEditing={() => setOpen(false)}
+            placeholder={placeholder}
+            onFocus={() => setOpen(true)}
+            onBlur={() => setOpen(false)}
+            onChangeText={(text) => setSearchInput(text)}
+            value={searchInput}
+          />
+        </View>
+        {submitButtonEnabled && (
+          <View style={{ flex: 1 }}>
+            <AppIconButton
+              onPress={() => {
+                searchInput.trim() &&
+                  onSelect({
+                    ...values,
+                    [searchInput.trim().toUpperCase()]: true,
+                  });
+                onSubmit({
+                  [searchInput.trim().toUpperCase()]: true,
+                });
+              }}
+            >
+              <Ionicons
+                name="arrow-up-circle-outline"
+                color={colors.primary}
+                size={30}
+              />
+            </AppIconButton>
+          </View>
+        )}
+      </View>
       <View
         style={{ flexDirection: "row", flexWrap: "wrap", paddingBottom: 8 }}
       >
@@ -117,7 +161,7 @@ const SelectMultiple = ({
       <SelectMultipleList
         data={(loadedOptions?.length ? loadedOptions : options).filter(
           ({ label }) =>
-            label?.toUpperCase().includes(searchInput.toUpperCase())
+            label?.toUpperCase().includes(searchInput.trim().toUpperCase())
         )}
         style={{ display: open ? "flex" : "none", ...listStyle }}
       />

@@ -50,7 +50,7 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
   };
   return (
     <AppScreen style={{ padding: 24 }}>
-      <ScrollView nestedScrollEnabled={true}>
+      <ScrollView nestedScrollEnabled>
         <BasicForm
           formMap={signUpForm}
           control={control}

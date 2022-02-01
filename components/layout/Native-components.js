@@ -30,6 +30,8 @@ export const AppTextInput = ({
   label,
   labelStyle,
   onFocus,
+  onPressOut,
+  onEndEditing,
   ...props
 }) => {
   const { colors } = useColor();
@@ -44,6 +46,8 @@ export const AppTextInput = ({
         <AppText style={{ color: colors.red }}>{error.message}</AppText>
       )}
       <TextInput
+        onEndEditing={onEndEditing}
+        onPressOut={onPressOut}
         defaultValue={defaultValue}
         onBlur={onBlur}
         onFocus={onFocus}
