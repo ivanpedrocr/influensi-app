@@ -98,12 +98,11 @@ const FavoritesStackScreen = () => {
 };
 
 const UserNavigator = () => {
-  const [{ token, userId, loading }, authDispatch] = useAuthContext();
+  const [{ token, userId, loading, user }, authDispatch] = useAuthContext();
   const { colors, dark } = useColor();
-
   return (
     <NavigationContainer theme={{ colors, dark }}>
-      {token && userId ? (
+      {token && userId && user?.username ? (
         <BottomTab.Navigator screenOptions={{ headerShown: false }}>
           <BottomTab.Screen
             name="Explore"

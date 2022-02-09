@@ -73,7 +73,7 @@ const FavoritesScreen = ({ navigation, ...props }) => {
                 <Image
                   style={styles.userImage}
                   source={{
-                    uri: user.avatar,
+                    uri: user.avatar || null,
                   }}
                 />
                 <AppText style={styles.userListName}>{user.name}</AppText>

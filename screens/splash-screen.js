@@ -6,10 +6,15 @@ import { useColor } from "../hooks/useColor";
 const SplashScreen = (props) => {
   const { colors } = useColor();
   return (
-    <AppScreen>
+    <AppScreen style={styles.indicator}>
       <ActivityIndicator size="small" color={colors.primary} />
     </AppScreen>
   );
 };
-
+const styles = StyleSheet.create({
+  indicator: {
+    alignContent: "center",
+    justifyContent: "center",
+  },
+});
 export default SplashScreen;

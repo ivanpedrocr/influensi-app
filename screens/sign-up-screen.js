@@ -28,10 +28,6 @@ const SignUpScreen = ({ navigation, route, ...props }) => {
   const [authState, authDispatch] = useAuthContext();
   const auth = firebase.auth();
   const resolver = useYupValidationResolver(validationSchema);
-  const [profileImage, setProfileImage] = useState({
-    image: null,
-    uploading: false,
-  });
   const { colors } = useColor();
   const { handleSubmit, control, watch } = useForm({ resolver });
   const userType = watch("user_type");
