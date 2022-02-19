@@ -25,6 +25,7 @@ const StartUpScreen = ({ navigation, ...props }) => {
   const auth = firebase.auth();
 
   useEffect(() => {
+    authDispatch({ type: "LOADING" });
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const getToken = async () => {

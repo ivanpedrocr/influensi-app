@@ -17,7 +17,7 @@ const ExploreScreen = ({ navigation, ...props }) => {
   const [userList, setUserList] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showReview, setShowReview] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { colors, dark } = useColor();
   const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -32,8 +32,14 @@ const ExploreScreen = ({ navigation, ...props }) => {
   useFocusEffect(
     React.useCallback(() => {
       (async () => {
-        const users = await fetchExploreUserList(authValues, (e) =>
-          console.log(e)
+        const users = await fetchExploreUserList(
+          authValues,
+          (e) => console.log(e),
+          undefined,
+          undefined,
+          () => {
+            setLoading(false);
+          }
         );
         if (users) {
           setUserList(

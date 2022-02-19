@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import UserConfigScreen from "../screens/user-config-screen";
@@ -19,6 +19,8 @@ import ConversationsScreen from "../screens/conversations-screen";
 import StartUpScreen from "../screens/startup-screen";
 import { useColor } from "../hooks/useColor";
 import FavoritesUserProfileScreen from "../screens/favorites-user-profile-screen";
+import firebase from "firebase";
+import ConnectionLossScreen from "../screens/connection-loss-screen";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -28,14 +30,21 @@ const MessagesStack = createStackNavigator();
 const SplashStack = createStackNavigator();
 const StartupStack = createStackNavigator();
 
-const SplashStackScreen = () => {
+const SplashStackScreen = ({ loading, connected }) => {
   return (
     <SplashStack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <SplashStack.Screen name="SPLASHSCREEN" component={SplashScreen} />
+      {!loading && !connected ? (
+        <SplashStack.Screen
+          name="CONNECTION_LOSS_SCREEN"
+          component={ConnectionLossScreen}
+        />
+      ) : (
+        <SplashStack.Screen name="SPLASHSCREEN" component={SplashScreen} />
+      )}
     </SplashStack.Navigator>
   );
 };
@@ -98,11 +107,23 @@ const FavoritesStackScreen = () => {
 };
 
 const UserNavigator = () => {
+  const [connected, setConnected] = useState(false);
   const [{ token, userId, loading, user }, authDispatch] = useAuthContext();
   const { colors, dark } = useColor();
+  const connectedRef = firebase.database().ref(".info/connected");
+  useEffect(() => {
+    const unsubscribe = connectedRef.on("value", (snap) => {
+      if (snap?.val?.() === true) {
+        setConnected(true);
+      } else {
+        setConnected(false);
+      }
+    });
+    return unsubscribe;
+  }, []);
   return (
     <NavigationContainer theme={{ colors, dark }}>
-      {token && userId && user?.username ? (
+      {token && userId && user?.username && connected ? (
         <BottomTab.Navigator screenOptions={{ headerShown: false }}>
           <BottomTab.Screen
             name="Explore"
@@ -154,8 +175,8 @@ const UserNavigator = () => {
             }}
           />
         </BottomTab.Navigator>
-      ) : loading ? (
-        <SplashStackScreen />
+      ) : loading || !connected ? (
+        <SplashStackScreen loading={loading} connected={connected} />
       ) : (
         <StartupStackScreen />
       )}
