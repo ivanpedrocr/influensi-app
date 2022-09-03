@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import AppText from "../components/layout/AppText";
+import MenuItemTouchable from "../components/layout/MenuItemTouchable";
 import { AppButton } from "../components/layout/Native-components";
 
 const UserMenuScreen = ({ navigation, ...props }) => {
@@ -23,14 +24,14 @@ const UserMenuScreen = ({ navigation, ...props }) => {
       <View style={styles.screen}>
         {menus.map((menu) => {
           return (
-            <TouchableOpacity
+            <MenuItemTouchable
               activeOpacity={0.9}
               key={menu.title}
               style={styles.menu}
               onPress={() => navigation.navigate(menu.route)}
             >
               <AppText>{menu.title}</AppText>
-            </TouchableOpacity>
+            </MenuItemTouchable>
           );
         })}
       </View>
@@ -44,15 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "white",
-  },
-  button: {
-    width: 100,
-    paddingVertical: 8,
-    paddingHorizontal: 15,
-    borderRadius: 10,
-    backgroundColor: "#2a5bfa",
-    justifyContent: "center",
-    alignItems: "center",
   },
   menu: {
     width: "100%",

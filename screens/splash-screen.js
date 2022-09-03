@@ -5,7 +5,7 @@ import { appColors } from "../styles/app-styles";
 const SplashScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <ActivityIndicator size="small" color={appColors.accentGray} />
+      <ActivityIndicator size={30} color={appColors.primary} />
     </View>
   );
 };

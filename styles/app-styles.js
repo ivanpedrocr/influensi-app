@@ -15,8 +15,9 @@ export const appStyles = StyleSheet.create({
 });
 
 export const appColors = {
-  blue: "#2a5bfa",
+  primary: "#A14BD2",
+  secondary: "#731FA1",
   lightGray: "#f0f0f0",
   accentGray: "#bfbfbf",
-  messageBlue: "#2a85f5",
+  red: "#C70039",
 };

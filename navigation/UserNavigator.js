@@ -19,6 +19,7 @@ import { useAuthContext } from "../auth/auth-context";
 import { ActivityIndicator } from "react-native";
 import { appColors } from "../styles/app-styles";
 import SplashScreen from "../screens/splash-screen";
+import ConversationsScreen from "../screens/conversations-screen";
 
 const FavoritesStack = createStackNavigator();
 const MenuStack = createStackNavigator();
@@ -50,7 +51,11 @@ const AuthStackScreen = () => {
 
 const MessagesStackScreen = () => {
   return (
-    <MessagesStack.Navigator>
+    <MessagesStack.Navigator initialRouteName="CONVERSATIONS">
+      <MessagesStack.Screen
+        name="CONVERSATIONS"
+        component={ConversationsScreen}
+      />
       <MessagesStack.Screen name="MESSAGES" component={MessagesScreen} />
     </MessagesStack.Navigator>
   );

@@ -7,8 +7,10 @@ import {
   TextInput,
   Touchable,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import {
+  AppScreen,
   AppTextInput,
   Typography,
 } from "../components/layout/Native-components";
@@ -22,76 +24,85 @@ import AppText from "../components/layout/AppText";
 import { appColors } from "../styles/app-styles";
 import sendMessage from "../actions/send-message";
 import { useAuthContext } from "../auth/auth-context";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { db } from "../config/firebase";
 
 const MessagesScreen = (props) => {
-  const listViewRef = useRef();
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [authValues, authDispatch] = useAuthContext();
+  const headerHeight = useHeaderHeight();
+  const listViewRef = useRef();
+
   const sendNewMessage = async () => {
     await sendMessage(messageInput, authValues);
     setMessages((prev) => [...prev, messageInput]);
     setMessageInput("");
   };
   return (
-    <View style={styles.screen}>
-      <ScrollView
-        contentContainerStyle={styles.messagesList}
-        ref={listViewRef}
-        onContentSizeChange={() => {
-          listViewRef.current.scrollToEnd();
-        }}
+    <AppScreen>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={headerHeight}
       >
-        {messages.map((message, i) => (
-          <View style={styles.message} key={i}>
-            <AppText style={{ color: "white" }}>{message}</AppText>
-          </View>
-        ))}
-      </ScrollView>
-      <View style={styles.textInputContainer}>
-        <AppTextInput
-          autoFocus={true}
-          placeholder="type your message here..."
-          value={messageInput}
-          onChangeText={(text) => {
-            setMessageInput(text);
+        <ScrollView
+          contentContainerStyle={styles.messagesList}
+          ref={listViewRef}
+          onContentSizeChange={() => {
+            listViewRef.current.scrollToEnd();
           }}
-        />
-        <TouchableOpacity
-          onPress={sendNewMessage}
-          style={{ marginLeft: 4 }}
-          activeOpacity={0.19}
         >
-          <Ionicons name="arrow-forward-circle-outline" size={32} />
-        </TouchableOpacity>
-      </View>
-    </View>
+          {messages.map((message, i) => (
+            <View style={styles.message} key={i}>
+              <AppText style={{ color: "white" }}>{message}</AppText>
+            </View>
+          ))}
+        </ScrollView>
+        <View style={styles.textInputContainer}>
+          <View style={{ width: "90%" }}>
+            <AppTextInput
+              autoFocus={true}
+              placeholder="type your message here..."
+              value={messageInput}
+              onChangeText={(text) => {
+                setMessageInput(text);
+              }}
+            />
+          </View>
+          <View>
+            <TouchableOpacity
+              onPress={sendNewMessage}
+              style={{ marginLeft: 4 }}
+              activeOpacity={0.19}
+            >
+              <Ionicons name="arrow-forward-circle-outline" size={32} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </KeyboardAvoidingView>
+    </AppScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: "white",
-  },
   textInputContainer: {
     alignItems: "center",
-    marginTop: "auto",
     borderTopColor: appColors.accentGray,
-    borderTopWidth: 2,
-    paddingTop: 16,
-    paddingHorizontal: 24,
-    paddingBottom: 24,
+    paddingVertical: 16,
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingHorizontal: 8,
   },
   message: {
     display: "flex",
-    maxWidth: "50%",
+    maxWidth: "66%",
     marginHorizontal: 8,
-    marginBottom: 10,
-    backgroundColor: appColors.messageBlue,
-    padding: 12,
+    marginBottom: 8,
+    backgroundColor: appColors.primary,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 20,
     width: "auto",
   },
